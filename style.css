@@ -599,3 +599,33 @@ ul.socialMedia li a {
   border: none;
   border-radius: 41px;
 }
+
+div#data-container ul {
+  display: flex;
+  flex-flow: wrap;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+div#data-container ul li {
+  width: 45%;
+  flex: 0 0 45%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  margin: 6px;
+}
+
+div#data-container ul li img {
+  width: 100%;
+}
+
+section#content {
+  padding-bottom: 100px;
+}
+
+div#pagination {
+  justify-content: center;
+  display: flex;
+}

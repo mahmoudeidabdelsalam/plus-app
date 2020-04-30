@@ -183,17 +183,20 @@ var xhrRequest;
           success: function (response) {
             hideSpinner();
             var data = response.data
-            var len = data.length;
-            for (var i = 0; i < len; i++) {
-              
-              var Image = data[i].PreviewImage;
+            let container = $('#pagination');
+            container.pagination({
+              dataSource: data,
+              callback: function (data, pagination) {
+                var dataHtml = '<ul>';
+                $.each(data, function (index, item) {
+                  dataHtml += '<li><img src="' + item.PreviewImage + '" /></li>';
+                });
+                dataHtml += '</ul>';
+                $("#data-container").html(dataHtml);
+              }
+            })
 
-              var items = "<li class='img-item'>" +
-                "<img src='" + Image + "' />" +
-                "</li>";
 
-              $("#content").append(items);
-            }
           },
           error: function () {
             hideSpinner();
@@ -201,6 +204,7 @@ var xhrRequest;
           }
         });
       }
+
 
 
     });

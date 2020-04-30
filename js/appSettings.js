@@ -11,7 +11,7 @@ var ppGraphicsInjectorConfigurationData = {
   "baseUrl": "https://plus.test/wp-json/wp/api/",
   "logInUrl": "users/login/",
   "GetCategory": "graphics/GetCategory",
-  "GetContent": "graphics/GetGraphics/?category=23",
+  "GetContent": "graphics/GetGraphics/?category=3&per_page=-1",
   "useStaticData": false,
   "usePaging": false
 };
