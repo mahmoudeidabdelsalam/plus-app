@@ -617,6 +617,7 @@ div#data-container ul li {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 2px;
   margin: 6px;
+  min-height: 120px;
 }
 
 div#data-container ul li img {
