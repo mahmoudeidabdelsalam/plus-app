@@ -78,6 +78,8 @@ ul.list-category li span.name {
   text-align: center;
   letter-spacing: 0.04px;
   color: #1E6DFB;
+  width: 100%;
+  display: inline-block;  
 }
 
 input#InputEmail,
@@ -246,7 +248,7 @@ ul.list-category li span.icon {
   border-radius: 100%;
   justify-content: center;
   align-items: center;
-  padding: 3px;
+  padding: 10px;
   margin: auto;
 }
 
