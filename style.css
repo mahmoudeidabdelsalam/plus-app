@@ -15,6 +15,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   background: #F9F9F9;
+  min-width: 355px;
 }
 
 div#descrtion,
@@ -56,7 +57,7 @@ div#login {
   margin: 30px auto;
 }
 
-div#login form {
+div#login .form-login {
   max-width: 300px;
   margin: auto;
 }
@@ -97,7 +98,7 @@ input#InputPassword {
   color: #646464;
 }
 
-button#ButtonLogin {
+a#ButtonLogin {
   width: 100%;
   height: 40px;
   margin: auto;
@@ -167,6 +168,13 @@ label.not-having-account {
   font-size: 11px;
   line-height: 13px;
   color: #646464;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.help-center span img {
+  margin-right: 8px;
 }
 
 .help-center a {
@@ -178,6 +186,8 @@ label.not-having-account {
   line-height: 16px;
   letter-spacing: 0.04px;
   color: #F4F7FD;
+  white-space: nowrap;
+  margin-left: 10px;
 }
 
 .button-login {
@@ -234,7 +244,7 @@ label.not-having-account {
   position: relative;
 }
 
-button#ButtonLogin:not(:disabled) {
+a#ButtonLogin:not(:disabled) {
   background: linear-gradient(173.17deg, #6B73FF -0.5%, #000DFF 100%);
   border-radius: 30px;
   color: #fff;
@@ -456,13 +466,15 @@ div#mainArea {
 ul#myTab {
   background: #282F39;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
-  padding: 15px;
+  padding: 0 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 80px;
+  list-style: none;
 }
 
-ul#myTab .nav-link {
+ul#myTab .term-link {
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
@@ -473,7 +485,7 @@ ul#myTab .nav-link {
   position: relative;
 }
 
-ul#myTab .nav-link.active:after {
+ul#myTab .term-link.active:after {
   content: "";
   background: #1E6DFB;
   width: 100%;
@@ -617,11 +629,24 @@ div#data-container ul li {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 2px;
   margin: 6px;
-  min-height: 120px;
+  position: relative;
+  overflow: hidden;
 }
 
-div#data-container ul li img {
+div#data-container ul li span {
   width: 100%;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+div#data-container ul li span img {
+  width: auto;
+  height: 100%;
 }
 
 section#content {
@@ -631,4 +656,20 @@ section#content {
 div#pagination {
   justify-content: center;
   display: flex;
+}
+
+ul.column-4 li {
+  width: 20% !important;
+  flex: 0 0 20% !important;
+}
+
+ul.column-3 li {
+  width: 30% !important;
+  flex: 0 0 30% !important;
+}
+
+div#data-container ul li:before {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
 }

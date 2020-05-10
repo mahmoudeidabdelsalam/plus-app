@@ -11,7 +11,9 @@ var ppGraphicsInjectorConfigurationData = {
   "baseUrl": "https://plus.premast.com/wp-json/wp/api/",
   "logInUrl": "users/login/",
   "GetCategory": "graphics/GetCategory",
-  "GetContent": "graphics/GetGraphics/?category=4&per_page=-1",
+  "GetContent": "graphics/GetGraphics/?category=",
+  "GetSearch": "graphics/GetGraphics/?searchText=",
+  "Per_page": "&per_page=-1",
   "useStaticData": false,
   "usePaging": false
 };

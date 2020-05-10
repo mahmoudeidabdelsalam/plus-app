@@ -1,3 +1,306 @@
+var messageBanner;
+var isUserLoggedIn = false;
+var xhrRequest;
+
+(function () {
+  "use strict";
+
+  
+  // Office.initialize = function (reason) {
+    $(document).ready(function () {
+
+      $("#InputPassword").focus(function () {
+        ShowButtonLogin();
+      });
+
+      $(".dropdown-toggle").click(function () {
+        $(".dropdown-menu").toggleClass("acive");
+      });
+
+			$('#goto-website').click(function () {
+				window.open("https://www.premast.com/", "_blank");
+      });
+      
+			$('#goto-community').click(function () {
+				window.open("https://www.premast.com/blog/", "_blank");
+      });
+      
+			$('#goto-support').click(function () {
+				window.open("https://www.premast.com/contact-us/", "_blank");
+      });
+      
+      $('#goto-terms').click(function () {
+        window.open("https://www.premast.com/terms-and-conditions/", "_blank");
+      });
+      
+			$('#goto-signout').click(function () {
+        hideMainArea();
+        showLogInArea();
+				ClearCredentials();
+			});
+
+      $("body").on("click", ".term-link", function () {
+        var term_id = $(this).attr("data-id");
+        var column = $(this).attr("data-column");
+        $('.term-link').removeClass('active');
+        $(this).addClass('active');
+        GetContent(term_id, column);
+      });
+
+      $("body").on("click", "#submitSearch", function () {
+        var search_text = $('#TextSearch').val();
+        GetSearchContent(search_text);
+      });
+      
+
+      // 2.Get Terms Items
+      $.ajax({
+        type: 'GET',
+        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
+        contentType: requestContentType.JSON,
+        dataType: '',
+        beforeSend: function () {
+          showSpinner();
+        },
+        success: function (response) {
+          hideSpinner();
+          var data = response.data
+          var len = data.length;
+          for (var i = 0; i < len; i++) {
+            var name = data[i].name;
+            var icon = data[i].icon;
+            if (i == 0) {
+              GetContent(data[i].id);
+            }
+            var tr_str = "<li>" +
+              "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon +"' alt='logo plus'></span>" +
+              "<span class='name'>" + name + "</span>" +
+              "</li>";
+
+            $("#ListCategory").append(tr_str);
+          }
+        },
+        error: function () {
+          hideSpinner();
+          showNotification("error", "Loding Filed 404");
+        }
+      });
+
+
+      // 3.Login Users
+      function logInUser() {
+        var type = requestMethod.POST;
+        var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
+        var data = {
+          email: GetLoginEmail(),
+          password: GetLoginPassword()
+        };
+        var contentType = requestContentType.JSON;
+        var dataType = '';
+        CallWS(type, url, contentType, dataType, JSON.stringify(data));
+      }
+
+      // 4.Get NavBar Items
+      function GetNavBar() {
+        $.ajax({
+          type: 'GET',
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
+          contentType: requestContentType.JSON,
+          dataType: '',
+          beforeSend: function () {
+            showSpinner();
+          },
+          success: function (response) {
+            hideSpinner();
+            var data = response.data
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+              var active = "";
+              if(i == 0) {
+                active = "active";
+              }
+              var name = data[i].name;
+              var id = data[i].id;
+              var icon = data[i].icon;
+              var column = data[i].column;
+
+              if (column === null || column === undefined) {
+                column = 2;
+              }
+
+              var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-id='" + id + "' data-column='" + column + "'>" +
+                "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
+                "<span class='name'>" + name + "</span>" +
+                "</a></li>";
+              $("#myTab").append(item_term);
+            }
+          },
+          error: function () {
+            hideSpinner();
+            showNotification("error", "Loding Filed 404");
+          }
+        });
+      }
+
+
+      // 4.Get NavBar Items
+      function GetContent(Term_id, column) {
+        var id = Term_id;
+        var column_nu = column;
+        $.ajax({
+          type: 'GET',
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetContent + id + ppGraphicsInjectorConfigurationData.Per_page,
+          contentType: requestContentType.JSON,
+          dataType: '',
+          beforeSend: function () {
+            showSpinner();
+          },
+          success: function (response) {
+            hideSpinner();
+            var data = response.data
+            let container = $('#pagination');
+            container.pagination({
+              dataSource: data,
+              callback: function (data, pagination) {
+                var dataHtml = '<ul class="column-' + column_nu +'">';
+                $.each(data, function (index, item) {
+                  dataHtml += '<li><a href="#" data-url="' + item.PreviewImage + '" class="clickToInsert"><span><img src="' + item.PreviewImage + '" /></span></a></li>';
+                });
+                dataHtml += '</ul>';
+                $("#data-container").html(dataHtml);
+              }
+            })
+          },
+          error: function () {
+            hideSpinner();
+            showNotification("error", "Loding Filed 404");
+          }
+        });
+      }
+
+      // 5.Get Search Items
+      function GetSearchContent(search_text) {
+        var search_text = search_text;
+        $.ajax({
+          type: 'GET',
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.Per_page,
+          contentType: requestContentType.JSON,
+          dataType: '',
+          beforeSend: function () {
+            showSpinner();
+          },
+          success: function (response) {
+            hideSpinner();
+            var data = response.data
+            let container = $('#pagination');
+            container.pagination({
+              dataSource: data,
+              callback: function (data, pagination) {
+                var dataHtml = '<ul class="column-' + column_nu + '">';
+                $.each(data, function (index, item) {
+                  dataHtml += '<li><a href="#" data-url="' + item.PreviewImage + '" class="clickToInsert"><span><img src="' + item.PreviewImage + '" /></span></a></li>';
+                });
+                dataHtml += '</ul>';
+                $("#data-container").html(dataHtml);
+              }
+            })
+          },
+          error: function () {
+            hideSpinner();
+            showNotification("error", "Loding Filed 404");
+          }
+        });
+      }
+
+
+      $("body").on("click", ".clickToInsert", function () {
+        var src = $(this).attr("data-url");
+        insertImage(src);
+      });
+
+      //1. Validate sign up and log in, on click and handle actions
+      $('#ButtonLogin').click(function () {
+        showSpinner();
+        setTimeout(
+          function () {
+            var valResult = validateLogInAction();
+            showSpinner();
+            if (valResult) {
+              logInUser();
+              GetNavBar();
+            }
+          }, 500);
+      });
+
+    });
+  
+
+  // end Office
+  // };
+
+  function insertImage(src) {
+    // Get image from from web service (as a Base64 encoded string).
+    $.ajax({
+      url: src, success: function (result) {
+        insertImageFromBase64String(result);
+      }, error: function (xhr, status, error) {
+        showNotification("Error", "Oops, something went wrong.");
+      }
+    });
+  }
+
+  function insertImageFromBase64String(image) {
+    // Call Office.js to insert the image into the document.
+    Office.context.document.setSelectedDataAsync(image, {
+      coercionType: Office.CoercionType.Image
+    },
+      function (asyncResult) {
+        if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+          showNotification("Error", asyncResult.error.message);
+        }
+      });
+  }
+
+  function CallWS(type, url, contentType, dataType, data) {
+    $.ajax({
+      type: type,
+      url: url,
+      contentType: contentType,
+      dataType: dataType,
+      data: data,
+      success: function (response) {
+        hideLogInArea();
+        showMainArea();
+        hideSpinner();
+        isUserLoggedIn = true;
+      },
+      error: function (response) {
+        showLogInArea();
+        hideMainArea();
+        hideSpinner();
+        showNotification("Information", response.message);
+      }
+    });
+  }
+
+
+  function showNotification(header, content) {
+    $('.modal-title').text(header);
+    $('.modal-content-text').text(content);
+    $("#myModal").modal("toggle");
+    if (header === "Warning") {
+      $('.modal-header').addClass('modal-body-warning');
+    } else if (header === "Error") {
+      $('.modal-header').addClass('modal-body-error');
+    } else {
+      $('.modal-header').addClass('modal-body-info');
+    }
+  }
+
+})();
+
+
+
 function ShowLogin() {
   document.getElementById("login").style.display = "block";
   document.getElementById("descrtion").style.display = "none";
@@ -40,230 +343,3 @@ function validateLogInAction() {
 
   return true;
 }
-
-
-var messageBanner;
-var isUserLoggedIn = false;
-var xhrRequest;
-
-(function () {
-  "use strict";
-
-
-    $(document).ready(function () {
-
-      $(".dropdown-toggle").click(function () {
-        $(".dropdown-menu").toggleClass("acive");
-      });
-
-
-			$('#goto-website').click(function () {
-				window.open("https://www.premast.com/", "_blank");
-			});
-			$('#goto-community').click(function () {
-				window.open("https://www.premast.com/blog/", "_blank");
-			});
-			$('#goto-support').click(function () {
-				window.open("https://www.premast.com/contact-us/", "_blank");
-			});
-      $('#goto-terms').click(function () {
-        window.open("https://www.premast.com/terms-and-conditions/", "_blank");
-			});
-			$('#goto-signout').click(function () {
-        hideMainArea();
-        showLogInArea();
-				ClearCredentials();
-			});
-
-      //1. Validate sign up and log in, on click and handle actions
-      $('#ButtonLogin').click(function () {
-        var valResult = validateLogInAction();
-        showSpinner();
-        if (valResult) {
-          logInUser();
-          GetNavBar();
-          GetContent();
-        }
-      });
-
-
-      // 2.Get Terms Items
-      $.ajax({
-        type: 'GET',
-        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
-        contentType: requestContentType.JSON,
-        dataType: '',
-        beforeSend: function () {
-          showSpinner();
-        },
-        success: function (response) {
-          hideSpinner();
-          var data = response.data
-          var len = data.length;
-          for (var i = 0; i < len; i++) {
-            var name = data[i].name;
-            var icon = data[i].icon;
-            var tr_str = "<li>" +
-              "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon +"' alt='logo plus'></span>" +
-              "<span class='name'>" + name + "</span>" +
-              "</li>";
-
-            $("#ListCategory").append(tr_str);
-          }
-        },
-        error: function () {
-          hideSpinner();
-          showNotification("error", "Loding Filed 404");
-        }
-      });
-
-
-      // 3.Login Users
-      function logInUser() {
-        var type = requestMethod.POST;
-        var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
-        var data = {
-          email: GetLoginEmail(),
-          password: GetLoginPassword()
-        };
-        var contentType = requestContentType.JSON;
-        var dataType = '';
-        CallWS(type, url, contentType, dataType, JSON.stringify(data), logInUserSuccessCallback, logInUserErrorCallback, logInUserErrorCallback, null);
-      }
-
-      // 4.Get NavBar Items
-      function GetNavBar() {
-        $.ajax({
-          type: 'GET',
-          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
-          contentType: requestContentType.JSON,
-          dataType: '',
-          beforeSend: function () {
-            showSpinner();
-          },
-          success: function (response) {
-            hideSpinner();
-            var data = response.data
-            var len = data.length;
-            for (var i = 0; i < len; i++) {
-              console.log(i);
-              var active = "";
-              if(i == 0) {
-                active = "active"
-              }
-              var name = data[i].name;
-              var id = data[i].id;
-              var icon = data[i].icon;
-              var item_term = "<li class='nav-item'><a class='nav-link " + active + "' id='" + id + "-tab' data-toggle='tab' href='#" + id + "' role='tab' aria-controls='" + id + "' aria-selected='true'>" +
-                "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
-                "<span class='name'>" + name + "</span>" +
-                "</a></li>";
-
-              $("#myTab").append(item_term);
-            }
-          },
-          error: function () {
-            hideSpinner();
-            showNotification("error", "Loding Filed 404");
-          }
-        });
-      }
-
-
-      // 4.Get NavBar Items
-      function GetContent() {
-        $.ajax({
-          type: 'GET',
-          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetContent,
-          contentType: requestContentType.JSON,
-          dataType: '',
-          beforeSend: function () {
-            showSpinner();
-          },
-          success: function (response) {
-            hideSpinner();
-            var data = response.data
-            let container = $('#pagination');
-            container.pagination({
-              dataSource: data,
-              callback: function (data, pagination) {
-                var dataHtml = '<ul>';
-                $.each(data, function (index, item) {
-                  dataHtml += '<li><img src="' + item.PreviewImage + '" /></li>';
-                });
-                dataHtml += '</ul>';
-                $("#data-container").html(dataHtml);
-              }
-            })
-
-
-          },
-          error: function () {
-            hideSpinner();
-            showNotification("error", "Loding Filed 404");
-          }
-        });
-      }
-
-
-
-    });
-
-
-  function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
-    $.ajax({
-      type: type,
-      url: url,
-      contentType: contentType,
-      dataType: dataType,
-      data: data,
-      success: function (response) {
-        if (successCallBack) successCallBack(response, params);
-      },
-      failure: function (response) {
-        if (failureCallback) failureCallback(response.Message);
-        hideSpinner();
-      },
-      error: function (response) {
-        if (errorCallback) errorCallback(response.Message);
-        hideSpinner();
-      }
-    });
-  }
-
-
-  function logInUserSuccessCallback(response) {
-    if (response.data.IsSuccess) {
-      hideLogInArea();
-      showMainArea();
-      hideSpinner();
-      isUserLoggedIn = true;
-    } else {
-      isUserLoggedIn = false;
-      showLogInArea();
-      hideMainArea();
-      hideSpinner();
-      showNotification("Information", response.message);
-    }
-  }
-
-  function logInUserErrorCallback(response) {
-    showLogInArea();
-    showNotification("Error", 'Log in process failed');
-  }
-
-
-  function showNotification(header, content) {
-    $('.modal-title').text(header);
-    $('.modal-content-text').text(content);
-    $("#myModal").modal("toggle");
-    if (header === "Warning") {
-      $('.modal-header').addClass('modal-body-warning');
-    } else if (header === "Error") {
-      $('.modal-header').addClass('modal-body-error');
-    } else {
-      $('.modal-header').addClass('modal-body-info');
-    }
-  }
-
-})();

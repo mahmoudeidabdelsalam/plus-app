@@ -6,7 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <!-- ajax jquery -->
     <script src="js/jquery.min.js"></script>
-    <!-- <script src="js/office.js" type="text/javascript"></script> -->
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+
+
+
     <!-- Bootstrip & font Ui -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
     <link crossorigin="anonymous" href="css/font-awesome.min.css" rel="stylesheet" />
@@ -15,6 +18,7 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/bootstrap-tagsinput.min.js"></script>
     <link href="css/bootstrap-tagsinput.css" rel="stylesheet" />
+    
     <!-- Local File-->
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="js/appSettings.js" type="text/javascript"></script>
@@ -60,7 +64,7 @@
                 <p>Make stunning PowerPoint designs <br> faster than ever.</p>
               </div>
               
-              <form class="form-login">
+              <div class="form-login">
                 <div class="form-group">
                   <input type="email" class="form-control" placeholder="Email" id="InputEmail">
                 </div>
@@ -71,8 +75,8 @@
                 <label class="forgot-password" id="forgot-password">
                   <a href="https://premast.com/login/" target="_blank">Forgot password</a>
                 </label>
-                <button type="submit" class="btn btn-primary" id="ButtonLogin" disabled>Log In</button>
-              </form>
+                <a href="#" class="btn btn-primary" id="ButtonLogin" disabled>Log In</a>
+              </div>
 
               <label class="not-having-account">
                 <a href="https://premast.com/sign-up/" id="signUpLink" target="_blank">I don’t have an account</a>
@@ -97,7 +101,7 @@
 
 
       <div class="main-area" id="mainArea" style="display: none;">
-        <ul class="nav" id="myTab" role="tablist">
+        <ul class="terms" id="myTab">
           <li class="dropdown">
             <a class="dropdown-toggle">
               <span class="icon"><img src="images/more.png" alt=""></span>
@@ -127,7 +131,7 @@
                 <button id="submitSearch"><i class="fa fa-search"></i></button>
               </span>
             </div>
-            <input type="search" class="form-control" placeholder="Search">
+            <input id="TextSearch" type="search" class="form-control" placeholder="Search">
           </div>
         </div>
 
