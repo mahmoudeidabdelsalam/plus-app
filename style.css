@@ -673,3 +673,7 @@ div#data-container ul li:before {
   display: block;
   padding-top: 56.25%;
 }
+
+.form-control:focus {
+  box-shadow: none;
+}

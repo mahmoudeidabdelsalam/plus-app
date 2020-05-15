@@ -45,9 +45,10 @@ var xhrRequest;
       $("body").on("click", ".term-link", function () {
         var term_id = $(this).attr("data-id");
         var column = $(this).attr("data-column");
+        var per_page = $(this).attr("data-number");
         $('.term-link').removeClass('active');
         $(this).addClass('active');
-        GetContent(term_id, column);
+        GetContent(term_id, column, per_page);
       });
 
       // Search
@@ -124,12 +125,13 @@ var xhrRequest;
               var id = data[i].id;
               var icon = data[i].icon;
               var column = data[i].column;
+              var number = data[i].pre_page;
 
               if (column === null || column === undefined) {
                 column = 2;
               }
 
-              var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-id='" + id + "' data-column='" + column + "'>" +
+              var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "'>" +
                 "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
                 "<span class='name'>" + name + "</span>" +
                 "</a></li>";
@@ -144,9 +146,10 @@ var xhrRequest;
       }
 
       // 4.Get NavBar Items
-      function GetContent(Term_id, column) {
+      function GetContent(Term_id, column, number) {
         var id = Term_id;
         var column_nu = column;
+        var per_page = number;
         $.ajax({
           type: 'GET',
           url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetContent + id + ppGraphicsInjectorConfigurationData.Per_page,
@@ -161,6 +164,7 @@ var xhrRequest;
             let container = $('#pagination');
             container.pagination({
               dataSource: data,
+              pageSize: per_page,
               callback: function (data, pagination) {
                 var dataHtml = '<ul class="column-' + column_nu +'">';
                 $.each(data, function (index, item) {
@@ -183,11 +187,12 @@ var xhrRequest;
         var search_text = search_text;
         $.ajax({
           type: 'GET',
-          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.Per_page,
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text ,
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
             showSpinner();
+            $("#data-container").html();
           },
           success: function (response) {
             hideSpinner();
@@ -196,7 +201,7 @@ var xhrRequest;
             container.pagination({
               dataSource: data,
               callback: function (data, pagination) {
-                var dataHtml = '<ul class="column-' + column_nu + '">';
+                var dataHtml = '<ul class="column-2">';
                 $.each(data, function (index, item) {
                   dataHtml += '<li><a href="#" data-url="' + item.PreviewImage + '" class="clickToInsert"><span><img src="' + item.PreviewImage + '" /></span></a></li>';
                 });
@@ -219,7 +224,7 @@ var xhrRequest;
         var type = $(this).attr("data-type");
         var coercionTypeOfItem = '';
         
-        if (type == 'jpg') {
+        if (type == 'jpg' || type == 'png') {
           $.ajax({
             type: requestMethod.GET,
             url: src,
