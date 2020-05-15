@@ -6,9 +6,10 @@ var xhrRequest;
   "use strict";
 
   
-  // Office.initialize = function (reason) {
+  Office.initialize = function (reason) {
     $(document).ready(function () {
 
+      // Buttons Header
       $("#InputPassword").focus(function () {
         ShowButtonLogin();
       });
@@ -39,6 +40,8 @@ var xhrRequest;
 				ClearCredentials();
 			});
 
+
+      // Nav Bar Header 
       $("body").on("click", ".term-link", function () {
         var term_id = $(this).attr("data-id");
         var column = $(this).attr("data-column");
@@ -47,12 +50,12 @@ var xhrRequest;
         GetContent(term_id, column);
       });
 
+      // Search
       $("body").on("click", "#submitSearch", function () {
         var search_text = $('#TextSearch').val();
         GetSearchContent(search_text);
       });
       
-
       // 2.Get Terms Items
       $.ajax({
         type: 'GET',
@@ -76,7 +79,6 @@ var xhrRequest;
               "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon +"' alt='logo plus'></span>" +
               "<span class='name'>" + name + "</span>" +
               "</li>";
-
             $("#ListCategory").append(tr_str);
           }
         },
@@ -85,7 +87,6 @@ var xhrRequest;
           showNotification("error", "Loding Filed 404");
         }
       });
-
 
       // 3.Login Users
       function logInUser() {
@@ -142,7 +143,6 @@ var xhrRequest;
         });
       }
 
-
       // 4.Get NavBar Items
       function GetContent(Term_id, column) {
         var id = Term_id;
@@ -164,7 +164,7 @@ var xhrRequest;
               callback: function (data, pagination) {
                 var dataHtml = '<ul class="column-' + column_nu +'">';
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-url="' + item.PreviewImage + '" class="clickToInsert"><span><img src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
                 dataHtml += '</ul>';
                 $("#data-container").html(dataHtml);
@@ -213,9 +213,105 @@ var xhrRequest;
       }
 
 
+      // 5. Insrt Items
       $("body").on("click", ".clickToInsert", function () {
         var src = $(this).attr("data-url");
-        insertImage(src);
+        var type = $(this).attr("data-type");
+        var coercionTypeOfItem = '';
+        
+        if (type == 'jpg') {
+          $.ajax({
+            type: requestMethod.GET,
+            url: src,
+            xhrFields: {
+              responseType: 'blob'
+            },
+            beforeSend: function () {
+              showSpinner();
+            },
+            success: function (data) {
+              hideSpinner();
+              var reader = new FileReader();
+              reader.readAsDataURL(data);
+              reader.onloadend = function () {
+              var dataUrl = reader.result;
+                  if (dataUrl.indexOf("base64,") > 0) {
+                    var startIndex = dataUrl.indexOf("base64,");
+                    var copyBase64 = dataUrl.substr(startIndex + 7);
+
+                    Office.context.document.setSelectedDataAsync(
+                      copyBase64,
+                      {
+                        coercionType: Office.CoercionType.Image
+                      },
+                      function (asyncResult) {
+                        if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+                          console.log(asyncResult.error.message);
+                        }
+                      }
+                    );
+                  } else {
+                    PowerPoint.createPresentation(dataUrl);
+                  }
+              };
+            },
+            error: function (data) {
+              hideSpinner();
+              console.log("runRequests Error", "user", arguments);
+            }
+          });
+
+        } else if (type == 'pptx') {
+
+          coercionTypeOfItem = "pptmplt";
+          $.ajax({
+            type: requestMethod.GET,
+            url: src,
+            xhrFields: {
+              responseType: 'blob'
+            },
+            success: function (data) {
+              var reader = new FileReader();
+              reader.readAsDataURL(data);
+              reader.onloadend = function () {
+                var dataUrl = reader.result;
+                if (dataUrl.indexOf("base64,") > 0) {
+                  var startIndex = dataUrl.indexOf("base64,");
+                  var copyBase64 = dataUrl.substr(startIndex + 7);
+                  PowerPoint.createPresentation(copyBase64);
+                } else {
+                  PowerPoint.createPresentation(dataUrl);
+                }
+              };
+            },
+            error: function (data) {
+              console.log("runRequests Error", "user", arguments);
+              hideGroupSpinner();
+              hideTempSpinner();
+            }
+          });
+
+        } else if (type == 'svg') {
+          coercionTypeOfItem = Office.CoercionType.XmlSvg;
+          $.ajax({
+            type: requestMethod.GET,
+            url: src,
+            success: function (data) {
+              var grContent = new XMLSerializer().serializeToString(data.documentElement);
+              Office.context.document.setSelectedDataAsync(grContent, { coercionType: coercionTypeOfItem },
+                function (asyncResult) {
+                  if (asyncResult.status === "failed") {
+                    showNotification("Error", "Failed to insert selected text. " + asyncResult.error.message);
+                  }
+                });
+            },
+            error: function (data) {
+              console.log("runRequests Error", "user", arguments);
+              hideGroupSpinner();
+              hideTempSpinner();
+            }
+          });
+        } 
       });
 
       //1. Validate sign up and log in, on click and handle actions
@@ -236,30 +332,10 @@ var xhrRequest;
   
 
   // end Office
-  // };
+  };
 
-  function insertImage(src) {
-    // Get image from from web service (as a Base64 encoded string).
-    $.ajax({
-      url: src, success: function (result) {
-        insertImageFromBase64String(result);
-      }, error: function (xhr, status, error) {
-        showNotification("Error", "Oops, something went wrong.");
-      }
-    });
-  }
 
-  function insertImageFromBase64String(image) {
-    // Call Office.js to insert the image into the document.
-    Office.context.document.setSelectedDataAsync(image, {
-      coercionType: Office.CoercionType.Image
-    },
-      function (asyncResult) {
-        if (asyncResult.status === Office.AsyncResultStatus.Failed) {
-          showNotification("Error", asyncResult.error.message);
-        }
-      });
-  }
+
 
   function CallWS(type, url, contentType, dataType, data) {
     $.ajax({
