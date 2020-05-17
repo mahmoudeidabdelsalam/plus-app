@@ -9,6 +9,20 @@ var xhrRequest;
   Office.initialize = function (reason) {
     $(document).ready(function () {
 
+      //1. Validate sign up and log in, on click and handle actions
+      $('#ButtonLogin').click(function () {
+        showSpinner();
+        setTimeout(
+          function () {
+            var valResult = validateLogInAction();            
+            showSpinner();
+            if (valResult) {
+              logInUser();
+              GetNavBar();
+            }
+          }, 100);
+      });
+
       // Buttons Header
       $("#InputPassword").focus(function () {
         ShowButtonLogin();
@@ -90,19 +104,6 @@ var xhrRequest;
           showNotification("error", "Loding Filed 404");
         }
       });
-
-      // 3.Login Users
-      function logInUser() {
-        var type = requestMethod.POST;
-        var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
-        var data = {
-          email: GetLoginEmail(),
-          password: GetLoginPassword()
-        };
-        var contentType = requestContentType.JSON;
-        var dataType = '';
-        CallWS(type, url, contentType, dataType, JSON.stringify(data));
-      }
 
       // 4.Get NavBar Items
       function GetNavBar() {
@@ -225,7 +226,6 @@ var xhrRequest;
         });
       }
 
-
       // 5. Insrt Items
       $("body").on("click", ".clickToInsert", function () {
         var src = $(this).attr("data-url");
@@ -327,19 +327,18 @@ var xhrRequest;
         } 
       });
 
-      //1. Validate sign up and log in, on click and handle actions
-      $('#ButtonLogin').click(function () {
-        showSpinner();
-        setTimeout(
-          function () {
-            var valResult = validateLogInAction();
-            showSpinner();
-            if (valResult) {
-              logInUser();
-              GetNavBar();
-            }
-          }, 100);
-      });
+      // 3.Login Users
+      function logInUser() {
+        var type = requestMethod.POST;
+        var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
+        var data = {
+          email: GetLoginEmail(),
+          password: GetLoginPassword()
+        };
+        var contentType = requestContentType.JSON;
+        var dataType = '';
+        CallWS(type, url, contentType, dataType, JSON.stringify(data), logInUserSuccessCallback, logInUserErrorCallback, null);
+      }
 
     });
   
@@ -348,9 +347,28 @@ var xhrRequest;
   };
 
 
+  function logInUserSuccessCallback(response) {
+    if (response.data.IsSuccess) {
+      hideSpinner();
+      hideLogInArea();
+      showMainArea();
+      isUserLoggedIn = true;
+    } else {
+      isUserLoggedIn = false;
+      showLogInArea();
+      hideSpinner();
+      showNotification("Information", response.message);
+    }
+  }
+
+  function logInUserErrorCallback(response) {
+    showLogInArea();
+    showNotification("Error", 'Log in process failed');
+    hideGroupSpinner();
+  }
 
 
-  function CallWS(type, url, contentType, dataType, data) {
+  function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
     $.ajax({
       type: type,
       url: url,
@@ -358,20 +376,18 @@ var xhrRequest;
       dataType: dataType,
       data: data,
       success: function (response) {
-        hideLogInArea();
-        showMainArea();
+        if (successCallBack) successCallBack(response, params);
+      },
+      failure: function (response) {
+        if (failureCallback) failureCallback(response.Message);
         hideSpinner();
-        isUserLoggedIn = true;
       },
       error: function (response) {
-        showLogInArea();
-        hideMainArea();
+        if (errorCallback) errorCallback(response.Message);
         hideSpinner();
-        showNotification("Information", response.message);
       }
     });
   }
-
 
   function showNotification(header, content) {
     $('.modal-title').text(header);
@@ -419,6 +435,9 @@ function validateEmail(email) {
 function validateLogInAction() {
   var email = GetLoginEmail();
   var password = GetLoginPassword();
+
+  console.log(email);
+  
 
   if (!email.trim().length > 0 || !password.trim().length > 0) {
     showNotification("Warning", 'Email address and password are required');
