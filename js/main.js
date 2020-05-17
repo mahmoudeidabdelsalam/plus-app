@@ -48,13 +48,15 @@ var xhrRequest;
         var per_page = $(this).attr("data-number");
         $('.term-link').removeClass('active');
         $(this).addClass('active');
+        $('#TextSearch').val("");
         GetContent(term_id, column, per_page);
       });
 
       // Search
       $("body").on("click", "#submitSearch", function () {
         var search_text = $('#TextSearch').val();
-        GetSearchContent(search_text);
+        var term_id = $('.item a.active').data('id');
+        GetSearchContent(search_text, term_id);
       });
       
       // 2.Get Terms Items
@@ -183,11 +185,12 @@ var xhrRequest;
       }
 
       // 5.Get Search Items
-      function GetSearchContent(search_text) {
+      function GetSearchContent(search_text, term_id) {
         var search_text = search_text;
+        var term_id = term_id;
         $.ajax({
           type: 'GET',
-          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text ,
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.WithCategory + term_id ,
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
@@ -197,18 +200,23 @@ var xhrRequest;
           success: function (response) {
             hideSpinner();
             var data = response.data
-            let container = $('#pagination');
-            container.pagination({
-              dataSource: data,
-              callback: function (data, pagination) {
-                var dataHtml = '<ul class="column-2">';
-                $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-url="' + item.PreviewImage + '" class="clickToInsert"><span><img src="' + item.PreviewImage + '" /></span></a></li>';
-                });
-                dataHtml += '</ul>';
-                $("#data-container").html(dataHtml);
-              }
-            })
+            if (data) {
+              let container = $('#pagination');
+              container.pagination({
+                dataSource: data,
+                callback: function (data, pagination) {
+                  var dataHtml = '<ul class="column-2">';
+                  $.each(data, function (index, item) {
+                    dataHtml += '<li><a href="#" data-url="' + item.PreviewImage + '" class="clickToInsert"><span><img src="' + item.PreviewImage + '" /></span></a></li>';
+                  });
+                  dataHtml += '</ul>';
+                  $("#data-container").html(dataHtml);
+                }
+              })
+            } else {
+              showNotification("No Pen found for", search_text);
+            }
+            
           },
           error: function () {
             hideSpinner();
@@ -330,7 +338,7 @@ var xhrRequest;
               logInUser();
               GetNavBar();
             }
-          }, 500);
+          }, 100);
       });
 
     });

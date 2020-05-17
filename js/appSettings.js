@@ -14,6 +14,7 @@ var ppGraphicsInjectorConfigurationData = {
   "GetContent": "graphics/GetGraphics/?category=",
   "GetSearch": "graphics/GetGraphics/?searchText=",
   "Per_page": "&per_page=-1",
+  "WithCategory": "&category=",
   "useStaticData": false,
   "usePaging": false
 };

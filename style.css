@@ -677,3 +677,8 @@ div#data-container ul li:before {
 .form-control:focus {
   box-shadow: none;
 }
+
+.modal-content-text {
+  text-align: center;
+  font-size: 20px;
+}
