@@ -2,7 +2,6 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  min-width: 340px;
 }
 
 a:hover,
@@ -16,7 +15,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   background: #F9F9F9;
-  min-width: 340px;
+  min-width: 330px;
 }
 
 div#descrtion,
