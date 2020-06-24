@@ -18,10 +18,30 @@ var xhrRequest;
             showSpinner();
             if (valResult) {
               logInUser();
-              GetNavBar();
             }
           }, 100);
       });
+
+      function logInUserSuccessCallback(response) {
+        if (response.data.IsSuccess) {
+          hideSpinner();
+          hideLogInArea();
+          showMainArea();
+          GetNavBar();
+          isUserLoggedIn = true;
+        } else {
+          isUserLoggedIn = false;
+          showLogInArea();
+          hideSpinner();
+          showNotification("Information", response.message);
+        }
+      }
+
+      function logInUserErrorCallback(response) {
+        showLogInArea();
+        showNotification("Error", 'Log in process failed');
+        hideGroupSpinner();
+      }
 
       // Buttons Header
       $("#InputPassword").focus(function () {
@@ -73,6 +93,20 @@ var xhrRequest;
         GetSearchContent(search_text, term_id);
       });
       
+
+      // 2. Search for graphics
+      var typingTimer;                //timer identifier
+      var doneTypingInterval = 1200;  //time in ms
+      var searchBoxControl = $('#TextSearch');
+      $(searchBoxControl).on("keyup", function () {
+        var search_text = $('#TextSearch').val();
+        var term_id = $('.item a.active').data('id');
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(function () {GetSearchContent(search_text, term_id)}, doneTypingInterval);
+      });
+
+
+
       // 2.Get Terms Items
       $.ajax({
         type: 'GET',
@@ -345,27 +379,6 @@ var xhrRequest;
 
   // end Office
   };
-
-
-  function logInUserSuccessCallback(response) {
-    if (response.data.IsSuccess) {
-      hideSpinner();
-      hideLogInArea();
-      showMainArea();
-      isUserLoggedIn = true;
-    } else {
-      isUserLoggedIn = false;
-      showLogInArea();
-      hideSpinner();
-      showNotification("Information", response.message);
-    }
-  }
-
-  function logInUserErrorCallback(response) {
-    showLogInArea();
-    showNotification("Error", 'Log in process failed');
-    hideGroupSpinner();
-  }
 
 
   function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
