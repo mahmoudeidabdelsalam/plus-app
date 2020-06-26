@@ -94,6 +94,19 @@ var xhrRequest;
       });
       
 
+      $('#TextSearch').bind("enterKey", function (e) {
+        var search_text = $('#TextSearch').val();
+        var term_id = $('.item a.active').data('id');
+        GetSearchContent(search_text, term_id);
+      });
+
+      $('#TextSearch').keyup(function (e) {
+        if (e.keyCode == 13) {
+          $(this).trigger("enterKey");
+        }
+      });
+
+
       // 2. Search for graphics
       var typingTimer;                //timer identifier
       var doneTypingInterval = 1200;  //time in ms
