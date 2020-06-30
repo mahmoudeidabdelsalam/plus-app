@@ -101,7 +101,7 @@ var xhrRequest;
 
   $("html").addClass("" + userversion + "");
   
-  // Office.initialize = function (reason) {
+  Office.initialize = function (reason) {
     $(document).ready(function () {
 
       //1. Validate sign up and log in, on click and handle actions
@@ -486,7 +486,7 @@ var xhrRequest;
   
 
   // end Office
-  // };
+  };
 
 
   function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {

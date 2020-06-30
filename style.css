@@ -687,3 +687,13 @@ div#data-container ul li:before {
 html[class*="11"][class*="windows"] .row {
   display: block;
 }
+
+html[class*="11"][class*="windows"] ul.list-category li span.icon img {
+  width: 50px;
+}
+
+html[class*="11"][class*="windows"] div#Spinner {
+  left: 0;
+  right: 0;
+  top: 0;
+}
