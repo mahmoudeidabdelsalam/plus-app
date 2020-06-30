@@ -682,3 +682,8 @@ div#data-container ul li:before {
   text-align: center;
   font-size: 20px;
 }
+
+
+html[class*="11"][class*="windows"] .row {
+  display: block;
+}
