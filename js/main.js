@@ -211,8 +211,9 @@ var xhrRequest;
       $(searchBoxControl).on("keyup", function () {
         var search_text = $('#TextSearch').val();
         var term_id = $('.item a.active').data('id');
+        var column = $('.item a.active').data('column');
         clearTimeout(typingTimer);
-        typingTimer = setTimeout(function () {GetSearchContent(search_text, term_id)}, doneTypingInterval);
+        typingTimer = setTimeout(function () {GetSearchContent(search_text, term_id, column)}, doneTypingInterval);
       });
 
 
@@ -353,7 +354,7 @@ var xhrRequest;
                 callback: function (data, pagination) {
                   var dataHtml = '<ul class="column-' + column_nu + '">';
                   $.each(data, function (index, item) {
-                    dataHtml += '<li><a href="#" data-type="' + item.Type + '"  data-url="' + item.PreviewImage + '" class="clickToInsert"><span><img src="' + item.PreviewImage + '" /></span></a></li>';
+                    dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                   });
                   dataHtml += '</ul>';
                   $("#data-container").html(dataHtml);
