@@ -2,6 +2,11 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  transition: all 1s;
+}
+
+* {
+  transition: all 1s;
 }
 
 a:hover,
@@ -14,7 +19,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #F9F9F9;
+  background: rgb(255, 255, 255);
   min-width: 330px;
 }
 
@@ -80,7 +85,7 @@ ul.list-category li span.name {
   letter-spacing: 0.04px;
   color: #1E6DFB;
   width: 100%;
-  display: inline-block;  
+  display: inline-block;
 }
 
 input#InputEmail,
@@ -589,7 +594,16 @@ ul.socialMedia li a {
 }
 
 .search {
-  padding: 15px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.search .back-link {
+  margin: 0 10px;
+  line-height: 37px;
+  height: 40px;
 }
 
 .search button {
@@ -621,6 +635,8 @@ div#data-container ul {
   padding: 0;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 div#data-container ul li {
@@ -641,7 +657,7 @@ div#data-container ul li span {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 0;
 }
 
 div#data-container ul li span img {
@@ -696,4 +712,67 @@ html[class*="11"][class*="windows"] div#Spinner {
   left: 0;
   right: 0;
   top: 0;
+}
+
+.paginationjs .J-paginationjs-page {
+  display: none;
+}
+
+li.paginationjs-next a:after {
+  content: "More view" !important;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  letter-spacing: 0.04px;
+  color: #0078FF;
+}
+
+li.paginationjs-next {
+  display: block;
+}
+
+.paginationjs .paginationjs-pages ul {
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+.paginationjs .paginationjs-pages li a {
+  font-size: 0 !important;
+  border-radius: 4px !important;
+  height: 100% !important;
+  background: #FFFFFF !important;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.paginationjs .paginationjs-pages li {
+  border: none !important;
+  width: 330px;
+  margin: 10px auto;
+  height: 31px;
+}
+
+.paginationjs {
+  width: 100%;
+}
+
+.paginationjs-pages {
+  width: 100%;
+}
+
+.paginationjs-pages ul {
+  width: 100%;
+}
+
+li.paginationjs-prev {
+  display: none;
+}
+
+div#data-container {
+  position: relative;
+  width: 100%;
+}
+
+div#Animation {
+  min-height: 600px;
 }
