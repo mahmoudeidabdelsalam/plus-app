@@ -12,6 +12,7 @@ var ppGraphicsInjectorConfigurationData = {
   "logInUrl": "users/login/",
   "GetCategory": "graphics/GetCategory",
   "GetContent": "graphics/GetGraphics/?category=",
+  "GetIcons": "graphics/GetGraphics/?post_id=",
   "GetSubCategory": "graphics/GetSubCategory/?parent_id=",
   "GetSearch": "graphics/GetGraphics/?searchText=",
   "Per_page": "&per_page=-1",

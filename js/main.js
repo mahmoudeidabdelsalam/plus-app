@@ -149,12 +149,26 @@ var xhrRequest;
       }, 400, function () {
         GetContent(term_id, column, per_page, sources);
       });
-
-      
     });
 
 
-    
+    // 3.1 actions get main item for back term
+    $("body").on("click", ".GetIcons", function () {
+      var post_id = $(this).attr("data-id");
+      var column = $(this).attr("data-column");
+      var per_page = $(this).attr("data-number");
+      var sources = $(this).attr("data-sources");
+      var term = $(this).attr("data-term");
+
+      $("#data-container").animate({
+        opacity: 0,
+        left: "-100%",
+      }, 400, function () {
+          GetIcons(post_id, column, per_page, sources, term);
+      });
+    });
+
+
     // 4. Search actions for items bsaed click or keyup or entr
     $("body").on("click", "#submitSearch", function () {
       var search_text = $('#TextSearch').val();
@@ -250,16 +264,18 @@ var xhrRequest;
       var parent_id = parent;
 
       if (source === "children") {
+
         $.ajax({
           type: 'GET',
           url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSubCategory + id,
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
-            
+            showSpinner();
           },
           success: function (response) {
             $("#data-container").html("");
+            hideSpinner();
             $('.search .term-link').remove();
             var data = response.data
             let container = $('#pagination');
@@ -283,20 +299,23 @@ var xhrRequest;
           },
           error: function () {
             showNotification("error", "Loding Filed 404");
+            hideSpinner();
           }
         });
-      } else {
+
+      } else if (source === "collection") {
+
         $.ajax({
           type: 'GET',
           url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetContent + id + ppGraphicsInjectorConfigurationData.Per_page,
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
-
+            showSpinner();
           },
           success: function (response) {
             $("#data-container").html("");
-            $("#content").addClass('is-action');
+            hideSpinner();
 
             var data = response.data
             let container = $('#pagination');
@@ -305,14 +324,56 @@ var xhrRequest;
               pageSize: per_page,
               callback: function (data, pagination) {
                 var dataHtml = '<ul class="column-' + column_nu + '">';
-                
+
+                $.each(data, function (index, item) {
+                  dataHtml += '<li><a href="#" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="'+ source +'" class="GetIcons"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                });
+                dataHtml += '</ul>';
+
+                $("#data-container").animate({
+                  opacity: 1,
+                  left: "0"
+                }, 400, function () {
+                  $("#data-container").append(dataHtml).show("slow");
+                });
+              }
+            })
+          },
+          error: function () {
+            hideSpinner();
+            showNotification("error", "Loding Filed 404");
+          }
+        });
+
+      } else {
+
+        $.ajax({
+          type: 'GET',
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetContent + id + ppGraphicsInjectorConfigurationData.Per_page,
+          contentType: requestContentType.JSON,
+          dataType: '',
+          beforeSend: function () {
+            showSpinner();
+          },
+          success: function (response) {
+            $("#data-container").html("");
+            hideSpinner();
+
+            var data = response.data
+            let container = $('#pagination');
+            container.pagination({
+              dataSource: data,
+              pageSize: per_page,
+              callback: function (data, pagination) {
+                var dataHtml = '<ul class="column-' + column_nu + '">';
+
                 $.each(data, function (index, item) {
                   dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
                 dataHtml += '</ul>';
 
                 if (parent_id) {
-                  $.ajax({ 
+                  $.ajax({
                     type: 'GET',
                     url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory + '?term_id=' + parent_id,
                     contentType: requestContentType.JSON,
@@ -330,15 +391,12 @@ var xhrRequest;
                 } else {
                   $('.search .back-link').remove();
                 }
-
-               
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
                 }, 400, function () {
-                    $("#data-container").append(dataHtml).show("slow");
-                }); 
-                
+                  $("#data-container").append(dataHtml).show("slow");
+                });
               }
             })
           },
@@ -347,16 +405,82 @@ var xhrRequest;
             showNotification("error", "Loding Filed 404");
           }
         });
-      }
 
+      }
     }
 
 
 
 
+    // 6.1 function Geticons Item based post_id
+    function GetIcons(post_id, column, number, sources, term) {
+      var id = post_id;
+      var column_nu = column;
+      var per_page = number;
+      var parent_id = term;
 
+      $.ajax({
+        type: 'GET',
+        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetIcons + id,
+        contentType: requestContentType.JSON,
+        dataType: '',
+        beforeSend: function () {
+          showSpinner();
+        },
+        success: function (response) {
+          $("#data-container").html("");
+          hideSpinner();
 
+          var data = response.data
+          let container = $('#pagination');
+          container.pagination({
+            dataSource: data,
+            pageSize: per_page,
+            callback: function (data, pagination) {
 
+              var icons = data[0].Collocations;
+              var dataHtml = '<ul class="column-' + column_nu + '">';
+
+              $.each(icons, function (index, item) {
+                dataHtml += '<li><a href="#" data-type="' + item.file_icon.subtype + '" data-url="' + item.file_icon.url + '" class="clickToInsert"><span><img title="' + item.file_icon.name + '" alt="' + item.file_icon.name + '" src="' + item.file_icon.url + '" /></span></a></li>';
+              });
+
+              dataHtml += '</ul>';
+
+              if (parent_id) {
+                $.ajax({
+                  type: 'GET',
+                  url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory + '?term_id=' + parent_id,
+                  contentType: requestContentType.JSON,
+                  dataType: '',
+                  success: function (response) {
+                    $('.search .term-link').remove();
+                    var data = response.data
+                    var databack = "";
+                    $.each(data, function (index, item) {
+                      databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='images/chevron-right.png' /></a>";
+                    });
+                    $('.search').append(databack);
+                  }
+                });
+              } else {
+                $('.search .back-link').remove();
+              }
+              $("#data-container").animate({
+                opacity: 1,
+                left: "0"
+              }, 400, function () {
+                $("#data-container").append(dataHtml).show("slow");
+              });
+            }
+          })
+        },
+        error: function () {
+          hideSpinner();
+          showNotification("error", "Loding Filed 404");
+        }
+      });
+    }
 
     // 7. function GetSearch Items based search_text & term_id
     function GetSearchContent(search_text, term_id, column) {

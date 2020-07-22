@@ -811,3 +811,8 @@ a.term-link:hover {
     width: 100%;
   }
 }
+
+
+div#data-container ul li .GetIcons img {
+  height: auto;
+}
