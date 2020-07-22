@@ -383,7 +383,7 @@ var xhrRequest;
                       var data = response.data
                       var databack = "";
                       $.each(data, function (index, item) {
-                        databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='images/chevron-right.png' /></a>";
+                        databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/chevron-right.png' /></a>";
                       });
                       $('.search').append(databack);
                     }
@@ -458,7 +458,7 @@ var xhrRequest;
                     var data = response.data
                     var databack = "";
                     $.each(data, function (index, item) {
-                      databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='images/chevron-right.png' /></a>";
+                      databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/chevron-right.png' /></a>";
                     });
                     $('.search').append(databack);
                   }
