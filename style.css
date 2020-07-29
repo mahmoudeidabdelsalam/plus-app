@@ -885,3 +885,52 @@ span.col-content {
   color: #3F4A59;
   margin-top: 10px;
 }
+
+ul.column-icons {
+  background: #FFFFFF;
+  border: 1px solid #BEC6D2;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 2% !important;
+  width: 96% !important;
+}
+
+ul.column-icons li {
+  flex: 0 0 17% !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 1% !important;
+}
+
+div#data-container ul li.headline {
+  flex: 0 0100% !important;
+  width: 100% !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  letter-spacing: 0.04px;
+  color: #3F4A59;
+  display: flex;
+}
+
+div#data-container ul li.headline:before {
+  display: none;
+}
+
+div#data-container ul li.headline a {
+  margin-left: auto;
+  color: #333;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.04px;
+  color: #BEC6D2;
+  margin-right: 10px;
+}
+
+div#data-container ul li.headline a span {
+  position: relative;
+  top: auto;
+}

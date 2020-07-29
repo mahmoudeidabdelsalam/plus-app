@@ -391,13 +391,22 @@ var xhrRequest;
               dataSource: data,
               pageSize: per_page,
               callback: function (data, pagination) {
-                var dataHtml = '<ul class="column-' + column_nu + '">';
 
+                var dataHtml = '<div class="Collocations">';
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-name="'+ item.Name +'" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="'+ source +'" class="GetIcons"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<ul class="column-icons">';
+                  dataHtml += '<li class="headline">' + item.Name + ' <a class="GetIcons" href="#" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"><span>More ...</span></a></li>';
+                  var i = 0;
+                  $.each(item.Collocations, function (index, icon) {
+                    i++;
+                    if (i < 6 ){
+                      dataHtml += '<li><a href="#" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
+                    }
+                  });
+                  dataHtml += '</ul>';
                 });
-                dataHtml += '</ul>';
-
+                dataHtml += '</div>';
+                
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
