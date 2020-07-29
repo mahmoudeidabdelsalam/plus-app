@@ -47,6 +47,7 @@ var xhrRequest;
         showMainArea();
         GetNavBar();
         isUserLoggedIn = true;
+        $(".Notification").hide();
       } else {
         isUserLoggedIn = false;
         showLogInArea();
@@ -93,6 +94,7 @@ var xhrRequest;
         showMainArea();
         GetNavBar();
         isUserLoggedIn = true;
+        $(".Notification").hide();
       } else {
         isUserLoggedIn = false;
         showLogInArea();
@@ -131,6 +133,7 @@ var xhrRequest;
       },
       success: function (response) {
         hideSpinner();
+        $(".Notification").hide();
         var data = response.data
         var len = data.length;
         for (var i = 0; i < len; i++) {
@@ -276,6 +279,7 @@ var xhrRequest;
         },
         success: function (response) {
           hideSpinner();
+          $(".Notification").hide();
           var data = response.data
           var len = data.length;
           for (var i = 0; i < len; i++) {
@@ -338,6 +342,7 @@ var xhrRequest;
           success: function (response) {
             $("#data-container").html("");
             hideSpinner();
+            $(".Notification").hide();
             $('.search .term-link').remove();
             var data = response.data
             let container = $('#pagination');
@@ -378,7 +383,8 @@ var xhrRequest;
           success: function (response) {
             $("#data-container").html("");
             hideSpinner();
-
+            $(".Notification").hide();
+            
             var data = response.data
             let container = $('#pagination');
             container.pagination({
@@ -420,6 +426,7 @@ var xhrRequest;
           success: function (response) {
             $("#data-container").html("");
             hideSpinner();
+            $(".Notification").hide();
 
             var data = response.data
             let container = $('#pagination');
@@ -494,6 +501,7 @@ var xhrRequest;
         success: function (response) {
           $("#data-container").html("");
           hideSpinner();
+          $(".Notification").hide();
 
           var data = response.data
           let container = $('#pagination');
@@ -563,6 +571,8 @@ var xhrRequest;
         },
         success: function (response) {
           hideSpinner();
+          $(".Notification").hide();
+
           var data = response.data
           if (data) {
             let container = $('#pagination');
@@ -613,6 +623,8 @@ var xhrRequest;
             },
             success: function (data) {
               hideSpinner();
+              $(".Notification").hide();
+
               var reader = new FileReader();
               reader.readAsDataURL(data);
               reader.onloadend = function () {
@@ -653,6 +665,8 @@ var xhrRequest;
               responseType: 'blob'
             },
             success: function (data) {
+              $(".Notification").hide();
+
               var reader = new FileReader();
               reader.readAsDataURL(data);
               reader.onloadend = function () {
@@ -679,6 +693,7 @@ var xhrRequest;
             type: requestMethod.GET,
             url: src,
             success: function (data) {
+              $(".Notification").hide();
               var grContent = new XMLSerializer().serializeToString(data.documentElement);
               Office.context.document.setSelectedDataAsync(grContent, { coercionType: coercionTypeOfItem },
                 function (asyncResult) {
@@ -724,7 +739,7 @@ var xhrRequest;
   function showNotification(header, content) {
     $('.col-header').text(header);
     $('.col-content').text(content);
-    $("#Notification").toggle();
+    $(".Notification").show();
   }
 
 })();

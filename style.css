@@ -846,25 +846,26 @@ label#RememberMeLabel {
 }
 
 
-div#Notification {
+div.Notification {
   padding: 20px;
   justify-content: center;
   align-items: center;
   float: left;
+  margin: auto;
 }
 
-div#Notification .col-img,
-div#Notification .col-block {
+div.Notification .col-img,
+div.Notification .col-block {
   float: left;
   display: flex;
   flex-flow: column;
 }
 
-div#Notification .col-block {
+div.Notification .col-block {
   margin: 5px;
 }
 
-div#Notification .col-block span.col-header {
+div.Notification .col-block span.col-header {
   font-style: normal;
   font-weight: 500;
   font-size: 18px;

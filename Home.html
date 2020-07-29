@@ -68,19 +68,7 @@
         <div class="container">
           <div class="row">
 
-            <div class="modal fade" id="myModal" role="dialog">
-              <div class="modal-dialog modal-sm">
-                <!-- Modal content-->
-                <div class="modal-content" id="modal-container">
-                  <div class="modal-header" style="text-align:center!important;">
-                    <h4 class="modal-title ms-Label" style="font-size:medium;margin:auto"></h4>
-                  </div>
-                  <div class="modal-body modal-content-text"></div>
-                  <div class="modal-footer"><button class="ms-Button ms-Button--small ms-Button--primary" data-dismiss="modal"
-                      id="close-modal-btn" style="color:white" type="button">Close</button></div>
-                </div>
-              </div>
-            </div>
+         
 
             <div class="col-12" id="header">
               <img class="m-auto d-block img-fluid" src="Images/premast-plus-logo.png" alt="logo plus">
@@ -104,6 +92,17 @@
               </div>
             </div>
 
+            <!-- Notification -->
+            <div class="Notification" style="display:none;">
+              <div class="col-img">
+                <img src="Images/face.png" alt="face error">
+              </div>
+              <div class="col-block">
+                <span class="col-header">Nothing found for that search.</span>
+                <span class="col-content">How about checking this collections</span>
+              </div>
+            </div>
+
             <!-- Screen Login -->
             <div class="col-12" id="login" style="display: none;">
               <div class="col-12">
@@ -122,7 +121,7 @@
                 </div>
 
                 <label class="forgot-password" id="forgot-password">
-                  <a href="https://plus.premast.com/wp/wp-login.php?action=lostpassword" target="_blank">Forgot password</a>
+                  <a href="https://plus.premast.com/reset-password/" target="_blank">Forgot password</a>
                 </label>
 
                 <label for="RememberMe" id="RememberMeLabel">
@@ -178,7 +177,7 @@
 
 
         <!-- Notification -->
-        <div id="Notification" style="display:none;">
+        <div class="Notification" style="display:none;">
           <div class="col-img">
             <img src="Images/face.png" alt="face error">
           </div>
