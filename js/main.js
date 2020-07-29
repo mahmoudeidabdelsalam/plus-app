@@ -727,9 +727,5 @@ var xhrRequest;
     $("#Notification").toggle();
   }
 
-
-
-
-
 })();
 
