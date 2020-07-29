@@ -79,6 +79,21 @@ function validateLogInAction() {
   return true;
 }
 
+function validateLogInKeep(email, password) {
+  var Getemail = email;
+  var Getpassword = password;
+  if (!Getemail.trim().length > 0 || !Getpassword.trim().length > 0) {
+    showNotification("Warning", 'Email address and password are required');
+    return false;
+  }
+  if (!validateEmail(Getemail)) {
+    showNotification("Warning", 'Please enter a valid email address');
+    return false;
+  }
+  return true;
+}
+
+
 // 2. buttons for menu more in website
 $("#InputPassword").focus(function () {
   ShowButtonLogin();
@@ -109,3 +124,6 @@ $('#goto-signout').click(function () {
   showLogInArea();
   ClearCredentials();
 });
+
+
+

@@ -5,9 +5,73 @@ var xhrRequest;
 (function () {
   "use strict";
 
- 
+  // Login With Keep Rememeber Me
+  $(function () {
+    $('#ButtonLogin').click(function () {
+      if ($('input#RememberMe').is(':checked')) {
+        var expires = new Date();
+        expires.setTime(expires.getTime() + (10 * 24 * 60 * 60 * 1000));
+        var email = GetLoginEmail();
+        var password = GetLoginPassword(); 
+        var encodedString = btoa(password);
+        var UserKeep = { 'email': email, 'password': encodedString, 'expires': expires };
+        localStorage.setItem('UserKeep', JSON.stringify(UserKeep));
+      }
+    });
+  });
 
+  // document
   $(document).ready(function () {
+
+    var GetKeep = JSON.parse(localStorage.getItem("UserKeep"));
+    var today = new Date();
+    if (GetKeep) {
+      if (today != GetKeep.expires) {
+        var valResult = validateLogInKeep(GetKeep.email, GetKeep.password);
+        if (valResult) {
+          var decodedString = atob(GetKeep.password);
+          logInUserKeep(GetKeep.email, decodedString);
+
+          var expires = new Date();
+          expires.setTime(expires.getTime() + (10 * 24 * 60 * 60 * 1000));
+          var UserKeep = { 'email': GetKeep.email, 'password': GetKeep.password, 'expires': expires };
+          localStorage.setItem('UserKeep', JSON.stringify(UserKeep));
+        }
+      }
+    }
+
+    function logInUserSuccessCallbackKeep(response) {
+      if (response.data.IsSuccess) {
+        hideSpinner();
+        hideLogInArea();
+        showMainArea();
+        GetNavBar();
+        isUserLoggedIn = true;
+      } else {
+        isUserLoggedIn = false;
+        showLogInArea();
+        hideSpinner();
+        showNotification("Login Keep Error", response.message);
+      }
+    }
+
+    function logInUserErrorCallbackKeep(response) {
+      showLogInArea();
+      showNotification("Error", 'Log in process failed');
+      hideGroupSpinner();
+    }
+
+    function logInUserKeep(Getemail, GetPassword) {
+      var type = requestMethod.POST;
+      var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
+      var data = {
+        email: Getemail,
+        password: GetPassword
+      };
+      var contentType = requestContentType.JSON;
+      var dataType = '';
+      CallWS(type, url, contentType, dataType, JSON.stringify(data), logInUserSuccessCallbackKeep, logInUserErrorCallbackKeep, null);
+    }
 
     // 1. Validate sign up and log in, on click and handle actions
     $('#ButtonLogin').click(function () {
@@ -55,6 +119,7 @@ var xhrRequest;
       CallWS(type, url, contentType, dataType, JSON.stringify(data), logInUserSuccessCallback, logInUserErrorCallback, null);
     }
 
+
     // 1.1 Get Terms Items in login screen Home
     $.ajax({
       type: 'GET',
@@ -71,12 +136,9 @@ var xhrRequest;
         for (var i = 0; i < len; i++) {
           var name = data[i].name;
           var icon = data[i].icon;
-
           var column = data[i].column;
           var number = data[i].pre_page;
           var sources = data[i].sources;
-
-
           if (i == 0) {
             GetContent(data[i].id, column, number, sources);
           }
@@ -103,15 +165,12 @@ var xhrRequest;
       $('.term-link').removeClass('active');
       $(this).addClass('active');
       $('#TextSearch').val("");
-
-
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-        }, 400, function () {
+        }, 300, function () {
         GetContent(term_id, column, per_page, sources);
       });
-
     });
 
     
@@ -122,13 +181,14 @@ var xhrRequest;
       var per_page = $(this).attr("data-number");
       var sources = $(this).attr("data-sources");
       var parent = $(this).attr("data-parent");
+      var name = $(this).attr("data-name");
       
 
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-      }, 400, function () {
-        GetContent(term_id, column, per_page, sources, parent);
+      }, 300, function () {
+        GetContent(term_id, column, per_page, sources, parent, name);
       });
 
     });
@@ -146,7 +206,7 @@ var xhrRequest;
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-      }, 400, function () {
+      }, 300, function () {
         GetContent(term_id, column, per_page, sources);
       });
     });
@@ -159,12 +219,13 @@ var xhrRequest;
       var per_page = $(this).attr("data-number");
       var sources = $(this).attr("data-sources");
       var term = $(this).attr("data-term");
+      var name = $(this).attr("data-name");
 
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-      }, 400, function () {
-          GetIcons(post_id, column, per_page, sources, term);
+      }, 300, function () {
+          GetIcons(post_id, column, per_page, sources, term, name);
       });
     });
 
@@ -256,12 +317,13 @@ var xhrRequest;
 
 
     // 6. function GetContent Items based term_id
-    function GetContent(Term_id, column, number, sources, parent) {
+    function GetContent(Term_id, column, number, sources, parent, name) {
       var id = Term_id;
       var column_nu = column;
       var per_page = number;
       var source = sources;
       var parent_id = parent;
+      var parent_name = name;
 
       if (source === "children") {
 
@@ -285,13 +347,13 @@ var xhrRequest;
               callback: function (data, pagination) {
                 var dataHtml = '<ul class="column-' + column_nu + '">';
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
+                  dataHtml += '<li><a href="#" data-name="'+ item.name +'" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
                 });
                 dataHtml += '</ul>';
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
-                }, 400, function () {
+                }, 300, function () {
                   $("#data-container").append(dataHtml).show("slow");
                 });                
               }
@@ -326,14 +388,14 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="'+ source +'" class="GetIcons"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><a href="#" data-name="'+ item.Name +'" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="'+ source +'" class="GetIcons"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
                 dataHtml += '</ul>';
 
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
-                }, 400, function () {
+                }, 300, function () {
                   $("#data-container").append(dataHtml).show("slow");
                 });
               }
@@ -380,10 +442,11 @@ var xhrRequest;
                     dataType: '',
                     success: function (response) {
                       $('.search .term-link').remove();
+                      $('input#TextSearch').val(parent_name);
                       var data = response.data
                       var databack = "";
-                      $.each(data, function (index, item) {
-                        databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/chevron-right.png' /></a>";
+                      $.each(data, function (index, item) {                        
+                        databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/reset.png' /></a>";
                       });
                       $('.search').append(databack);
                     }
@@ -394,7 +457,7 @@ var xhrRequest;
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
-                }, 400, function () {
+                }, 300, function () {
                   $("#data-container").append(dataHtml).show("slow");
                 });
               }
@@ -413,11 +476,12 @@ var xhrRequest;
 
 
     // 6.1 function Geticons Item based post_id
-    function GetIcons(post_id, column, number, sources, term) {
+    function GetIcons(post_id, column, number, sources, term, name) {
       var id = post_id;
       var column_nu = column;
       var per_page = number;
       var parent_id = term;
+      var parent_name = name;
 
       $.ajax({
         type: 'GET',
@@ -455,10 +519,11 @@ var xhrRequest;
                   dataType: '',
                   success: function (response) {
                     $('.search .term-link').remove();
+                    $('input#TextSearch').val(parent_name);
                     var data = response.data
                     var databack = "";
                     $.each(data, function (index, item) {
-                      databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/chevron-right.png' /></a>";
+                      databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/reset.png' /></a>";
                     });
                     $('.search').append(databack);
                   }
@@ -469,7 +534,7 @@ var xhrRequest;
               $("#data-container").animate({
                 opacity: 1,
                 left: "0"
-              }, 400, function () {
+              }, 300, function () {
                 $("#data-container").append(dataHtml).show("slow");
               });
             }
@@ -513,7 +578,7 @@ var xhrRequest;
               }
             })
           } else {
-            showNotification("No Pen found for", search_text);
+            showNotification("Nothing found for that search.", "How about checking this collections");
           }
           
         },
@@ -657,16 +722,9 @@ var xhrRequest;
   }
 
   function showNotification(header, content) {
-    $('.modal-title').text(header);
-    $('.modal-content-text').text(content);
-    $("#myModal").modal("toggle");
-    if (header === "Warning") {
-      $('.modal-header').addClass('modal-body-warning');
-    } else if (header === "Error") {
-      $('.modal-header').addClass('modal-body-error');
-    } else {
-      $('.modal-header').addClass('modal-body-info');
-    }
+    $('.col-header').text(header);
+    $('.col-content').text(content);
+    $("#Notification").toggle();
   }
 
 
