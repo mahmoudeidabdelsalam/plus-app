@@ -554,8 +554,8 @@ ul#myTab span.icon {
 .dropdown-menu.acive {
   display: block;
   left: auto;
-  right: -10px;
-  top: 60px;
+  right: 20px;
+  top: 75px;
 }
 
 .dropdown-menu {
@@ -612,11 +612,16 @@ ul.socialMedia li a {
 }
 
 .search .back-link {
-  margin: 0 10px;
-  line-height: 37px;
-  height: 40px;
+  margin: 0 1px;
+  line-height: 30px;
+  height: 30px;
   position: absolute;
   right: 15px;
+  background-color: #f9f9f9;
+  width: 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 100px;
 }
 
 .search button {

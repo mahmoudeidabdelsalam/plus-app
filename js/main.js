@@ -40,28 +40,6 @@ var xhrRequest;
       }
     }
 
-    function logInUserSuccessCallbackKeep(response) {
-      if (response.data.IsSuccess) {
-        hideSpinner();
-        hideLogInArea();
-        showMainArea();
-        GetNavBar();
-        isUserLoggedIn = true;
-        $(".Notification").hide();
-      } else {
-        isUserLoggedIn = false;
-        showLogInArea();
-        hideSpinner();
-        showNotification("Login Keep Error", response.message);
-      }
-    }
-
-    function logInUserErrorCallbackKeep(response) {
-      showLogInArea();
-      showNotification("Error", 'Log in process failed');
-      hideGroupSpinner();
-    }
-
     function logInUserKeep(Getemail, GetPassword) {
       var type = requestMethod.POST;
       var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
@@ -87,6 +65,40 @@ var xhrRequest;
         }, 100);
     });
 
+    function logInUserSuccessCallbackKeep(response) {
+      if (response.data.IsSuccess) {
+        hideSpinner();
+        hideLogInArea();
+        showMainArea();
+        GetNavBar();
+        isUserLoggedIn = true;
+        $(".Notification").hide();
+      } else {
+        isUserLoggedIn = false;
+        showLogInArea();
+        hideSpinner();
+        showNotification("Login Keep Error", response.message);
+      }
+    }
+
+    function logInUserErrorCallbackKeep(response) {
+      showLogInArea();
+      showNotification("Error", 'Log in process failed');
+      hideGroupSpinner();
+    }
+
+    function logInUser() {
+      var type = requestMethod.POST;
+      var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
+      var data = {
+        email: GetLoginEmail(),
+        password: GetLoginPassword()
+      };
+      var contentType = requestContentType.JSON;
+      var dataType = '';
+      CallWS(type, url, contentType, dataType, JSON.stringify(data), logInUserSuccessCallback, logInUserErrorCallback, null);
+    }
+
     function logInUserSuccessCallback(response) {
       if (response.data.IsSuccess) {
         hideSpinner();
@@ -108,19 +120,6 @@ var xhrRequest;
       showNotification("Error", 'Log in process failed');
       hideGroupSpinner();
     }
-
-    function logInUser() {
-      var type = requestMethod.POST;
-      var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
-      var data = {
-        email: GetLoginEmail(),
-        password: GetLoginPassword()
-      };
-      var contentType = requestContentType.JSON;
-      var dataType = '';
-      CallWS(type, url, contentType, dataType, JSON.stringify(data), logInUserSuccessCallback, logInUserErrorCallback, null);
-    }
-
 
     // 1.1 Get Terms Items in login screen Home
     $.ajax({
@@ -171,7 +170,7 @@ var xhrRequest;
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-        }, 300, function () {
+        }, 100, function () {
         GetContent(term_id, column, per_page, sources);
       });
     });
@@ -190,7 +189,7 @@ var xhrRequest;
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-      }, 300, function () {
+      }, 100, function () {
         GetContent(term_id, column, per_page, sources, parent, name);
       });
 
@@ -209,7 +208,7 @@ var xhrRequest;
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-      }, 300, function () {
+      }, 100, function () {
         GetContent(term_id, column, per_page, sources);
       });
     });
@@ -227,7 +226,7 @@ var xhrRequest;
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-      }, 300, function () {
+      }, 100, function () {
           GetIcons(post_id, column, per_page, sources, term, name);
       });
     });
@@ -358,7 +357,7 @@ var xhrRequest;
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
-                }, 300, function () {
+                }, 100, function () {
                   $("#data-container").append(dataHtml).show("slow");
                 });                
               }
@@ -410,7 +409,7 @@ var xhrRequest;
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
-                }, 300, function () {
+                }, 100, function () {
                   $("#data-container").append(dataHtml).show("slow");
                 });
               }
@@ -473,7 +472,7 @@ var xhrRequest;
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
-                }, 300, function () {
+                }, 100, function () {
                   $("#data-container").append(dataHtml).show("slow");
                 });
               }
@@ -551,7 +550,7 @@ var xhrRequest;
               $("#data-container").animate({
                 opacity: 1,
                 left: "0"
-              }, 300, function () {
+              }, 100, function () {
                 $("#data-container").append(dataHtml).show("slow");
               });
             }
@@ -608,6 +607,66 @@ var xhrRequest;
       });
     }
 
+    function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
+    function validateLogInAction() {
+      var email = GetLoginEmail();
+      var password = GetLoginPassword();
+      if (!email.trim().length > 0 || !password.trim().length > 0) {
+        showNotification("Warning", 'Email address and password are required');
+        return false;
+      }
+      if (!validateEmail(email)) {
+        showNotification("Warning", 'Please enter a valid email address');
+        return false;
+      }
+      return true;
+    }
+
+    function validateLogInKeep(email, password) {
+      var Getemail = email;
+      var Getpassword = password;
+      if (!Getemail.trim().length > 0 || !Getpassword.trim().length > 0) {
+        showNotification("Warning", 'Email address and password are required');
+        return false;
+      }
+      if (!validateEmail(Getemail)) {
+        showNotification("Warning", 'Please enter a valid email address');
+        return false;
+      }
+      return true;
+    }
+
+
+    function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
+      $.ajax({
+        type: type,
+        url: url,
+        contentType: contentType,
+        dataType: dataType,
+        data: data,
+        success: function (response) {
+          if (successCallBack) successCallBack(response, params);
+        },
+        failure: function (response) {
+          if (failureCallback) failureCallback(response.Message);
+          hideSpinner();
+        },
+        error: function (response) {
+          if (errorCallback) errorCallback(response.Message);
+          hideSpinner();
+        }
+      });
+    }
+
+    function showNotification(header, content) {
+      $('.col-header').text(header);
+      $('.col-content').text(content);
+      $(".Notification").show();
+    }
   });
 
   
@@ -721,35 +780,5 @@ var xhrRequest;
       });
     });
   };
-
-
-
-  function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
-    $.ajax({
-      type: type,
-      url: url,
-      contentType: contentType,
-      dataType: dataType,
-      data: data,
-      success: function (response) {
-        if (successCallBack) successCallBack(response, params);
-      },
-      failure: function (response) {
-        if (failureCallback) failureCallback(response.Message);
-        hideSpinner();
-      },
-      error: function (response) {
-        if (errorCallback) errorCallback(response.Message);
-        hideSpinner();
-      }
-    });
-  }
-
-  function showNotification(header, content) {
-    $('.col-header').text(header);
-    $('.col-content').text(content);
-    $(".Notification").show();
-  }
-
 })();
 
