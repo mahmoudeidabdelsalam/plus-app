@@ -31,11 +31,6 @@ var xhrRequest;
         if (valResult) {
           var decodedString = atob(GetKeep.password);
           logInUserKeep(GetKeep.email, decodedString);
-
-          var expires = new Date();
-          expires.setTime(expires.getTime() + (10 * 24 * 60 * 60 * 1000));
-          var UserKeep = { 'email': GetKeep.email, 'password': GetKeep.password, 'expires': expires };
-          localStorage.setItem('UserKeep', JSON.stringify(UserKeep));
         }
       }
     }
