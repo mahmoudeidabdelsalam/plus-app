@@ -461,6 +461,7 @@ div#Spinner {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   display: none;
+  z-index: 999999;
 }
 
 /** Main Area **/
@@ -554,7 +555,7 @@ ul#myTab span.icon {
 .dropdown-menu.acive {
   display: block;
   left: auto;
-  right: 20px;
+  right: 0;
   top: 75px;
 }
 
@@ -693,7 +694,7 @@ div#data-container ul.column-2 li span img {
 }
 
 section#content {
-  padding-bottom: 100px;
+  padding-bottom: 60px;
 }
 
 div#pagination {
@@ -799,11 +800,6 @@ div#data-container {
   position: relative;
   width: 100%;
 }
-
-div#Animation {
-  min-height: 600px;
-}
-
 
 li.item {
   padding: 0;
@@ -938,4 +934,29 @@ div#data-container ul li.headline a {
 div#data-container ul li.headline a span {
   position: relative;
   top: auto;
+}
+
+
+.Notification.home {
+  text-align: center;
+  border: 1px solid #f00;
+  border-radius: 4px;
+  text-transform: capitalize;
+  padding: 0;
+  box-shadow: 0 0 25px -20px #f00;
+}
+
+.Notification.home .col-block .col-header {
+  padding: 5px;
+  background: #d75a5a;
+  color: #fff;
+}
+
+div.Notification.home .col-block {
+  padding: 0;
+  margin: 0;
+}
+
+div.Notification.home .col-block span.col-content {
+  padding: 10px;
 }

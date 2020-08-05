@@ -5,7 +5,13 @@ var xhrRequest;
 (function () {
   "use strict";
 
-  // Login With Keep Rememeber Me
+  /**
+   * Login With Keep Rememeber Me
+   * check checed input RememberMe after click button
+   * add expires string (email - password hash and time)
+   * add local Storng items
+   * requestMethod Post.
+  */
   $(function () {
     $('#ButtonLogin').click(function () {
       if ($('input#RememberMe').is(':checked')) {
@@ -20,9 +26,25 @@ var xhrRequest;
     });
   });
 
-  // document
+
+  /**
+  * document Js
+  * Login Keep & login (Validate)
+  * Get Terms Items in login screen Home
+  * Get item by search
+  * get item by category
+  * get navbar Items
+  */
   $(document).ready(function () {
 
+
+    /**
+    * Login validate keep.
+    * check login keep.
+    * check today not equle expires day.
+    * @params email & password from localStorage.
+    * requestMethod POST.
+    */
     var GetKeep = JSON.parse(localStorage.getItem("UserKeep"));
     var today = new Date();
     if (GetKeep) {
@@ -47,19 +69,6 @@ var xhrRequest;
       CallWS(type, url, contentType, dataType, JSON.stringify(data), logInUserSuccessCallbackKeep, logInUserErrorCallbackKeep, null);
     }
 
-    // 1. Validate sign up and log in, on click and handle actions
-    $('#ButtonLogin').click(function () {
-      showSpinner();
-      setTimeout(
-        function () {
-          var valResult = validateLogInAction();            
-          showSpinner();
-          if (valResult) {
-            logInUser();
-          }
-        }, 100);
-    });
-
     function logInUserSuccessCallbackKeep(response) {
       if (response.data.IsSuccess) {
         hideSpinner();
@@ -81,6 +90,27 @@ var xhrRequest;
       showNotification("Error", 'Log in process failed');
       hideGroupSpinner();
     }
+
+
+
+    /**
+    * Validate sign up and log in, on click and handle actions.
+    * check login.
+    * @params email & password.
+    * requestMethod POST.
+    */
+
+    $('#ButtonLogin').click(function () {
+      showSpinner();
+      setTimeout(
+        function () {
+          var valResult = validateLogInAction();            
+          showSpinner();
+          if (valResult) {
+            logInUser();
+          }
+        }, 100);
+    });
 
     function logInUser() {
       var type = requestMethod.POST;
@@ -106,7 +136,7 @@ var xhrRequest;
         isUserLoggedIn = false;
         showLogInArea();
         hideSpinner();
-        showNotification("Information", response.message);
+        showNotification("failed", response.message);
       }
     }
 
@@ -116,7 +146,14 @@ var xhrRequest;
       hideGroupSpinner();
     }
 
-    // 1.1 Get Terms Items in login screen Home
+
+    /**
+    * Get Category navbar for screen Home.
+    * @params term_id.
+    * @result get all term (id - name - icon - column - pre_page - sources).
+    * requestMethod GET.
+    */
+
     $.ajax({
       type: 'GET',
       url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
@@ -151,6 +188,13 @@ var xhrRequest;
         showNotification("error", "Loding Filed 404");
       }
     });
+
+
+
+
+
+
+
 
 
     // 2. actions get main item for term id
@@ -485,6 +529,11 @@ var xhrRequest;
 
 
 
+
+
+
+
+
     // 6.1 function Geticons Item based post_id
     function GetIcons(post_id, column, number, sources, term, name) {
       var id = post_id;
@@ -558,6 +607,12 @@ var xhrRequest;
       });
     }
 
+
+
+
+
+
+
     // 7. function GetSearch Items based search_text & term_id
     function GetSearchContent(search_text, term_id, column) {
       var search_text = search_text;
@@ -602,39 +657,12 @@ var xhrRequest;
       });
     }
 
-    function validateEmail(email) {
-      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    }
 
-    function validateLogInAction() {
-      var email = GetLoginEmail();
-      var password = GetLoginPassword();
-      if (!email.trim().length > 0 || !password.trim().length > 0) {
-        showNotification("Warning", 'Email address and password are required');
-        return false;
-      }
-      if (!validateEmail(email)) {
-        showNotification("Warning", 'Please enter a valid email address');
-        return false;
-      }
-      return true;
-    }
 
-    function validateLogInKeep(email, password) {
-      var Getemail = email;
-      var Getpassword = password;
-      if (!Getemail.trim().length > 0 || !Getpassword.trim().length > 0) {
-        showNotification("Warning", 'Email address and password are required');
-        return false;
-      }
-      if (!validateEmail(Getemail)) {
-        showNotification("Warning", 'Please enter a valid email address');
-        return false;
-      }
-      return true;
-    }
 
+
+
+    
 
     function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
       $.ajax({
@@ -657,14 +685,15 @@ var xhrRequest;
       });
     }
 
-    function showNotification(header, content) {
-      $('.col-header').text(header);
-      $('.col-content').text(content);
-      $(".Notification").show();
-    }
   });
 
   
+
+
+
+
+
+
 
   Office.initialize = function (reason) { 
     $(document).ready(function () { 
