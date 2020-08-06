@@ -15,7 +15,6 @@ button:hover {
 }
 
 .warp {
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,6 +25,13 @@ button:hover {
 div#descrtion,
 div#login {
   width: 100%;
+}
+
+
+div#UserLogin {
+  min-height: 60vh;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
 }
 
 div#descrtion p,
@@ -958,4 +964,8 @@ div.Notification.home .col-block {
 
 div.Notification.home .col-block span.col-content {
   padding: 10px;
+}
+
+div#myTabContent {
+  min-height: 600px;
 }

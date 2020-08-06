@@ -36,27 +36,6 @@
     <link href="css/fabric.components.min.css" rel="stylesheet" />
     <title>Premast Plus</title>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-103603396-4"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-103603396-4');
-        </script>
-        <title>Premast Plus</title>
-
-        <script>
-      window.intercomSettings = {
-        app_id: "yjmtqih9"
-      };
-    </script>
-    <!-- intercom -->
-    <script>
-    // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/yjmtqih9'
-    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/yjmtqih9';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
-    </script>
 
   </head>
 
@@ -71,8 +50,8 @@
          
 
             <div class="col-12" id="header">
-              <img class="m-auto d-block img-fluid" src="Images/premast-plus-logo.png" alt="logo plus">
-              <span>Version 2.1.6</span>
+              <img id="logo" class="m-auto d-block img-fluid" src="" alt="logo plus">
+              <span>Version <span id="version"></span> </span>
             </div>
             
             <!-- Screen Home -->
@@ -145,17 +124,15 @@
               <span class="name">More</span>
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" id="goto-website" href="#">Go to website</a>
-              <a class="dropdown-item" id="goto-website" href="#">Collections</a>
-              <a class="dropdown-item" id="goto-community" href="#">Community</a>
-              <a class="dropdown-item" id="goto-support" href="#">Support</a>
-              <a class="dropdown-item" id="goto-terms" href="#">Terms of use</a>
+              <div id="links">
+
+              </div>
               <a class="dropdown-item" id="goto-signout" href="#">Sign out</a>
               <ul class="socialMedia">
-                <li><a href="https://www.facebook.com/premast.co/"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://twitter.com/Premast_co"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="https://www.instagram.com/premast.co/"><i class="fa fa-instagram"></i></a></li>
-                <li><a href="https://www.behance.net/Premast"><i class="fa fa-behance"></i></a></li>
+                <li><a href="https://www.facebook.com/premast.co/" target='_blank'><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/Premast_co" target='_blank'><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://www.instagram.com/premast.co/" target='_blank'><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://www.behance.net/Premast" target='_blank'><i class="fa fa-behance"></i></a></li>
               </ul>
             </div>
           </li>

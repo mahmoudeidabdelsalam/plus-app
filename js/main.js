@@ -28,22 +28,22 @@ var xhrRequest;
 
 
   /**
-  * document Js
-  * Login Keep & login (Validate)
-  * Get Terms Items in login screen Home
-  * Get item by search
-  * get item by category
-  * get navbar Items
+    * document Js
+    * Login Keep & login (Validate)
+    * Get Terms Items in login screen Home
+    * Get item by search
+    * get item by category
+    * get navbar Items
   */
   $(document).ready(function () {
 
 
     /**
-    * Login validate keep.
-    * check login keep.
-    * check today not equle expires day.
-    * @params email & password from localStorage.
-    * requestMethod POST.
+      * Login validate keep.
+      * check login keep.
+      * check today not equle expires day.
+      * @params email & password from localStorage.
+      * requestMethod POST.
     */
     var GetKeep = JSON.parse(localStorage.getItem("UserKeep"));
     var today = new Date();
@@ -92,12 +92,11 @@ var xhrRequest;
     }
 
 
-
     /**
-    * Validate sign up and log in, on click and handle actions.
-    * check login.
-    * @params email & password.
-    * requestMethod POST.
+      * Validate sign up and log in, on click and handle actions.
+      * check login.
+      * @params email & password.
+      * requestMethod POST.
     */
 
     $('#ButtonLogin').click(function () {
@@ -111,6 +110,26 @@ var xhrRequest;
           }
         }, 100);
     });
+
+
+    $('input#InputPassword').bind("enterLogin", function (e) {
+      showSpinner();
+      setTimeout(
+        function () {
+          var valResult = validateLogInAction();
+          showSpinner();
+          if (valResult) {
+            logInUser();
+          }
+        }, 100);
+    });
+
+    $('input#InputPassword').keyup(function (e) {
+      if (e.keyCode == 13) {
+        $(this).trigger("enterLogin");
+      }
+    });
+
 
     function logInUser() {
       var type = requestMethod.POST;
@@ -148,10 +167,10 @@ var xhrRequest;
 
 
     /**
-    * Get Category navbar for screen Home.
-    * @params term_id.
-    * @result get all term (id - name - icon - column - pre_page - sources).
-    * requestMethod GET.
+      * Get Category navbar for screen Home.
+      * @params term_id.
+      * @result get all term (id - name - icon - column - pre_page - sources).
+      * requestMethod GET.
     */
 
     $.ajax({
@@ -190,14 +209,55 @@ var xhrRequest;
     });
 
 
+    /**
+      * Get General Settings. 
+      * @result (Logo - version - links - scripts).
+      * requestMethod GET
+    */
+
+    $.ajax({
+      type: 'GET',
+      url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GeneralSettings,
+      contentType: requestContentType.JSON,
+      dataType: '',
+      beforeSend: function () {
+        $(".warp").hide();
+        $(".help-center").hide();
+        showSpinner();
+      },
+      success: function (response) {
+        var data = response.data
+        var scripts = data.scripts;
+        var logo = data.logo;
+        var version = data.version;
+        var links = data.links;
+        $("head").append(scripts);
+        $("#logo").attr("src", logo);
+        $("#version").append(version);
+        var len = links.length;
+        for (var i = 0; i < len; i++) {
+          console.log(links[i]);
+          var dropdown = "<a class='dropdown-item' target='_blank' href='"+links[i].link+"'>"+links[i].text+"</a>";
+          $("#links").append(dropdown);
+        }
+        
+        $(".warp").show();
+        $(".help-center").show();
+        hideSpinner();
+      },
+      error: function () {
+        showNotification("error", "404");
+      }
+    });
 
 
 
-
-
-
-
-    // 2. actions get main item for term id
+    /**
+      * actions get main item for term id
+      * @params term_id - column - Per_page - Sources.
+      * @result get items (view - content).
+      * requestMethod GET.
+    */
     $("body").on("click", ".term-link", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -214,8 +274,13 @@ var xhrRequest;
       });
     });
 
-    
-    // 2.1 actions get main items for child
+
+    /**
+      * actions get main items for child
+      * @params term_id - column - Per_page - Sources.
+      * @result get items (view - content).
+      * requestMethod GET.
+    */
     $("body").on("click", ".GetItems", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -223,18 +288,21 @@ var xhrRequest;
       var sources = $(this).attr("data-sources");
       var parent = $(this).attr("data-parent");
       var name = $(this).attr("data-name");
-      
-
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
       }, 100, function () {
         GetContent(term_id, column, per_page, sources, parent, name);
       });
-
     });
 
-    // 3. actions get main item for back term
+
+    /**
+      * actions get main item for back term
+      * @params term_id - column - Per_page - Sources.
+      * @result get items (view - content).
+      * requestMethod GET.
+    */
     $("body").on("click", ".back-link", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -253,7 +321,12 @@ var xhrRequest;
     });
 
 
-    // 3.1 actions get main item for back term
+    /**
+      * actions get Get icons
+      * @params term_id - column - Per_page - Sources.
+      * @result get items (view - content).
+      * requestMethod GET.
+    */
     $("body").on("click", ".GetIcons", function () {
       var post_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -269,6 +342,10 @@ var xhrRequest;
           GetIcons(post_id, column, per_page, sources, term, name);
       });
     });
+
+
+
+
 
 
     // 4. Search actions for items bsaed click or keyup or entr
@@ -304,7 +381,15 @@ var xhrRequest;
     });
 
 
+
     
+    
+
+
+
+
+
+
     // 5. function GetNavBar Items
     function GetNavBar() {
       $.ajax({
@@ -375,7 +460,7 @@ var xhrRequest;
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
-            showSpinner();
+            // showSpinner();
           },
           success: function (response) {
             $("#data-container").html("");
@@ -416,7 +501,7 @@ var xhrRequest;
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
-            showSpinner();
+            // showSpinner();
           },
           success: function (response) {
             $("#data-container").html("");
@@ -468,7 +553,7 @@ var xhrRequest;
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
-            showSpinner();
+            // showSpinner();
           },
           success: function (response) {
             $("#data-container").html("");

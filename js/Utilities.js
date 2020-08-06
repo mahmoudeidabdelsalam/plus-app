@@ -130,22 +130,6 @@ $(".dropdown-toggle").click(function () {
   $(".dropdown-menu").toggleClass("acive");
 });
 
-$('#goto-website').click(function () {
-  window.open("https://plus.premast.com/", "_blank");
-});
-
-$('#goto-community').click(function () {
-  window.open("https://premast.com/blog/", "_blank");
-});
-
-$('#goto-support').click(function () {
-  window.open("https://premast.com/contact-us/", "_blank");
-});
-
-$('#goto-terms').click(function () {
-  window.open("https://plus.premast.com/privacy-policy/", "_blank");
-});
-
 $('#goto-signout').click(function () {
   hideMainArea();
   showLogInArea();
