@@ -86,7 +86,6 @@ var xhrRequest;
     function logInUserErrorCallbackKeep(response) {
       showLogInArea();
       showNotification("Error", 'Log in process failed');
-      hideGroupSpinner();
     }
 
 
@@ -160,7 +159,6 @@ var xhrRequest;
     function logInUserErrorCallback(response) {
       showLogInArea();
       showNotification("Error", 'Log in process failed');
-      hideGroupSpinner();
     }
 
 
@@ -346,6 +344,16 @@ var xhrRequest;
 
 
 
+    /**
+      * actions get Get Insert Popup
+      * @params post_id
+      * @result get item (title - content - keywords).
+      * requestMethod GET.
+    */
+    $("body").on("click", ".overlay", function () {
+      var post_id = $(this).attr("data-id");
+      GetInsert(post_id);
+    });
 
 
 
@@ -519,11 +527,12 @@ var xhrRequest;
                 var dataHtml = '<div class="Collocations">';
                 $.each(data, function (index, item) {
                   dataHtml += '<ul class="column-icons">';
+                  dataHtml += '<a class="GetIcons overlayIcon" href="#" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"></a>';
                   dataHtml += '<li class="headline">' + item.Name + ' <a class="GetIcons" href="#" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"><span>More ...</span></a></li>';
                   var i = 0;
                   $.each(item.Collocations, function (index, icon) {
                     i++;
-                    if (i < 6 ){
+                    if (i < 5 ){
                       dataHtml += '<li><a href="#" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
                     }
                   });
@@ -570,8 +579,9 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert ' + item.Category + '"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-id="' + item.Id + '"><img alt="info item" title="'+item.Name+'" src="Images/info.png" /></span><a href="#"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
+
                 dataHtml += '</ul>';
 
                 if (parent_id) {
@@ -614,7 +624,46 @@ var xhrRequest;
 
 
 
+    function GetInsert(post_id) {
+      var id = post_id;
+      $.ajax({
+        type: 'GET',
+        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetIcons + id,
+        contentType: requestContentType.JSON,
+        dataType: '',
+        beforeSend: function () {
+          showSpinner();
+        },
+        success: function (response) {
+          hideSpinner();
+          $(".Notification").hide();
+          $('#exampleModal').modal('show');
 
+          var data  = response.data
+          var title = data[0].Name;
+          var link  = '<a href="#" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + title + '" /> Use this item</a>';
+          var view = '<img src="' + data[0].PreviewImage + '" alt="'+title+'" title="'+title+'"/>';
+
+          $("#exampleModal .modal-title").html(title);
+          $("#exampleModal .modal-footer").html(link);
+          $("#exampleModal .modal-body .view").html(view);
+
+          var tags = data[0].Tags;
+          var dataHtml = '<ul class="tags-list"> <h4>Keywords</h4>';
+          $.each(tags, function (index, item) {
+            dataHtml += '<li>'+item+'</li>';
+          });
+          dataHtml += '</ul>';
+
+          $("#exampleModal .modal-body .tags").html(dataHtml);
+          
+        },
+        error: function () {
+          hideSpinner();
+          showNotification("error", "Loding Filed 404");
+        }
+      });
+    }
 
 
 
@@ -692,10 +741,6 @@ var xhrRequest;
         }
       });
     }
-
-
-
-
 
 
 
@@ -860,8 +905,6 @@ var xhrRequest;
             },
             error: function (data) {
               console.log("runRequests Error", "user", arguments);
-              hideGroupSpinner();
-              hideTempSpinner();
             }
           });
 
@@ -882,8 +925,6 @@ var xhrRequest;
             },
             error: function (data) {
               console.log("runRequests Error", "user", arguments);
-              hideGroupSpinner();
-              hideTempSpinner();
             }
           });
         }

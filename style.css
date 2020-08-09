@@ -900,6 +900,7 @@ ul.column-icons {
   border-radius: 4px;
   margin: 2% !important;
   width: 96% !important;
+  padding: 10px !important;
 }
 
 ul.column-icons li {
@@ -976,4 +977,149 @@ div#data-container ul li .graphics img {
   width: auto !important;
   height: 100% !important;
   margin: auto;
+}
+
+.paginationjs .paginationjs-pages li.disabled a {
+  display: none;
+}
+
+div#data-container ul li .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(Slide17.jpg);
+  border: 0.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+div#data-container ul li .overlay img,
+div#data-container ul.term-graphics li .overlay img {
+  width: 23px !important;
+  height: 23px !important;
+  margin: 10px !important;
+  left: auto !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+div#data-container ul li:hover .overlay {
+  opacity: 1;
+}
+
+#exampleModal .modal-footer .clickToInsert {
+  background: #1E6DFB;
+  box-shadow: 0px 1px 2px rgba(41, 41, 77, 0.32);
+  border-radius: 4px;
+  padding: 5px 18px 4px;
+  float: left;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.04px;
+  color: #F4F7FD;
+}
+
+#exampleModal .modal-footer {
+  justify-content: flex-start;
+}
+
+#exampleModal h5#exampleModalLabel {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.04px;
+  color: #000000;
+}
+
+#exampleModal .modal-body .view {
+  border: 1px solid #DFE3E8;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 15px;
+}
+
+#exampleModal .modal-body .view img {
+  max-width: 100%;
+  margin: auto;
+  display: block;
+}
+
+#exampleModal .tags {
+  border: 1px solid #DFE3E8;
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin-top: 8px;
+  padding: 15px;
+}
+
+#exampleModal .tags h4 {
+  font-size: 11px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.04px;
+  color: #646464;
+}
+
+#exampleModal ul.tags-list {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+  width: 100%;
+}
+
+#exampleModal ul.tags-list li {
+  float: left;
+  background: #D2E2FE;
+  border-radius: 4px;
+  padding: 3px 11px;
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.04px;
+  text-transform: capitalize;
+  color: #282F39;
+  margin: 0 5px 5px 0;
+}
+
+#exampleModal .modal-footer .clickToInsert img {
+  position: relative;
+  top: -1px;
+  margin-right: 3px;
+}
+
+ul.column-icons:hover .overlayIcon {
+  background-color: rgba(0, 0, 0, 0.11);
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 9;
+  cursor: pointer;
+}
+
+ul.column-icons {
+  position: relative;
+}
+
+div#data-container ul li {
+  z-index: 99;
+}
+
+div#data-container ul li:hover {
+  border: 1px solid #989898 !important;
+}
+
+div#data-container ul li.headline:hover {
+  border: none !important;
 }
