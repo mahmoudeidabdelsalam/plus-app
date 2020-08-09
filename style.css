@@ -920,6 +920,7 @@ div#data-container ul li.headline {
   letter-spacing: 0.04px;
   color: #3F4A59;
   display: flex;
+  z-index: 1;
 }
 
 div#data-container ul li.headline:before {
@@ -985,16 +986,28 @@ div#data-container ul li .graphics img {
 
 div#data-container ul li .overlay {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 23px;
+  height: 23px;
   z-index: 99;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(Slide17.jpg);
   border: 0.5px solid rgba(0, 0, 0, 0.15);
   border-radius: 2px;
   align-items: flex-end;
   justify-content: flex-end;
   opacity: 0;
   transition: all 0.3s;
+  right: 0;
+  bottom: 0;
+  top: auto;
+}
+
+div#data-container ul li:hover:after {
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(Slide17.jpg);
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  pointer-events: none;
 }
 
 div#data-container ul li .overlay img,
@@ -1126,4 +1139,53 @@ div#data-container ul li.headline:hover {
 
 ul.column-icons li .clickToInsert {
   display: inline-block;
+}
+
+.paginationjs .paginationjs-pages li {
+  float: none !important;
+}
+
+div#UnsplashModal .modal-body {
+  padding: 6px;
+}
+
+div#UnsplashModal .modal-body .view img {
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+
+div#UnsplashModal .modal-body .view {
+  overflow: hidden;
+  border: 1px solid #DFE3E8;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+h5#UnsplashModallLabel {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 0.04px;
+  color: rgba(40, 47, 57, 0.6);
+  margin: 10px 0;
+}
+
+#UnsplashModal .modal-footer .clickToInsert {
+  background: #1E6DFB;
+  box-shadow: 0px 1px 2px rgba(41, 41, 77, 0.32);
+  border-radius: 4px;
+  padding: 5px 18px 4px;
+  float: left;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.04px;
+  color: #F4F7FD;
+}
+
+#UnsplashModal .modal-footer {
+  justify-content: flex-start;
 }

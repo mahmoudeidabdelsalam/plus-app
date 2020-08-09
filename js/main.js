@@ -232,7 +232,6 @@ var xhrRequest;
         $("#version").append(version);
         var len = links.length;
         for (var i = 0; i < len; i++) {
-          console.log(links[i]);
           var dropdown = "<a class='dropdown-item' target='_blank' href='"+links[i].link+"'>"+links[i].text+"</a>";
           $("#links").append(dropdown);
         }
@@ -262,6 +261,8 @@ var xhrRequest;
       var parent = $(this).attr("data-parent");
       var name = $(this).attr("data-name");
 
+
+
       $('.term-link').removeClass('active');
       $(this).addClass('active');
       $('#TextSearch').val("");
@@ -269,7 +270,12 @@ var xhrRequest;
         opacity: 0,
         left: "-100%",
         }, 100, function () {
-        GetContent(term_id, column, per_page, sources, parent, name);
+          if (name === 'background') {
+            GetUnImages();
+          } else {
+            GetContent(term_id, column, per_page, sources, parent, name);
+          }
+        
       });
     });
 
@@ -352,7 +358,17 @@ var xhrRequest;
     */
     $("body").on("click", ".overlay", function () {
       var post_id = $(this).attr("data-id");
-      GetInsert(post_id);
+      var sources = $(this).attr("data-sources");
+      var name = $(this).attr("data-name");
+      var url = $(this).attr("data-url");
+      var thumb = $(this).attr("data-thumb");
+
+      if (sources === 'unsplash') {
+        GetInsertUnsplash(post_id, name, url, thumb);
+      } else {
+        GetInsert(post_id);
+      }
+      
     });
 
 
@@ -378,25 +394,16 @@ var xhrRequest;
       }
     });
 
-    var typingTimer;                //timer identifier
-    var doneTypingInterval = 1200;  //time in ms
-    var searchBoxControl = $('#TextSearch');
-    $(searchBoxControl).on("keyup", function () {
-      var search_text = $('#TextSearch').val();
-      var term_id = $('.item a.active').data('id');
-      var column = $('.item a.active').data('column');
-      clearTimeout(typingTimer);
-      typingTimer = setTimeout(function () {GetSearchContent(search_text, term_id, column)}, doneTypingInterval);
-    });
-
-
-
-    
-    
-
-
-
-
+    // var typingTimer;                //timer identifier
+    // var doneTypingInterval = 1200;  //time in ms
+    // var searchBoxControl = $('#TextSearch');
+    // $(searchBoxControl).on("keyup", function () {
+    //   var search_text = $('#TextSearch').val();
+    //   var term_id = $('.item a.active').data('id');
+    //   var column = $('.item a.active').data('column');
+    //   clearTimeout(typingTimer);
+    //   typingTimer = setTimeout(function () {GetSearchContent(search_text, term_id, column)}, doneTypingInterval);
+    // });
 
 
     // 5. function GetNavBar Items
@@ -445,13 +452,6 @@ var xhrRequest;
     }
 
 
-
-
-
-
-
-
-
     // 6. function GetContent Items based term_id
     function GetContent(Term_id, column, number, sources, parent, name) {
       var id = Term_id;
@@ -473,6 +473,7 @@ var xhrRequest;
           },
           success: function (response) {
             $("#data-container").html("");
+            $("#pagination").html("");
             hideSpinner();
             $(".Notification").hide();
             $('.search .term-link').remove();
@@ -514,6 +515,7 @@ var xhrRequest;
           },
           success: function (response) {
             $("#data-container").html("");
+            $("#pagination").html("");
             hideSpinner();
             $(".Notification").hide();
             
@@ -567,10 +569,13 @@ var xhrRequest;
           },
           success: function (response) {
             $("#data-container").html("");
+            $("#pagination").html("");
             hideSpinner();
             $(".Notification").hide();
 
             var data = response.data
+
+            
             let container = $('#pagination');
             container.pagination({
               dataSource: data,
@@ -579,7 +584,7 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-id="' + item.Id + '"><img alt="info item" title="'+item.Name+'" src="Images/info.png" /></span><a href="#"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="#"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
                 dataHtml += '</ul>';
@@ -623,6 +628,72 @@ var xhrRequest;
     }
 
 
+    function GetUnImages() {
+
+      $("#data-container").html("");
+      $("#pagination").html("");
+
+      var client_id = 'SqQU7CUehQAQhsHKri59zF2pXZ8xMtVUZwp8ZQIj0MY';
+      var limit = 20;
+
+      function unsplash(more) {
+        $.ajax({
+          url: 'https://api.unsplash.com/photos',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            client_id: client_id,
+            page: more,
+            per_page: limit
+          },
+          success: function (data) {
+            var dataHtml = '<ul class="column-2">';
+            $.each(data, function (i, item) {
+              dataHtml += '<li><span class="overlay" data-sources="unsplash" data-name="' + item.alt_description + '" data-thumb="' + item.urls.thumb + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="#" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
+            });
+            dataHtml += '</ul>';
+            $("#data-container").animate({
+              opacity: 1,
+              left: "0"
+            }, 100, function () {
+              $("#data-container").append(dataHtml).show("slow");
+            });
+
+            var paginationjs = '<div class="paginationjs"><div class="paginationjs-pages"><li class="paginationjs-page paginationjs-next"><a href="'+more+'" class="more"></a></li></div></div>'
+            $("#pagination").html(paginationjs);
+          }
+        });
+      }
+
+
+      //Click function to get the next page
+      $("body").on("click", ".more", function () {
+        var page = $("#pagination .more").attr('href');
+        page++;
+        unsplash(page);
+        return false;
+      });
+      $("#pagination .more").change(unsplash(1));
+    }
+
+
+
+    function GetInsertUnsplash(post_id, name, url, thumb) {
+      var item_name = name;
+      var item_url = url;
+      var item_thum = thumb;
+      $('#UnsplashModal').modal('show');
+
+      var popup_name = '<img src="Images/unsplash.png" alt="Unsplash" title="Unsplash" /> Photo by Unsplash | "'+item_name+'"';
+      var link = '<a href="#" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + item_name + '" /> Use this photo</a>';
+      var view = '<img src="' + item_thum + '" alt="' + item_name + '" title="' + item_name + '"/>';
+
+      $("#UnsplashModal .modal-title").html(popup_name);
+      $("#UnsplashModal .modal-footer").html(link);
+      $("#UnsplashModal .modal-body .view").html(view);
+
+    }
+
 
     function GetInsert(post_id) {
       var id = post_id;
@@ -640,6 +711,7 @@ var xhrRequest;
           $('#exampleModal').modal('show');
 
           var data  = response.data
+
           var title = data[0].Name;
           var link  = '<a href="#" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + title + '" /> Use this item</a>';
           var view = '<img src="' + data[0].PreviewImage + '" alt="'+title+'" title="'+title+'"/>';
@@ -666,9 +738,6 @@ var xhrRequest;
     }
 
 
-
-
-
     // 6.1 function Geticons Item based post_id
     function GetIcons(post_id, column, number, sources, term, name) {
       var id = post_id;
@@ -687,6 +756,7 @@ var xhrRequest;
         },
         success: function (response) {
           $("#data-container").html("");
+          $("#pagination").html("");
           hideSpinner();
           $(".Notification").hide();
 
@@ -743,7 +813,6 @@ var xhrRequest;
     }
 
 
-
     // 7. function GetSearch Items based search_text & term_id
     function GetSearchContent(search_text, term_id, column) {
       var search_text = search_text;
@@ -789,12 +858,6 @@ var xhrRequest;
     }
 
 
-
-
-
-
-    
-
     function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
       $.ajax({
         type: type,
@@ -817,13 +880,6 @@ var xhrRequest;
     }
 
   });
-
-  
-
-
-
-
-
 
 
   Office.initialize = function (reason) { 
