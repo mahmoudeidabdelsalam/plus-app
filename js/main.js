@@ -270,7 +270,7 @@ var xhrRequest;
         opacity: 0,
         left: "-100%",
         }, 100, function () {
-          if (name === 'background') {
+          if (name === 'background' || name === 'Images' || name === 'images') {
             GetUnImages();
           } else {
             GetContent(term_id, column, per_page, sources, parent, name);
