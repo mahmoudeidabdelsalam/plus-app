@@ -36,8 +36,6 @@ var xhrRequest;
     * get navbar Items
   */
   $(document).ready(function () {
-
-
     /**
       * Login validate keep.
       * check login keep.
@@ -263,6 +261,9 @@ var xhrRequest;
       var column = $(this).attr("data-column");
       var per_page = $(this).attr("data-number");
       var sources = $(this).attr("data-sources");
+      var parent = $(this).attr("data-parent");
+      var name = $(this).attr("data-name");
+
       $('.term-link').removeClass('active');
       $(this).addClass('active');
       $('#TextSearch').val("");
@@ -270,7 +271,7 @@ var xhrRequest;
         opacity: 0,
         left: "-100%",
         }, 100, function () {
-        GetContent(term_id, column, per_page, sources);
+        GetContent(term_id, column, per_page, sources, parent, name);
       });
     });
 
@@ -421,7 +422,7 @@ var xhrRequest;
               column = 2;
             }
 
-            var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources +"' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "'>" +
+            var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "' data-name='" + name + "'>" +
               "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
               "<span class='name'>" + name + "</span>" +
               "</a></li>";
@@ -475,7 +476,7 @@ var xhrRequest;
               callback: function (data, pagination) {
                 var dataHtml = '<ul class="column-' + column_nu + '">';
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-name="'+ item.name +'" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
+                  dataHtml += '<li><a href="#" data-name="' + item.name + '" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems ' + item.Category + '"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
                 });
                 dataHtml += '</ul>';
                 $("#data-container").animate({
@@ -523,7 +524,7 @@ var xhrRequest;
                   $.each(item.Collocations, function (index, icon) {
                     i++;
                     if (i < 6 ){
-                      dataHtml += '<li><a href="#" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
+                      dataHtml += '<li><a href="#" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
                     }
                   });
                   dataHtml += '</ul>';
@@ -566,10 +567,10 @@ var xhrRequest;
               dataSource: data,
               pageSize: per_page,
               callback: function (data, pagination) {
-                var dataHtml = '<ul class="column-' + column_nu + '">';
+                var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert ' + item.Category + '"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
                 dataHtml += '</ul>';
 
@@ -864,7 +865,7 @@ var xhrRequest;
             }
           });
 
-        } else if (type == 'svg') {
+        } else if (type == 'svg' || type == 'svg+xml') {
           coercionTypeOfItem = Office.CoercionType.XmlSvg;
           $.ajax({
             type: requestMethod.GET,

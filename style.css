@@ -970,3 +970,10 @@ div.Notification.home .col-block span.col-content {
 div#myTabContent {
   min-height: 600px;
 }
+
+div#data-container ul.term-graphics li span img,
+div#data-container ul li .graphics img {
+  width: auto !important;
+  height: 100% !important;
+  margin: auto;
+}
