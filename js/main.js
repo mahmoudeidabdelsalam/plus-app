@@ -461,7 +461,7 @@ var xhrRequest;
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
-            // showSpinner();
+            showSpinner();
           },
           success: function (response) {
             $("#data-container").html("");
@@ -502,7 +502,7 @@ var xhrRequest;
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
-            // showSpinner();
+            showSpinner();
           },
           success: function (response) {
             $("#data-container").html("");
@@ -554,7 +554,7 @@ var xhrRequest;
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
-            // showSpinner();
+            showSpinner();
           },
           success: function (response) {
             $("#data-container").html("");
