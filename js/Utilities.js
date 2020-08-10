@@ -64,8 +64,12 @@ function showPassword() {
   var x = document.getElementById("InputPassword");
   if (x.type === "password") {
     x.type = "text";
+    $('#showPassword .fa').removeClass('fa-eye-slash');
+    $('#showPassword .fa').addClass('fa-eye');
   } else {
     x.type = "password";
+    $('#showPassword .fa').addClass('fa-eye-slash');
+    $('#showPassword .fa').removeClass('fa-eye');
   }
 }
 

@@ -18,7 +18,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgb(255, 255, 255);
+  background: #F9F9F9;
   min-width: 330px;
 }
 
@@ -678,8 +678,8 @@ div#data-container ul li {
 div#data-container ul li span {
   width: 100%;
   position: absolute;
-  top: 0;
-  height: 100%;
+  top: 7px;
+  height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1011,6 +1011,10 @@ div#data-container ul li:hover:after {
   pointer-events: none;
 }
 
+div#data-container .column-icons li:hover::after {
+  display: none;
+}
+
 div#data-container ul li .overlay img,
 div#data-container ul.term-graphics li .overlay img {
   width: 23px !important;
@@ -1131,16 +1135,13 @@ div#data-container ul li {
   z-index: 99;
 }
 
-div#data-container ul li:hover {
-  border: 1px solid #989898 !important;
-}
 
 div#data-container ul li.headline:hover {
   border: none !important;
 }
 
-ul.column-icons li .clickToInsert {
-  display: inline-block;
+ul.column-icons li::before {
+  padding-top: 65%;
 }
 
 .paginationjs .paginationjs-pages li {

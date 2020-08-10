@@ -52,14 +52,6 @@ ul#myTab span.name {
   color: #ffffffe3;
 }
 
-* {
-  transition: all .3s;
-   !important transition-property: all;
-  transition-duration: 0.3s;
-  transition-timing-function: ease;
-  transition-delay: 0s;
-}
-
 .fa-search:before {
   color: #BDC5CF;
 }
@@ -128,4 +120,48 @@ div#data-container ul.column-2 li span img {
   width: 100%;
   height: auto;
   border-radius: 3px;
+}
+
+
+
+.button-login #SignIn {
+  width: 75%;
+}
+
+#CreateAccount {
+  margin-top: 10px;
+}
+
+div#UserLogin {
+  background-color: #F9F9F9;
+}
+
+ul.socialMedia {
+  padding: 7px;
+}
+
+ul.socialMedia li a {
+  font-size: 22px;
+}
+
+div#data-container ul.column-4 li {
+  box-shadow: none;
+  border: 1px solid #BEC6D2;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  height: 74px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+div#data-container ul.column-4 li:hover, 
+div#data-container ul.column-icons li:hover {
+  opacity: .9;
+  background-color: #ebecec;
+}
+
+html,
+body {
+  background: #F9F9F9;
 }
