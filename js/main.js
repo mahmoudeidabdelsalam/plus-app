@@ -633,6 +633,7 @@ var xhrRequest;
 
       $("#data-container").html("");
       $("#pagination").html("");
+      $(".Notification").hide();
 
       var client_id = 'SqQU7CUehQAQhsHKri59zF2pXZ8xMtVUZwp8ZQIj0MY';
       var limit = 20;
