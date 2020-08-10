@@ -379,6 +379,11 @@ var xhrRequest;
       var search_text = $('#TextSearch').val();
       var term_id = $('.item a.active').data('id');
       var column = $('.item a.active').data('column');
+
+      if (search_text === '') {
+        return false;
+      }
+
       GetSearchContent(search_text, term_id, column);
     });
     
@@ -386,6 +391,9 @@ var xhrRequest;
       var search_text = $('#TextSearch').val();
       var term_id = $('.item a.active').data('id');
       var column = $('.item a.active').data('column');
+      if (search_text === '') {
+        return false;
+      }
       GetSearchContent(search_text, term_id, column);
     });
 
