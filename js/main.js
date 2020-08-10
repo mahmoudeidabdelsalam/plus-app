@@ -362,9 +362,10 @@ var xhrRequest;
       var name = $(this).attr("data-name");
       var url = $(this).attr("data-url");
       var thumb = $(this).attr("data-thumb");
+      var links = $(this).attr("data-links");
 
       if (sources === 'unsplash') {
-        GetInsertUnsplash(post_id, name, url, thumb);
+        GetInsertUnsplash(post_id, name, url, thumb, links);
       } else {
         GetInsert(post_id);
       }
@@ -649,7 +650,7 @@ var xhrRequest;
           success: function (data) {
             var dataHtml = '<ul class="column-2">';
             $.each(data, function (i, item) {
-              dataHtml += '<li><span class="overlay" data-sources="unsplash" data-name="' + item.alt_description + '" data-thumb="' + item.urls.thumb + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="#" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
+              dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="'+item.user.links.html+'" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="#" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
             });
             dataHtml += '</ul>';
             $("#data-container").animate({
@@ -678,13 +679,15 @@ var xhrRequest;
 
 
 
-    function GetInsertUnsplash(post_id, name, url, thumb) {
+    function GetInsertUnsplash(post_id, name, url, thumb, links) {
       var item_name = name;
       var item_url = url;
       var item_thum = thumb;
+      var item_links = links;
+
       $('#UnsplashModal').modal('show');
 
-      var popup_name = '<img src="Images/unsplash.png" alt="Unsplash" title="Unsplash" /> Photo by Unsplash | "'+item_name+'"';
+      var popup_name = '<img src="Images/unsplash.png" alt="Unsplash" title="Unsplash" /> Photo by Unsplash | <a target="_blank" href="'+item_links+'">'+item_name+'</a>';
       var link = '<a href="#" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + item_name + '" /> Use this photo</a>';
       var view = '<img src="' + item_thum + '" alt="' + item_name + '" title="' + item_name + '"/>';
 
@@ -818,43 +821,83 @@ var xhrRequest;
       var search_text = search_text;
       var term_id = term_id;
       var column_nu = column;
-      $.ajax({
-        type: 'GET',
-        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.WithCategory + term_id ,
-        contentType: requestContentType.JSON,
-        dataType: '',
-        beforeSend: function () {
-          showSpinner();
-          $("#data-container").html();
-        },
-        success: function (response) {
-          hideSpinner();
-          $(".Notification").hide();
+      if (term_id === 23 || term_id === 25) {
+        $.ajax({
+          type: 'GET',
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.WithCategory + term_id,
+          contentType: requestContentType.JSON,
+          dataType: '',
+          beforeSend: function () {
+            showSpinner();
+            $("#data-container").html("");
+          },
+          success: function (response) {
+            hideSpinner();
+            $("#data-container").html("");
+            $(".Notification").hide();
+            $("#pagination").html("");
 
-          var data = response.data
-          if (data) {
-            let container = $('#pagination');
-            container.pagination({
-              dataSource: data,
-              callback: function (data, pagination) {
-                var dataHtml = '<ul class="column-' + column_nu + '">';
-                $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
-                });
-                dataHtml += '</ul>';
-                $("#data-container").html(dataHtml);
-              }
-            })
-          } else {
-            showNotification("Nothing found for that search.", "How about checking this collections");
+            var data = response.data
+            if (data) {
+              var dataHtml = '<ul class="column-' + column_nu + '">';
+              $.each(data, function (index, item) {
+                if (item.Collocations) {
+                  dataHtml += '<li><a href="#" data-type="svg" data-url="' + item.Collocations + '" class="clickToInsert"><span><img src="' + item.Collocations + '" /></span></a></li>';
+                }
+              });
+              dataHtml += '</ul>';
+              $("#data-container").append(dataHtml);
+
+            } else {
+              showNotification("Nothing found for that search.", "How about checking this collections");
+            }
+
+          },
+          error: function () {
+            hideSpinner();
+            showNotification("error", "Loding Filed 404");
           }
-          
-        },
-        error: function () {
-          hideSpinner();
-          showNotification("error", "Loding Filed 404");
-        }
-      });
+        });
+      } else {
+        $.ajax({
+          type: 'GET',
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.WithCategory + term_id,
+          contentType: requestContentType.JSON,
+          dataType: '',
+          beforeSend: function () {
+            showSpinner();
+            $("#data-container").html("");
+          },
+          success: function (response) {
+            hideSpinner();
+            $("#data-container").html("");
+            $(".Notification").hide();
+
+            var data = response.data
+            if (data) {
+              let container = $('#pagination');
+              container.pagination({
+                dataSource: data,
+                callback: function (data, pagination) {
+                  var dataHtml = '<ul class="column-' + column_nu + '">';
+                  $.each(data, function (index, item) {
+                    dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  });
+                  dataHtml += '</ul>';
+                  $("#data-container").append(dataHtml);
+                }
+              })
+            } else {
+              showNotification("Nothing found for that search.", "How about checking this collections");
+            }
+
+          },
+          error: function () {
+            hideSpinner();
+            showNotification("error", "Loding Filed 404");
+          }
+        });
+      }
     }
 
 

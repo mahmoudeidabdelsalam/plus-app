@@ -667,7 +667,7 @@ div#data-container ul {
 div#data-container ul li {
   width: 45%;
   flex: 0 0 45%;
-  border: none;
+  border: 1px solid transparent;
   margin: 2%;
   position: relative;
   overflow: hidden;
@@ -1190,4 +1190,8 @@ h5#UnsplashModallLabel {
 
 #UnsplashModal .modal-footer {
   justify-content: flex-start;
+}
+
+h5#UnsplashModallLabel a {
+  color: rgba(40, 47, 57, 0.6);
 }
