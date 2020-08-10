@@ -165,3 +165,7 @@ html,
 body {
   background: #F9F9F9;
 }
+
+div#data-container ul li {
+  background-color: #fff;
+}
