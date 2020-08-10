@@ -26,7 +26,6 @@ var xhrRequest;
     });
   });
 
-
   /**
     * document Js
     * Login Keep & login (Validate)
@@ -36,6 +35,7 @@ var xhrRequest;
     * get navbar Items
   */
   $(document).ready(function () {
+
     /**
       * Login validate keep.
       * check login keep.
@@ -127,7 +127,6 @@ var xhrRequest;
       }
     });
 
-
     function logInUser() {
       var type = requestMethod.POST;
       var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
@@ -160,7 +159,6 @@ var xhrRequest;
       showLogInArea();
       showNotification("Error", 'Log in process failed');
     }
-
 
     /**
       * Get Category navbar for screen Home.
@@ -204,7 +202,6 @@ var xhrRequest;
       }
     });
 
-
     /**
       * Get General Settings. 
       * @result (Logo - version - links - scripts).
@@ -245,8 +242,6 @@ var xhrRequest;
       }
     });
 
-
-
     /**
       * actions get main item for term id
       * @params term_id - column - Per_page - Sources.
@@ -260,10 +255,10 @@ var xhrRequest;
       var sources = $(this).attr("data-sources");
       var parent = $(this).attr("data-parent");
       var name = $(this).attr("data-name");
-
-
-
+      
+      $(".dropdown-menu").removeClass("acive");
       $('.term-link').removeClass('active');
+
       $(this).addClass('active');
       $('#TextSearch').val("");
       $("#data-container").animate({
@@ -278,7 +273,6 @@ var xhrRequest;
         
       });
     });
-
 
     /**
       * actions get main items for child
@@ -300,7 +294,6 @@ var xhrRequest;
         GetContent(term_id, column, per_page, sources, parent, name);
       });
     });
-
 
     /**
       * actions get main item for back term
@@ -325,7 +318,6 @@ var xhrRequest;
       });
     });
 
-
     /**
       * actions get Get icons
       * @params term_id - column - Per_page - Sources.
@@ -348,8 +340,6 @@ var xhrRequest;
       });
     });
 
-
-
     /**
       * actions get Get Insert Popup
       * @params post_id
@@ -371,8 +361,6 @@ var xhrRequest;
       }
       
     });
-
-
 
     // 4. Search actions for items bsaed click or keyup or entr
     $("body").on("click", "#submitSearch", function () {
@@ -459,6 +447,15 @@ var xhrRequest;
         }
       });
     }
+
+
+
+
+
+
+
+
+
 
 
     // 6. function GetContent Items based term_id
@@ -637,7 +634,16 @@ var xhrRequest;
     }
 
 
-    function GetUnImages() {
+
+
+
+    function GetUnImages(search_text) {
+
+      if (search_text) {
+        var url = 'https://api.unsplash.com/search/photos/';
+      } else {
+        var url = 'https://api.unsplash.com/photos';
+      }
 
       $("#data-container").html("");
       $("#pagination").html("");
@@ -648,29 +654,44 @@ var xhrRequest;
 
       function unsplash(more) {
         $.ajax({
-          url: 'https://api.unsplash.com/photos',
+          url: url,
           type: 'GET',
           dataType: 'json',
           data: {
             client_id: client_id,
             page: more,
-            per_page: limit
+            per_page: limit,
+            query: search_text
           },
           success: function (data) {
-            var dataHtml = '<ul class="column-2">';
-            $.each(data, function (i, item) {
-              dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="'+item.user.links.html+'" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="#" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
-            });
-            dataHtml += '</ul>';
-            $("#data-container").animate({
-              opacity: 1,
-              left: "0"
-            }, 100, function () {
-              $("#data-container").append(dataHtml).show("slow");
-            });
+            
+            console.log(data.results);
 
-            var paginationjs = '<div class="paginationjs"><div class="paginationjs-pages"><li class="paginationjs-page paginationjs-next"><a href="'+more+'" class="more"></a></li></div></div>'
-            $("#pagination").html(paginationjs);
+            if (search_text) {
+              var items = data.results;
+            } else {
+              var items = data;
+            }
+
+            if(items != '') {
+              var dataHtml = '<ul class="column-2">';
+              $.each(items, function (i, item) {
+                dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="' + item.user.links.html + '" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="#" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
+              });
+              dataHtml += '</ul>';
+              $("#data-container").animate({
+                opacity: 1,
+                left: "0"
+              }, 100, function () {
+                $("#data-container").append(dataHtml).show("slow");
+              });
+
+              var paginationjs = '<div class="paginationjs"><div class="paginationjs-pages"><li class="paginationjs-page paginationjs-next"><a href="' + more + '" class="more"></a></li></div></div>'
+              $("#pagination").html(paginationjs);
+            } else {
+              showNotification("Nothing found for that search.", "How about checking this collections");
+            }
+            
           }
         });
       }
@@ -825,6 +846,8 @@ var xhrRequest;
     }
 
 
+
+
     // 7. function GetSearch Items based search_text & term_id
     function GetSearchContent(search_text, term_id, column) {
       var search_text = search_text;
@@ -865,6 +888,9 @@ var xhrRequest;
             showNotification("error", "Loding Filed 404");
           }
         });
+      } 
+      else if (term_id === 42 || term_id === 15) {
+        GetUnImages(search_text);
       } else {
         $.ajax({
           type: 'GET',
@@ -908,6 +934,9 @@ var xhrRequest;
     }
 
 
+
+
+
     function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
       $.ajax({
         type: type,
@@ -930,6 +959,15 @@ var xhrRequest;
     }
 
   });
+
+
+
+
+
+
+
+
+
 
 
   Office.initialize = function (reason) { 
