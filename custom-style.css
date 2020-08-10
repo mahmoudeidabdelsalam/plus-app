@@ -5,9 +5,7 @@ div#data-container ul  {
 div#header img {
   max-width: 208px;
 }
-div#data-container ul.column-2 li {
-  border: none;
-}
+
 div#data-container ul.column-2 li span img {
   width: 100%;
   height: auto;
