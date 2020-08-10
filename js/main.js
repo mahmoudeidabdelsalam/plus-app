@@ -836,14 +836,12 @@ var xhrRequest;
             $("#data-container").html("");
             $(".Notification").hide();
             $("#pagination").html("");
-
+            
             var data = response.data
             if (data) {
               var dataHtml = '<ul class="column-' + column_nu + '">';
               $.each(data, function (index, item) {
-                if (item.Collocations) {
-                  dataHtml += '<li><a href="#" data-type="svg" data-url="' + item.Collocations + '" class="clickToInsert"><span><img src="' + item.Collocations + '" /></span></a></li>';
-                }
+                dataHtml += '<li><a href="#" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").append(dataHtml);
