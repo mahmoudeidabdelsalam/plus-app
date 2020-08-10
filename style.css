@@ -1009,6 +1009,7 @@ div#data-container ul li:hover:after {
   height: 100%;
   top: 0;
   pointer-events: none;
+  left: 0;
 }
 
 div#data-container .column-icons li:hover::after {
