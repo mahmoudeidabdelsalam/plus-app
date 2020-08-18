@@ -94,8 +94,7 @@ var xhrRequest;
       * check login.
       * @params email & password.
       * requestMethod POST.
-    */
-
+    **/
     $('#ButtonLogin').click(function () {
       showSpinner();
       setTimeout(
@@ -107,7 +106,6 @@ var xhrRequest;
           }
         }, 100);
     });
-
 
     $('input#InputPassword').bind("enterLogin", function (e) {
       showSpinner();
@@ -165,8 +163,7 @@ var xhrRequest;
       * @params term_id.
       * @result get all term (id - name - icon - column - pre_page - sources).
       * requestMethod GET.
-    */
-
+    **/
     $.ajax({
       type: 'GET',
       url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
@@ -206,8 +203,7 @@ var xhrRequest;
       * Get General Settings. 
       * @result (Logo - version - links - scripts).
       * requestMethod GET
-    */
-
+    **/
     $.ajax({
       type: 'GET',
       url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GeneralSettings,
@@ -247,7 +243,7 @@ var xhrRequest;
       * @params term_id - column - Per_page - Sources.
       * @result get items (view - content).
       * requestMethod GET.
-    */
+    **/
     $("body").on("click", ".term-link", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -279,7 +275,7 @@ var xhrRequest;
       * @params term_id - column - Per_page - Sources.
       * @result get items (view - content).
       * requestMethod GET.
-    */
+    **/
     $("body").on("click", ".GetItems", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -300,7 +296,7 @@ var xhrRequest;
       * @params term_id - column - Per_page - Sources.
       * @result get items (view - content).
       * requestMethod GET.
-    */
+    **/
     $("body").on("click", ".back-link", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -341,7 +337,7 @@ var xhrRequest;
     });
 
     /**
-      * actions get Get Insert Popup
+      * function get Get Insert Popup
       * @params post_id
       * @result get item (title - content - keywords).
       * requestMethod GET.
@@ -353,16 +349,21 @@ var xhrRequest;
       var url = $(this).attr("data-url");
       var thumb = $(this).attr("data-thumb");
       var links = $(this).attr("data-links");
-
       if (sources === 'unsplash') {
         GetInsertUnsplash(post_id, name, url, thumb, links);
       } else {
         GetInsert(post_id);
       }
-      
     });
 
-    // 4. Search actions for items bsaed click or keyup or entr
+
+
+    /**
+      * function Search actions for items bsaed click or keyup or entr
+      * @params post_id
+      * @result get item (title - content - keywords).
+      * requestMethod GET.
+    */
     $("body").on("click", "#submitSearch", function () {
       var search_text = $('#TextSearch').val();
       var term_id = $('.item a.active').data('id');
@@ -391,70 +392,71 @@ var xhrRequest;
       }
     });
 
-    // var typingTimer;                //timer identifier
-    // var doneTypingInterval = 1200;  //time in ms
+    // var typingTimer;
+    // var doneTypingInterval = 1200;ش
     // var searchBoxControl = $('#TextSearch');
     // $(searchBoxControl).on("keyup", function () {
     //   var search_text = $('#TextSearch').val();
     //   var term_id = $('.item a.active').data('id');
     //   var column = $('.item a.active').data('column');
     //   clearTimeout(typingTimer);
-    //   typingTimer = setTimeout(function () {GetSearchContent(search_text, term_id, column)}, doneTypingInterval);
+    //   typingTimer = setTimeout(function () {
+    //     GetSearchContent(search_text, term_id, column)
+    //   }, doneTypingInterval);
     // });
 
 
-    // 5. function GetNavBar Items
-    function GetNavBar() {
-      $.ajax({
-        type: 'GET',
-        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
-        contentType: requestContentType.JSON,
-        dataType: '',
-        beforeSend: function () {
-          showSpinner();
-        },
-        success: function (response) {
-          hideSpinner();
-          $(".Notification").hide();
-          var data = response.data
-          var len = data.length;
-          for (var i = 0; i < len; i++) {
-            var active = "";
-            if(i == 0) {
-              active = "active";
-            }
-            var name = data[i].name;
-            var id = data[i].id;
-            var icon = data[i].icon;
-            var column = data[i].column;
-            var number = data[i].pre_page;
-            var sources = data[i].sources;
 
-            if (column === null || column === undefined) {
-              column = 2;
-            }
+  /**
+    * function Get NavBar.
+    * @params getCategory
+    * @result getTerms (title - id - column - number - sources).
+    * requestMethod GET.
+  */
 
-            var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "' data-name='" + name + "'>" +
-              "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
-              "<span class='name'>" + name + "</span>" +
-              "</a></li>";
-            $("#myTab").append(item_term);
+  function GetNavBar() {
+    $.ajax({
+      type: 'GET',
+      url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
+      contentType: requestContentType.JSON,
+      dataType: '',
+      beforeSend: function () {
+        showSpinner();
+      },
+      success: function (response) {
+        hideSpinner();
+        $(".Notification").hide();
+        var data = response.data
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
+          var active = "";
+          if(i == 0) {
+            active = "active";
           }
-        },
-        error: function () {
-          hideSpinner();
-          showNotification("error", "Loding Filed 404");
+          var name = data[i].name;
+          var id = data[i].id;
+          var icon = data[i].icon;
+          var column = data[i].column;
+          var number = data[i].pre_page;
+          var sources = data[i].sources;
+
+          if (column === null || column === undefined) {
+            column = 2;
+          }
+
+          var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "' data-name='" + name + "'>" +
+            "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
+            "<span class='name'>" + name + "</span>" +
+            "</a></li>";
+          $("#myTab").append(item_term);
         }
-      });
-    }
-
-
-
-
-
-
-
-
+      },
+      error: function () {
+        hideSpinner();
+        showNotification("error", "Loding Filed 404");
+      }
+    });
+  }
 
 
 
@@ -578,21 +580,27 @@ var xhrRequest;
             $("#pagination").html("");
             hideSpinner();
             $(".Notification").hide();
-
+            GetAds('#banner-1', 1);
             var data = response.data
 
-            
+            var currPage = 0;
+
             let container = $('#pagination');
             container.pagination({
               dataSource: data,
               pageSize: per_page,
+
               callback: function (data, pagination) {
+
+                ++currPage;
+
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
                   dataHtml += '<li><span class="overlay item-' + parent_name + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="#"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
+                dataHtml += '<div id="banner-'+currPage+'"></div>';
                 dataHtml += '</ul>';
 
                 if (parent_id) {
@@ -621,8 +629,16 @@ var xhrRequest;
                 }, 100, function () {
                   $("#data-container").append(dataHtml).show("slow");
                 });
-              }
+              },
+
+              afterNextOnClick: function () {
+                GetAds('#banner-' + currPage, 2);
+              },
+
             })
+
+
+
           },
           error: function () {
             hideSpinner();
@@ -635,6 +651,37 @@ var xhrRequest;
 
 
 
+    function GetAds(id, number) {
+      var ads_id = id;
+      var ads_nu = number;
+
+      console.log(ads_id);
+
+  
+      $.ajax({
+        type: 'GET',
+        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GeneralSettings,
+        contentType: requestContentType.JSON,
+        dataType: '',
+        beforeSend: function () {
+        },
+        success: function (response) {
+          var data = response.data
+          var links = data.advertisement;
+          var len = links.length;
+          for (var i = 0; i < len; i++) {
+            if (i === ads_nu) {
+              console.log(i === ads_nu);
+              var ads = "<a class='advertisement-item' target='_blank' href='" + links[i].advertisement_link + "'><img src='" + links[i].advertisement_image + "' title='advertisement' alt='advertisement'/></a>";
+              $(ads_id).append(ads);
+            }
+          }
+        },
+        error: function () {
+          showNotification("error", "404");
+        }
+      });
+    }
 
 
     function GetUnImages(search_text) {
