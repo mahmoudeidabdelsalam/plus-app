@@ -1011,14 +1011,13 @@ div#data-container ul li .overlay {
   width: 23px;
   height: 23px;
   z-index: 99;
-  border: 0.5px solid rgba(0, 0, 0, 0.15);
   border-radius: 2px;
   align-items: flex-end;
   justify-content: flex-end;
   opacity: 0;
   transition: all 0.3s;
-  right: 0;
-  bottom: 0;
+  right: 10px;
+  bottom: 10px;
   top: auto;
   cursor: pointer;
 }
@@ -1042,7 +1041,6 @@ div#data-container ul li .overlay img,
 div#data-container ul.term-graphics li .overlay img {
   width: 23px !important;
   height: 23px !important;
-  margin: 10px !important;
   left: auto !important;
   right: 0 !important;
   bottom: 0 !important;
@@ -1249,6 +1247,7 @@ div#signUp .form-group {
   margin-bottom: 25px;
 }
 
-.form-control {
+div#login .form-control,
+div#signUp .form-control {
   background-color: #F9F9F9 !important;
 }

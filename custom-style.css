@@ -5,9 +5,6 @@ div#data-container ul {
 div#header img {
   max-width: 170px;
 }
-div#header {
-  margi-bottom:50px;
-}
 
 div#data-container ul.column-2 li {
   border: none;
@@ -213,7 +210,7 @@ div#data-container ul.column-icons li:hover {
 
 html,
 body {
-  background: #F9F9F9;
+  background: #fff;
 }
 
 div#data-container ul li {
