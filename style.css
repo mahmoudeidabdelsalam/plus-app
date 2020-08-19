@@ -66,6 +66,7 @@ div#header img {
 
 div#login {
   margin: 30px auto;
+  max-width: 315px;
 }
 
 div#login .form-login {
