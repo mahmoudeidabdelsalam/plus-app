@@ -73,8 +73,84 @@ function showPassword() {
   }
 }
 
+function showPasswordSingUp() {
+  var x = document.getElementById("InputPasswordSingUp");
+  if (x.type === "password") {
+    x.type = "text";
+    $('#showPasswordSingUp .fa').removeClass('fa-eye-slash');
+    $('#showPasswordSingUp .fa').addClass('fa-eye');
+  } else {
+    x.type = "password";
+    $('#showPasswordSingUp .fa').addClass('fa-eye-slash');
+    $('#showPasswordSingUp .fa').removeClass('fa-eye');
+  }
+}
+
+function showPasswordSingUpConf() {
+  var x = document.getElementById("InputPasswordSingUpConf");
+  if (x.type === "password") {
+    x.type = "text";
+    $('#showPasswordSingUpConf .fa').removeClass('fa-eye-slash');
+    $('#showPasswordSingUpConf .fa').addClass('fa-eye');
+  } else {
+    x.type = "password";
+    $('#showPasswordSingUpConf .fa').addClass('fa-eye-slash');
+    $('#showPasswordSingUpConf .fa').removeClass('fa-eye');
+  }
+}
+
+
+var $password = $("#InputPasswordSingUp");
+var $confirmPass = $("#InputPasswordSingUpConf");
+
+//Check the length of the Password
+function checkLength() {
+  return $password.val().length > 8;
+}
+
+//Check to see if the value for pass and confirmPass are the same
+function samePass() {
+  return $password.val() === $confirmPass.val();
+}
+
+//If checkLength() is > 8 then we'll hide the hint
+function PassLength() {
+  if (checkLength()) {
+    $password.next().hide();
+  } else {
+    $password.next().show();
+  }
+}
+
+//If samePass returns true, we'll hide the hint
+function PassMatch() {
+  if (samePass()) {
+    $confirmPass.next().hide();
+  } else {
+    $confirmPass.next().show();
+  }
+}
+
+function canSubmit() {
+  return samePass() && checkLength();
+}
+
+function enableSubmitButton() {
+  $("#ButtonSingUp").removeClass("disabled");
+}
+
+//Calls the enableSubmitButton() function to disable the button
+// enableSubmitButton();
+
+$password.keyup(PassLength).keyup(PassMatch);
+$confirmPass.focus(PassMatch).keyup(PassMatch).keyup(enableSubmitButton);
+
+
+
+
+
 function ShowButtonLogin() {
-  document.getElementById("ButtonLogin").removeAttribute("disabled")
+  document.getElementById("ButtonLogin").removeAttribute("disabled");
 }
 
 

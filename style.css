@@ -101,7 +101,7 @@ input#InputPassword {
   margin: auto;
   background: #FFFFFF;
   border: 1px solid #BEC6D2;
-  border-radius: 73px;
+  border-radius: 4px;
   height: 40px;
   font-size: 14px;
   line-height: 21px;
@@ -204,7 +204,7 @@ label.not-having-account {
 
 .button-login {
   display: flex;
-  margin-top: 80px;
+  margin-top: 35px;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -212,9 +212,8 @@ label.not-having-account {
 }
 
 .button-login #SignIn {
-  background: linear-gradient(165.83deg, #6B73FF -0.5%, #000DFF 100%);
-  border-radius: 30px;
-  font-family: Roboto;
+  background: #1e6dfb;
+  border-radius: 4px;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -231,7 +230,6 @@ label.not-having-account {
 }
 
 #CreateAccount {
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -244,7 +242,9 @@ label.not-having-account {
   mix-blend-mode: normal;
 }
 
-#showPassword {
+#showPassword,
+#showPasswordSingUp, 
+#showPasswordSingUpConf {
   position: absolute;
   top: 5px;
   right: 20px;
@@ -252,13 +252,26 @@ label.not-having-account {
   color: rgba(0, 0, 0, 0.4);
 }
 
+span.tooltipPassword {
+  border-radius: 5px;
+  display: block;
+  text-align: center;
+  position: absolute;
+  right: 45px;
+  top: 8px;
+  color: #8a8a8a;
+  font-size: 9px;
+  padding: 5px;
+  pointer-events: none;
+}
+
 .form-group {
   position: relative;
 }
 
 a#ButtonLogin:not(:disabled) {
-  background: linear-gradient(173.17deg, #6B73FF -0.5%, #000DFF 100%);
-  border-radius: 30px;
+  background: #1E6DFB;
+  border-radius: 4px;
   color: #fff;
 }
 

@@ -199,6 +199,46 @@ var xhrRequest;
       }
     });
 
+
+    /**
+      * Sign Up From.
+      * @params Password - email.
+      * @result user id (success -  error).
+      * requestMethod POST.
+    **/
+
+
+    $('#ButtonSingUp').click(function () {
+      var email = $('#InputEmailSingUp').val();
+      var password = $('#InputPasswordSingUpConf').val();
+      $.ajax({
+        type: 'POST',
+        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.UserRegister + email + ppGraphicsInjectorConfigurationData.Password + password,
+        contentType: requestContentType.JSON,
+        dataType: '',
+        beforeSend: function () {
+          showSpinner();
+        },
+        success: function (response) {
+          var data = response.data
+          console.log(data);
+
+
+          hideSpinner();
+          $(".Notification").hide();
+          $('#Thanks').show();
+          $('#signUp').hide();
+          $('.text-thanks').html(data);
+        },
+        error: function () {
+          hideSpinner();
+          showNotification("error", "Sign Up 404");
+        }
+      });
+    });
+
+
+
     /**
       * Get General Settings. 
       * @result (Logo - version - links - scripts).
