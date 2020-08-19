@@ -108,7 +108,7 @@ ul#myTab .dropdown {
   margin-right: 15px;
 }
 
-div#data-container ul  {
+div#data-container ul {
   margin: 0;
 }
 
@@ -127,45 +127,49 @@ div#data-container ul.column-2 li span img {
 .button-login #SignIn {
   width: 70%;
 }
+
 h3.greeting::after {
   content: url(Images/Emoji.png);
-    position: relative;
-    left: 6px;
-    top: 2px;
-    width: 100%;
-    height: auto;
+  position: relative;
+  left: 6px;
+  top: 2px;
+  width: 100%;
+  height: auto;
 
 
 
 }
-label#forgot-password  {
+
+label#forgot-password {
   text-align: center;
   align-items: center;
 
 }
+
 p.sub-ac {
-padding-right: 5px;
-font-family: 'Roboto' sans-serif!important;
-font-style: normal;
-font-weight: normal;
-font-size: 14px!important;
-line-height: 21px;
-letter-spacing: 0.04px;
-color: #3F4A59!important;
-margin-left:-17px;
+  padding-right: 5px;
+  font-family: 'Roboto'sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px !important;
+  line-height: 21px;
+  letter-spacing: 0.04px;
+  color: #3F4A59 !important;
+  margin-left: -17px;
 
 }
+
 a.sign-up-link {
-  font-family:'Roboto' , sans-serif!important;
+  font-family: 'Roboto', sans-serif !important;
   font-size: 14px;
   text-decoration: underline;
-  font-family: 'Roboto' sans-serif;
+  font-family: 'Roboto'sans-serif;
   line-height: 21px;
 
 }
 
-div#header img{
-  max-width:170px;
+div#header img {
+  max-width: 170px;
 }
 
 #CreateAccount {
@@ -209,80 +213,89 @@ body {
 div#data-container ul li {
   background-color: #fff;
 }
+
 /* CREAT AN ACCOUNT PAGE*/
-h2.creat-headline{
-font-family: 'Roboto' , sans-serif;
-font-style: normal;
-font-weight: bold;
-font-size: 30px;
-line-height: 36px;
-color: #282F39;
+h2.creat-headline {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 36px;
+  color: #282F39;
 }
 
 
 h2.creat-headline::after {
   content: url(Images/heart.png);
-    position: relative;
-    left: 6px;
-    top: 2px;
-    width: 100%;
-    height: auto;
+  position: relative;
+  left: 6px;
+  top: 2px;
+  width: 100%;
+  height: auto;
 }
+
 p.creat-subline {
-padding-right: 5px;
-font-family: 'Roboto', sans-serif!important;
-font-style: normal;
-font-weight: normal;
-font-size: 14px!important;
-line-height: 21px;
-letter-spacing: 0.04px;
-color: #3F4A59!important;
-margin-left:-17px;
-display:contents;
+  padding-right: 5px;
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px !important;
+  line-height: 21px;
+  letter-spacing: 0.04px;
+  color: #3F4A59 !important;
+  margin-left: -17px;
+  display: contents;
 }
-a#creatAccountButton {
-background: #1E6DFB;
-border-radius: 4px;
-padding: 5px 10px;
-font-size: 16px;
-line-height: 16px;
-letter-spacing: 0.04px;
-color: #F4F7FD;
-white-space: nowrap;
-margin-left: auto;
-width: 75%;
+
+#ButtonSingUp {
+  background: #1E6DFB;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.04px;
+  color: #F4F7FD;
+  white-space: nowrap;
+  margin-left: auto;
+  width: 100%;
 }
 
 /* thank you page styling */
 img#RedIcon {
   margin: 20px;
 }
+
 h2.headline-ty {
-font-family: 'Roboto' , sans-serif;
-font-style: normal;
-font-weight: 500;
-font-size: 30px;
-line-height: 36px;
-text-align: center;
-color: #282F39;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 36px;
+  text-align: center;
+  color: #282F39;
 }
 
-p.ty-subline{
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 21px;
-text-align: center;
-letter-spacing: 0.04px;
-color: #403C4E;
+p.ty-subline {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: 0.04px;
+  color: #403C4E;
 
 }
-a#ThankYOUButton {
-  width: 75%;
+
+div#ThankYou {
+  width: 300px;
+  margin: auto;
+}
+
+#ThankYOUButton {
   margin-top: 4.5rem;
   background: #1E6DFB;
   border-radius: 4px;
-  font-family: 'Roboto' , sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -290,4 +303,5 @@ a#ThankYOUButton {
   text-align: center;
   letter-spacing: 0.04px;
   color: #FFFFFF;
+  width: 100%;
 }

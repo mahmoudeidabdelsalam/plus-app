@@ -58,6 +58,13 @@ function hideSpinner() {
 function ShowLogin() {
   document.getElementById("login").style.display = "block";
   document.getElementById("descrtion").style.display = "none";
+  document.getElementById("signUp").style.display = "none";
+}
+
+function ShowSignUp() {
+  document.getElementById("signUp").style.display = "block";
+  document.getElementById("descrtion").style.display = "none";
+  document.getElementById("login").style.display = "none";
 }
 
 function showPassword() {

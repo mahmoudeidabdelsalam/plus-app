@@ -54,6 +54,7 @@
               <span>Version <span id="version"></span> </span>
             </div>
 
+
             <!-- Screen Home -->
             <div id="descrtion">
               <div class="col-12">
@@ -66,7 +67,7 @@
 
               <div class="button-login">
                 <a href="#" id="SignIn" onclick="ShowLogin()">sign in</a>
-                <a href="https://plus.premast.com/sign-up/" id="CreateAccount" target="_blank">create an account</a>
+                <a href="#" id="CreateAccount" onclick="ShowSignUp()">create an account</a>
               </div>
             </div>
 
@@ -78,69 +79,53 @@
               </div>
             </div>
 
-           <div id="creat-account" class="col-12" style="display:none;">
-            <div class="col-12" id="header">
-              <img id="logo-creat" class="m-auto d-block img-fluid" src="Images/premast-plus-logo.png" alt="logo plus">
-              <span>Version <span id="version"></span> </span>
-            </div>
-            <div id="creat-account">
-              <h2 class="creat-headline">Creat Account</h2>
-              <p class="creat-subline">Already have an account?</p><span style="margin-left:4px;"><a href="#" class="sign-up-link">Sign In</a></span>
-            </div>
 
-            <div class="form-creat">
-              <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" id="InputEmail">
-              </div>
 
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" id="creatPassword" onchange="ShowButtonLogin()">
-                <a href="#" onclick="showPassword()" id="showPassword"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+            <!-- Sign UP -->
+            <div id="signUp" class="col-12" style="display:none;">
+              <div id="creat-account">
+                <h2 class="creat-headline">Creat Account</h2>
+                <p class="creat-subline">Already have an account?</p><span style="margin-left:4px;"><a href="#" class="sign-up-link" onclick="ShowLogin()">Sign In</a></span>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword" onchange="ShowButtonLogin()">
-                <a href="#" onclick="showPassword()" id="showPassword"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                <input type="email" class="form-control" placeholder="Email" id="InputEmailSingUp">
               </div>
-
-              <a href="#" class="btn btn-primary" id="creatAccountButton" disabled>Sign Up</a>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" id="InputPasswordSingUp">
+                <span class="tooltipPassword">Enter a password longer than 8 characters</span>
+                <a href="#" onclick="showPasswordSingUp()" id="showPasswordSingUp"><i
+                    class="fa fa-eye-slash" aria-hidden="true"></i></a>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password"
+                  id="InputPasswordSingUpConf">
+                <span class="tooltipPassword">Please confirm your password</span>
+                <a href="#" onclick="showPasswordSingUpConf()" id="showPasswordSingUpConf"><i
+                    class="fa fa-eye-slash" aria-hidden="true"></i></a>
+              </div>
+              <a href="#" class="btn btn-primary disabled" id="ButtonSingUp">Sign Up</a>
             </div>
 
-           </div>
 
-           <div id="header" class="m-auto d-block img-fluid">
-            <div class="col-12" id="ThankYouHeader">
-              <img id="logo-creat" class="m-auto d-block img-fluid" src="Images/premast-plus-logo.png" alt="logo plus">
-              <span>Version <span id="version"></span> </span>
-            </div>
-            <div id="emojiIcon" class="text-center">
-              <img id ="RedIcon" src="Images/hat.png" alt="">
 
-            </div>
-            <div id= "ThankYouHl">
+            <div id="ThankYou" style="display: none;">
+              <div id="emojiIcon" class="text-center">
+                <img id="RedIcon" src="Images/hat.png" alt="">
+              </div>
               <h2 class="headline-ty">Thanks for chosing Premast Plus</h2>
               <p class="ty-subline">Your account has been Registered<br> successfully. You can now start creating <br>stunning powerpoint presentations.</p>
-              <a href="#" class="btn btn-primary" id="ThankYOUButton" disabled>Sign in</a>
-
-
-            </div>
-            <div>
-
+              <a href="#" class="btn btn-primary" id="ThankYOUButton" onclick="ShowLogin()">Sign in</a>
             </div>
 
-
-
-
-           </div>
 
             <!-- Screen Login -->
             <div class="col-12" id="login" style="display: none;">
               <div class="col-12">
                 <h3 class="greeting">Hello!</h3>
                 <div class="col-12" style="display: flex;">
-                  <p class="sub-ac">Don't have an account yet?</p><span style="margin-left:-3px;"><a href="#" class="sign-up-link">Sign Up</a></span>
+                  <p class="sub-ac">Don't have an account yet?</p><span style="margin-left:-3px;"><a href="#" class="sign-up-link" onclick="ShowSignUp()">Sign Up</a></span>
                 </div>
               </div>
-
               <div class="form-login">
                 <div class="form-group">
                   <input type="email" class="form-control" placeholder="Email" id="InputEmail">
@@ -158,16 +143,18 @@
                 <label class="forgot-password" id="forgot-password">
                   <a href="https://plus.premast.com/reset-password/" target="_blank">Forgot your password?</a>
                 </label>
-
-
                 <a href="#" class="btn btn-primary" id="ButtonLogin" disabled>Log In</a>
               </div>
-
-
             </div>
           </div>
         </div>
       </div>
+
+
+
+
+
+
 
 
       <div class="main-area" id="mainArea" style="display: none;">
