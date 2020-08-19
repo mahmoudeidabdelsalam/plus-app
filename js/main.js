@@ -705,7 +705,9 @@ var xhrRequest;
           var len = links.length;
           for (var i = 0; i < len; i++) {
             if (i === ads_nu) {
-              console.log(i === ads_nu);
+              var ads = "<a class='advertisement-item' target='_blank' href='" + links[i].advertisement_link + "'><img src='" + links[i].advertisement_image + "' title='advertisement' alt='advertisement'/></a>";
+              $(ads_id).append(ads);
+            } else if (i === 1) {
               var ads = "<a class='advertisement-item' target='_blank' href='" + links[i].advertisement_link + "'><img src='" + links[i].advertisement_image + "' title='advertisement' alt='advertisement'/></a>";
               $(ads_id).append(ads);
             }
