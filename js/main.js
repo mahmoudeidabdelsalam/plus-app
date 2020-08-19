@@ -221,14 +221,16 @@ var xhrRequest;
         },
         success: function (response) {
           var data = response.data
-          console.log(data);
-
-
           hideSpinner();
           $(".Notification").hide();
-          $('#Thanks').show();
-          $('#signUp').hide();
-          $('.text-thanks').html(data);
+
+          if (data.signup === true) {
+            $('#ThankYou').show();
+            $('#signUp').hide();
+          } else {
+            showNotification("info", data.message);
+          }
+          
         },
         error: function () {
           hideSpinner();
