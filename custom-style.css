@@ -5,6 +5,9 @@ div#data-container ul {
 div#header img {
   max-width: 170px;
 }
+div#header {
+  margi-bottom:50px;
+}
 
 div#data-container ul.column-2 li {
   border: none;
@@ -16,6 +19,9 @@ div#data-container ul.column-2 li span img {
   border-radius: 3px;
 }
 
+div#creat-account {
+  margin-bottom:50px;
+}
 .search .input-group {
   background: #FEFEFE;
   border-color: #D8DCE3;
@@ -177,7 +183,7 @@ div#header img {
 }
 
 div#UserLogin {
-  background-color: #F9F9F9;
+  background-color: #FFFFFF;
 }
 
 ul.socialMedia {
@@ -258,6 +264,18 @@ p.creat-subline {
   white-space: nowrap;
   margin-left: auto;
   width: 100%;
+
+}
+div#signUp {
+  max-width: 315px;
+  margin: 25px auto;
+}
+div#creat-account {
+  margin-bottom: 53px;
+}
+#ButtonSingUp {
+  height: 45px;
+  line-height: 36px;
 }
 
 /* thank you page styling */

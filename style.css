@@ -18,7 +18,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #F9F9F9;
+  background: #FFFFFF;
   min-width: 330px;
 }
 
@@ -99,7 +99,7 @@ input#InputPassword {
   box-sizing: border-box;
   width: 290px;
   margin: auto;
-  background: #FFFFFF;
+  background: #F9F9F9;
   border: 1px solid #BEC6D2;
   border-radius: 4px;
   height: 40px;
@@ -110,7 +110,7 @@ input#InputPassword {
 }
 
 a#ButtonLogin {
-  width: 100%;
+  width:290px;
   height: 40px;
   margin: auto;
   display: block;
@@ -149,6 +149,13 @@ label.not-having-account {
   width: 100%;
   padding: 15px;
 }
+
+
+input#RememberMe {
+  margin-top: 4px;
+  margin-left: -6px;
+}
+
 
 #signUpLink {
   font-style: normal;
@@ -243,7 +250,7 @@ label.not-having-account {
 }
 
 #showPassword,
-#showPasswordSingUp, 
+#showPasswordSingUp,
 #showPasswordSingUpConf {
   position: absolute;
   top: 5px;
