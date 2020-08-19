@@ -11,38 +11,42 @@ var xhrRequest;
    * add expires string (email - password hash and time)
    * add local Storng items
    * requestMethod Post.
-  */
+   */
   $(function () {
     $('#ButtonLogin').click(function () {
       if ($('input#RememberMe').is(':checked')) {
         var expires = new Date();
         expires.setTime(expires.getTime() + (10 * 24 * 60 * 60 * 1000));
         var email = GetLoginEmail();
-        var password = GetLoginPassword(); 
+        var password = GetLoginPassword();
         var encodedString = btoa(password);
-        var UserKeep = { 'email': email, 'password': encodedString, 'expires': expires };
+        var UserKeep = {
+          'email': email,
+          'password': encodedString,
+          'expires': expires
+        };
         localStorage.setItem('UserKeep', JSON.stringify(UserKeep));
       }
     });
   });
 
   /**
-    * document Js
-    * Login Keep & login (Validate)
-    * Get Terms Items in login screen Home
-    * Get item by search
-    * get item by category
-    * get navbar Items
-  */
+   * document Js
+   * Login Keep & login (Validate)
+   * Get Terms Items in login screen Home
+   * Get item by search
+   * get item by category
+   * get navbar Items
+   */
   $(document).ready(function () {
 
     /**
-      * Login validate keep.
-      * check login keep.
-      * check today not equle expires day.
-      * @params email & password from localStorage.
-      * requestMethod POST.
-    */
+     * Login validate keep.
+     * check login keep.
+     * check today not equle expires day.
+     * @params email & password from localStorage.
+     * requestMethod POST.
+     */
     var GetKeep = JSON.parse(localStorage.getItem("UserKeep"));
     var today = new Date();
     if (GetKeep) {
@@ -88,18 +92,17 @@ var xhrRequest;
       showNotification("Error", 'Log in process failed');
     }
 
-
     /**
-      * Validate sign up and log in, on click and handle actions.
-      * check login.
-      * @params email & password.
-      * requestMethod POST.
-    **/
+     * Validate sign up and log in, on click and handle actions.
+     * check login.
+     * @params email & password.
+     * requestMethod POST.
+     **/
     $('#ButtonLogin').click(function () {
       showSpinner();
       setTimeout(
         function () {
-          var valResult = validateLogInAction();            
+          var valResult = validateLogInAction();
           showSpinner();
           if (valResult) {
             logInUser();
@@ -159,11 +162,11 @@ var xhrRequest;
     }
 
     /**
-      * Get Category navbar for screen Home.
-      * @params term_id.
-      * @result get all term (id - name - icon - column - pre_page - sources).
-      * requestMethod GET.
-    **/
+     * Get Category navbar for screen Home.
+     * @params term_id.
+     * @result get all term (id - name - icon - column - pre_page - sources).
+     * requestMethod GET.
+     **/
     $.ajax({
       type: 'GET',
       url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
@@ -199,15 +202,12 @@ var xhrRequest;
       }
     });
 
-
     /**
-      * Sign Up From.
-      * @params Password - email.
-      * @result user id (success -  error).
-      * requestMethod POST.
-    **/
-
-
+     * Sign Up From.
+     * @params Password - email.
+     * @result user id (success -  error).
+     * requestMethod POST.
+     **/
     $('#ButtonSingUp').click(function () {
       var email = $('#InputEmailSingUp').val();
       var password = $('#InputPasswordSingUpConf').val();
@@ -230,7 +230,6 @@ var xhrRequest;
           } else {
             showNotification("info", data.message);
           }
-          
         },
         error: function () {
           hideSpinner();
@@ -239,13 +238,11 @@ var xhrRequest;
       });
     });
 
-
-
     /**
-      * Get General Settings. 
-      * @result (Logo - version - links - scripts).
-      * requestMethod GET
-    **/
+     * Get General Settings. 
+     * @result (Logo - version - links - scripts).
+     * requestMethod GET
+     **/
     $.ajax({
       type: 'GET',
       url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GeneralSettings,
@@ -267,10 +264,9 @@ var xhrRequest;
         $("#version").append(version);
         var len = links.length;
         for (var i = 0; i < len; i++) {
-          var dropdown = "<a class='dropdown-item' target='_blank' href='"+links[i].link+"'>"+links[i].text+"</a>";
+          var dropdown = "<a class='dropdown-item' target='_blank' href='" + links[i].link + "'>" + links[i].text + "</a>";
           $("#links").append(dropdown);
         }
-        
         $(".warp").show();
         $(".help-center").show();
         hideSpinner();
@@ -281,11 +277,11 @@ var xhrRequest;
     });
 
     /**
-      * actions get main item for term id
-      * @params term_id - column - Per_page - Sources.
-      * @result get items (view - content).
-      * requestMethod GET.
-    **/
+     * actions get main item for term id
+     * @params term_id - column - Per_page - Sources.
+     * @result get items (view - content).
+     * requestMethod GET.
+     **/
     $("body").on("click", ".term-link", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -293,7 +289,7 @@ var xhrRequest;
       var sources = $(this).attr("data-sources");
       var parent = $(this).attr("data-parent");
       var name = $(this).attr("data-name");
-      
+
       $(".dropdown-menu").removeClass("acive");
       $('.term-link').removeClass('active');
 
@@ -302,22 +298,22 @@ var xhrRequest;
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
-        }, 100, function () {
-          if (name === 'background' || name === 'Images' || name === 'images') {
-            GetUnImages();
-          } else {
-            GetContent(term_id, column, per_page, sources, parent, name);
-          }
-        
+      }, 100, function () {
+        if (name === 'background' || name === 'Images' || name === 'images') {
+          GetUnImages();
+        } else {
+          GetContent(term_id, column, per_page, sources, parent, name);
+        }
+
       });
     });
 
     /**
-      * actions get main items for child
-      * @params term_id - column - Per_page - Sources.
-      * @result get items (view - content).
-      * requestMethod GET.
-    **/
+     * actions get main items for child
+     * @params term_id - column - Per_page - Sources.
+     * @result get items (view - content).
+     * requestMethod GET.
+     **/
     $("body").on("click", ".GetItems", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -334,11 +330,11 @@ var xhrRequest;
     });
 
     /**
-      * actions get main item for back term
-      * @params term_id - column - Per_page - Sources.
-      * @result get items (view - content).
-      * requestMethod GET.
-    **/
+     * actions get main item for back term
+     * @params term_id - column - Per_page - Sources.
+     * @result get items (view - content).
+     * requestMethod GET.
+     **/
     $("body").on("click", ".back-link", function () {
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -357,11 +353,11 @@ var xhrRequest;
     });
 
     /**
-      * actions get Get icons
-      * @params term_id - column - Per_page - Sources.
-      * @result get items (view - content).
-      * requestMethod GET.
-    */
+     * actions get Get icons
+     * @params term_id - column - Per_page - Sources.
+     * @result get items (view - content).
+     * requestMethod GET.
+     */
     $("body").on("click", ".GetIcons", function () {
       var post_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -374,16 +370,16 @@ var xhrRequest;
         opacity: 0,
         left: "-100%",
       }, 100, function () {
-          GetIcons(post_id, column, per_page, sources, term, name);
+        GetIcons(post_id, column, per_page, sources, term, name);
       });
     });
 
     /**
-      * function get Get Insert Popup
-      * @params post_id
-      * @result get item (title - content - keywords).
-      * requestMethod GET.
-    */
+     * function get Get Insert Popup
+     * @params post_id
+     * @result get item (title - content - keywords).
+     * requestMethod GET.
+     */
     $("body").on("click", ".overlay", function () {
       var post_id = $(this).attr("data-id");
       var sources = $(this).attr("data-sources");
@@ -398,26 +394,22 @@ var xhrRequest;
       }
     });
 
-
-
     /**
-      * function Search actions for items bsaed click or keyup or entr
-      * @params post_id
-      * @result get item (title - content - keywords).
-      * requestMethod GET.
-    */
+     * function Search actions for items bsaed click or keyup or entr
+     * @params post_id
+     * @result get item (title - content - keywords).
+     * requestMethod GET.
+     */
     $("body").on("click", "#submitSearch", function () {
       var search_text = $('#TextSearch').val();
       var term_id = $('.item a.active').data('id');
       var column = $('.item a.active').data('column');
-
       if (search_text === '') {
         return false;
       }
-
       GetSearchContent(search_text, term_id, column);
     });
-    
+
     $('#TextSearch').bind("enterKey", function (e) {
       var search_text = $('#TextSearch').val();
       var term_id = $('.item a.active').data('id');
@@ -447,62 +439,63 @@ var xhrRequest;
     //   }, doneTypingInterval);
     // });
 
+    /**
+     * function Get NavBar.
+     * @params getCategory
+     * @result getTerms (title - id - column - number - sources).
+     * requestMethod GET.
+     */
 
+    function GetNavBar() {
+      $.ajax({
+        type: 'GET',
+        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
+        contentType: requestContentType.JSON,
+        dataType: '',
+        beforeSend: function () {
+          showSpinner();
+        },
+        success: function (response) {
+          hideSpinner();
+          $(".Notification").hide();
+          var data = response.data
+          var len = data.length;
+          for (var i = 0; i < len; i++) {
+            var active = "";
+            if (i == 0) {
+              active = "active";
+            }
+            var name = data[i].name;
+            var id = data[i].id;
+            var icon = data[i].icon;
+            var column = data[i].column;
+            var number = data[i].pre_page;
+            var sources = data[i].sources;
 
-  /**
-    * function Get NavBar.
-    * @params getCategory
-    * @result getTerms (title - id - column - number - sources).
-    * requestMethod GET.
-  */
+            if (column === null || column === undefined) {
+              column = 2;
+            }
 
-  function GetNavBar() {
-    $.ajax({
-      type: 'GET',
-      url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
-      contentType: requestContentType.JSON,
-      dataType: '',
-      beforeSend: function () {
-        showSpinner();
-      },
-      success: function (response) {
-        hideSpinner();
-        $(".Notification").hide();
-        var data = response.data
-        var len = data.length;
-        for (var i = 0; i < len; i++) {
-          var active = "";
-          if(i == 0) {
-            active = "active";
+            var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "' data-name='" + name + "'>" +
+              "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
+              "<span class='name'>" + name + "</span>" +
+              "</a></li>";
+            $("#myTab").append(item_term);
           }
-          var name = data[i].name;
-          var id = data[i].id;
-          var icon = data[i].icon;
-          var column = data[i].column;
-          var number = data[i].pre_page;
-          var sources = data[i].sources;
-
-          if (column === null || column === undefined) {
-            column = 2;
-          }
-
-          var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "' data-name='" + name + "'>" +
-            "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
-            "<span class='name'>" + name + "</span>" +
-            "</a></li>";
-          $("#myTab").append(item_term);
+        },
+        error: function () {
+          hideSpinner();
+          showNotification("error", "Loding Filed 404");
         }
-      },
-      error: function () {
-        hideSpinner();
-        showNotification("error", "Loding Filed 404");
-      }
-    });
-  }
+      });
+    }
 
-
-
-    // 6. function GetContent Items based term_id
+    /**
+     * function GetContent Items based term_id.
+     * @params getCategory
+     * @result getTerms (title - id - column - number - sources).
+     * requestMethod GET.
+     */
     function GetContent(Term_id, column, number, sources, parent, name) {
       var id = Term_id;
       var column_nu = column;
@@ -543,7 +536,7 @@ var xhrRequest;
                   left: "0"
                 }, 100, function () {
                   $("#data-container").append(dataHtml).show("slow");
-                });                
+                });
               }
             })
           },
@@ -568,7 +561,7 @@ var xhrRequest;
             $("#pagination").html("");
             hideSpinner();
             $(".Notification").hide();
-            
+
             var data = response.data
             let container = $('#pagination');
             container.pagination({
@@ -584,14 +577,14 @@ var xhrRequest;
                   var i = 0;
                   $.each(item.Collocations, function (index, icon) {
                     i++;
-                    if (i < 5 ){
+                    if (i < 5) {
                       dataHtml += '<li><a href="#" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
                     }
                   });
                   dataHtml += '</ul>';
                 });
                 dataHtml += '</div>';
-                
+
                 $("#data-container").animate({
                   opacity: 1,
                   left: "0"
@@ -642,7 +635,7 @@ var xhrRequest;
                   dataHtml += '<li><span class="overlay item-' + parent_name + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="#"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
-                dataHtml += '<div id="banner-'+currPage+'"></div>';
+                dataHtml += '<div id="banner-' + currPage + '"></div>';
                 dataHtml += '</ul>';
 
                 if (parent_id) {
@@ -656,7 +649,7 @@ var xhrRequest;
                       $('input#TextSearch').val(parent_name);
                       var data = response.data
                       var databack = "";
-                      $.each(data, function (index, item) {                        
+                      $.each(data, function (index, item) {
                         databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/reset.png' /></a>";
                       });
                       $('.search').append(databack);
@@ -699,14 +692,13 @@ var xhrRequest;
 
       console.log(ads_id);
 
-  
+
       $.ajax({
         type: 'GET',
         url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GeneralSettings,
         contentType: requestContentType.JSON,
         dataType: '',
-        beforeSend: function () {
-        },
+        beforeSend: function () {},
         success: function (response) {
           var data = response.data
           var links = data.advertisement;
@@ -753,7 +745,7 @@ var xhrRequest;
             query: search_text
           },
           success: function (data) {
-            
+
             console.log(data.results);
 
             if (search_text) {
@@ -762,7 +754,7 @@ var xhrRequest;
               var items = data;
             }
 
-            if(items != '') {
+            if (items != '') {
               var dataHtml = '<ul class="column-2">';
               $.each(items, function (i, item) {
                 dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="' + item.user.links.html + '" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="#" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
@@ -780,7 +772,7 @@ var xhrRequest;
             } else {
               showNotification("Nothing found for that search.", "How about checking this collections");
             }
-            
+
           }
         });
       }
@@ -806,7 +798,7 @@ var xhrRequest;
 
       $('#UnsplashModal').modal('show');
 
-      var popup_name = '<img src="Images/unsplash.png" alt="Unsplash" title="Unsplash" /> Photo by Unsplash | <a target="_blank" href="'+item_links+'">'+item_name+'</a>';
+      var popup_name = '<img src="Images/unsplash.png" alt="Unsplash" title="Unsplash" /> Photo by Unsplash | <a target="_blank" href="' + item_links + '">' + item_name + '</a>';
       var link = '<a href="#" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + item_name + '" /> Use this photo</a>';
       var view = '<img src="' + item_thum + '" alt="' + item_name + '" title="' + item_name + '"/>';
 
@@ -832,11 +824,11 @@ var xhrRequest;
           $(".Notification").hide();
           $('#exampleModal').modal('show');
 
-          var data  = response.data
+          var data = response.data
 
           var title = data[0].Name;
-          var link  = '<a href="#" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + title + '" /> Use this item</a>';
-          var view = '<img src="' + data[0].PreviewImage + '" alt="'+title+'" title="'+title+'"/>';
+          var link = '<a href="#" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + title + '" /> Use this item</a>';
+          var view = '<img src="' + data[0].PreviewImage + '" alt="' + title + '" title="' + title + '"/>';
 
           $("#exampleModal .modal-title").html(title);
           $("#exampleModal .modal-footer").html(link);
@@ -845,12 +837,12 @@ var xhrRequest;
           var tags = data[0].Tags;
           var dataHtml = '<ul class="tags-list"> <h4>Keywords</h4>';
           $.each(tags, function (index, item) {
-            dataHtml += '<li>'+item+'</li>';
+            dataHtml += '<li>' + item + '</li>';
           });
           dataHtml += '</ul>';
 
           $("#exampleModal .modal-body .tags").html(dataHtml);
-          
+
         },
         error: function () {
           hideSpinner();
@@ -957,7 +949,7 @@ var xhrRequest;
             $("#data-container").html("");
             $(".Notification").hide();
             $("#pagination").html("");
-            
+
             var data = response.data
             if (data) {
               var dataHtml = '<ul class="column-' + column_nu + '">';
@@ -977,8 +969,7 @@ var xhrRequest;
             showNotification("error", "Loding Filed 404");
           }
         });
-      } 
-      else if (term_id === 42 || term_id === 15) {
+      } else if (term_id === 42 || term_id === 15) {
         GetUnImages(search_text);
       } else {
         $.ajax({
@@ -1059,8 +1050,8 @@ var xhrRequest;
 
 
 
-  Office.initialize = function (reason) { 
-    $(document).ready(function () { 
+  Office.initialize = function (reason) {
+    $(document).ready(function () {
       // 8. Insrt Items
       $("body").on("click", ".clickToInsert", function () {
         var src = $(this).attr("data-url");
@@ -1090,8 +1081,7 @@ var xhrRequest;
                   var copyBase64 = dataUrl.substr(startIndex + 7);
 
                   Office.context.document.setSelectedDataAsync(
-                    copyBase64,
-                    {
+                    copyBase64, {
                       coercionType: Office.CoercionType.Image
                     },
                     function (asyncResult) {
@@ -1149,7 +1139,9 @@ var xhrRequest;
             success: function (data) {
               $(".Notification").hide();
               var grContent = new XMLSerializer().serializeToString(data.documentElement);
-              Office.context.document.setSelectedDataAsync(grContent, { coercionType: coercionTypeOfItem },
+              Office.context.document.setSelectedDataAsync(grContent, {
+                  coercionType: coercionTypeOfItem
+                },
                 function (asyncResult) {
                   if (asyncResult.status === "failed") {
                     showNotification("Error", "Failed to insert selected text. " + asyncResult.error.message);
@@ -1165,4 +1157,3 @@ var xhrRequest;
     });
   };
 })();
-
