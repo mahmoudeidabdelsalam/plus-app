@@ -167,40 +167,40 @@ var xhrRequest;
      * @result get all term (id - name - icon - column - pre_page - sources).
      * requestMethod GET.
      **/
-    $.ajax({
-      type: 'GET',
-      url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
-      contentType: requestContentType.JSON,
-      dataType: '',
-      beforeSend: function () {
-        showSpinner();
-      },
-      success: function (response) {
-        hideSpinner();
-        $(".Notification").hide();
-        var data = response.data
-        var len = data.length;
-        for (var i = 0; i < len; i++) {
-          var name = data[i].name;
-          var icon = data[i].icon;
-          var column = data[i].column;
-          var number = data[i].pre_page;
-          var sources = data[i].sources;
-          if (i == 0) {
-            GetContent(data[i].id, column, number, sources);
-          }
-          var tr_str = "<li>" +
-            "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
-            "<span class='name'>" + name + "</span>" +
-            "</li>";
-          $("#ListCategory").append(tr_str);
-        }
-      },
-      error: function () {
-        hideSpinner();
-        showNotification("error", "Loding Filed 404");
-      }
-    });
+    // $.ajax({
+    //   type: 'GET',
+    //   url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
+    //   contentType: requestContentType.JSON,
+    //   dataType: '',
+    //   beforeSend: function () {
+    //     showSpinner();
+    //   },
+    //   success: function (response) {
+    //     hideSpinner();
+    //     $(".Notification").hide();
+    //     var data = response.data
+    //     var len = data.length;
+    //     for (var i = 0; i < len; i++) {
+    //       var name = data[i].name;
+    //       var icon = data[i].icon;
+    //       var column = data[i].column;
+    //       var number = data[i].pre_page;
+    //       var sources = data[i].sources;
+    //       if (i == 0) {
+    //         GetContent(data[i].id, column, number, sources);
+    //       }
+    //       var tr_str = "<li>" +
+    //         "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
+    //         "<span class='name'>" + name + "</span>" +
+    //         "</li>";
+    //       $("#ListCategory").append(tr_str);
+    //     }
+    //   },
+    //   error: function () {
+    //     hideSpinner();
+    //     showNotification("error", "Loding Filed 404");
+    //   }
+    // });
 
     /**
      * Sign Up From.
@@ -387,10 +387,11 @@ var xhrRequest;
       var url = $(this).attr("data-url");
       var thumb = $(this).attr("data-thumb");
       var links = $(this).attr("data-links");
+      var term = $(this).attr("data-term");
       if (sources === 'unsplash') {
         GetInsertUnsplash(post_id, name, url, thumb, links);
       } else {
-        GetInsert(post_id);
+        GetInsert(post_id, term);
       }
     });
 
@@ -468,6 +469,7 @@ var xhrRequest;
             var name = data[i].name;
             var id = data[i].id;
             var icon = data[i].icon;
+            var icon_hover = data[i].icon_hover;
             var column = data[i].column;
             var number = data[i].pre_page;
             var sources = data[i].sources;
@@ -477,7 +479,7 @@ var xhrRequest;
             }
 
             var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "' data-name='" + name + "'>" +
-              "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
+              "<span class='icon'><img class='m-auto img-fluid original' src='" + icon + "' alt='"+name+"'><img class='m-auto img-fluid hover' src='" + icon_hover + "' '"+name+"'></span>" +
               "<span class='name'>" + name + "</span>" +
               "</a></li>";
             $("#myTab").append(item_term);
@@ -632,7 +634,8 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="#"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  console.log(item);
+                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="#"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
                 dataHtml += '<div id="banner-' + currPage + '"></div>';
@@ -811,8 +814,9 @@ var xhrRequest;
     }
 
 
-    function GetInsert(post_id) {
+    function GetInsert(post_id, term) {
       var id = post_id;
+      var name = term;
       $.ajax({
         type: 'GET',
         url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetIcons + id,
@@ -828,12 +832,28 @@ var xhrRequest;
 
           var data = response.data
 
+          var AuthorLink = data[0].AuthorLink;
+          var AuthorName = data[0].AuthorName;
+
           var title = data[0].Name;
           var link = '<a href="#" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + title + '" /> Use this item</a>';
           var view = '<img src="' + data[0].PreviewImage + '" alt="' + title + '" title="' + title + '"/>';
 
+          if (name === 'templates') {
+            name = "template";
+          } else if (name === 'graphics') {
+            name = "graphic";
+          }
+
+          if (AuthorName) {
+            var author = ' '+name+' by <a target="_blank" href="' + AuthorLink + '">' + AuthorName + '</a>';
+          } else {
+            $("#exampleModal .modal-body .author").html(name + " by <a target='_blank' href='http://plus.premast.com/'>premast</a>");
+          }
+
           $("#exampleModal .modal-title").html(title);
           $("#exampleModal .modal-footer").html(link);
+          $("#exampleModal .modal-body .author").html(author);
           $("#exampleModal .modal-body .view").html(view);
 
           var tags = data[0].Tags;
