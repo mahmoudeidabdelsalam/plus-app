@@ -167,40 +167,33 @@ var xhrRequest;
      * @result get all term (id - name - icon - column - pre_page - sources).
      * requestMethod GET.
      **/
-    // $.ajax({
-    //   type: 'GET',
-    //   url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
-    //   contentType: requestContentType.JSON,
-    //   dataType: '',
-    //   beforeSend: function () {
-    //     showSpinner();
-    //   },
-    //   success: function (response) {
-    //     hideSpinner();
-    //     $(".Notification").hide();
-    //     var data = response.data
-    //     var len = data.length;
-    //     for (var i = 0; i < len; i++) {
-    //       var name = data[i].name;
-    //       var icon = data[i].icon;
-    //       var column = data[i].column;
-    //       var number = data[i].pre_page;
-    //       var sources = data[i].sources;
-    //       if (i == 0) {
-    //         GetContent(data[i].id, column, number, sources);
-    //       }
-    //       var tr_str = "<li>" +
-    //         "<span class='icon'><img class='m-auto d-block img-fluid' src='" + icon + "' alt='logo plus'></span>" +
-    //         "<span class='name'>" + name + "</span>" +
-    //         "</li>";
-    //       $("#ListCategory").append(tr_str);
-    //     }
-    //   },
-    //   error: function () {
-    //     hideSpinner();
-    //     showNotification("error", "Loding Filed 404");
-    //   }
-    // });
+    $.ajax({
+      type: 'GET',
+      url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetCategory,
+      contentType: requestContentType.JSON,
+      dataType: '',
+      beforeSend: function () {
+        showSpinner();
+      },
+      success: function (response) {
+        hideSpinner();
+        $(".Notification").hide();
+        var data = response.data
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
+          var column = data[i].column;
+          var number = data[i].pre_page;
+          var sources = data[i].sources;
+          if (i == 0) {
+            GetContent(data[i].id, column, number, sources);
+          }
+        }
+      },
+      error: function () {
+        hideSpinner();
+        showNotification("error", "Loding Filed 404");
+      }
+    });
 
     /**
      * Sign Up From.
