@@ -8,8 +8,9 @@ var ppGraphicsInjectorConfigurationData = {
   "env": "api",
   "googleClientID": "",
   "msClientID": "",
-  "baseUrl": "https://plus.premast.com/wp-json/wp/api/",
+  "baseUrl": "https://plus.test/wp-json/wp/api/",
   "logInUrl": "users/login/",
+  
   "GetCategory": "graphics/GetCategory",
   "GetContent": "graphics/GetGraphics/?category=",
   "GetIcons": "graphics/GetGraphics/?post_id=",

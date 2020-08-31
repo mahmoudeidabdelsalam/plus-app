@@ -43,7 +43,7 @@ ul#myTab span.icon {
 }
 
 ul#myTab .term-link {
-  padding: 12px 5px 14px;
+  padding: 12px 5px 0;
 }
 
 .term-link {
@@ -345,12 +345,22 @@ ul#myTab .term-link.active:after {
   content: "";
   background: #1E6DFB;
   width: 50%;
-  position: absolute;
+  position: relative;
   height: 4px;
-  left: 27px;
-  bottom: 0px;
+  left: auto;
+  bottom: auto;
   border-radius: 10px;
 }
+
+ul#myTab .term-link:after {
+  content: "";
+  height: 4px;
+  width: 50%;
+  display: inline-block;
+  position: relative;
+  margin-bottom: -7px;
+}
+
 ul#myTab li:nth-child(2) a.active::after {
   background: #7209B7;
 }
@@ -368,4 +378,183 @@ ul#myTab li:nth-child(4) a.active::after {
 ul#myTab li:nth-child(5) a.active::after {
   background: #EE4266;
 }
+/* Dark Mode Styles */
 
+.dark-mode  {
+  background-color: #121212;
+}
+.dark-mode div#UserLogin {
+  background: #121212;
+}
+.dark-mode  div#descrtion h2, div#login h2 {
+color: #FFFFFF;
+opacity: 0.95;
+}
+.dark-mode  div#descrtion p, div#login p {
+color: #FFFFFF;
+opacity: 0.65;
+}
+.dark-mode  .button-login #SignIn {
+  background: #78A7FD;
+  color: #000000;
+}
+.dark-mode  #header span {
+  color: #FFFFFF;
+  opacity: 0.65;
+}
+.dark-mode  h3.greeting {
+color: #FFFFFF;
+opacity: 0.95;
+}
+.dark-mode  p.sub-ac {
+  color: #FFFFFF!important;
+opacity: 0.95;
+
+}
+.dark-mode a.sign-up-link {
+ color: #78A7FD;
+
+}
+.dark-mode div#login .form-control, div#signUp .form-control {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), #121212!important;
+  border: 1px solid #363636;
+
+}
+.dark-mode i.fa.fa-eye-slash {
+  color:#FFFFFF;
+  opacity:.5;
+}
+.dark-mode #showPassword {
+  right: 5px;
+
+}
+.dark-mode label#forgot-password a {
+  color: #FFFFFF;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+}
+.dark-mode h2.creat-headline {
+color: #FFFFFF;
+opacity: 0.95;
+}
+.dark-mode p.creat-subline {
+  color: #FFFFFF!important;
+  opacity: 0.65!important;
+}
+.dark-mode div#signUp .form-control {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), #121212!important;
+  border: 1px solid #363636;
+}
+.dark-mode #ButtonSingUp {
+  background: #78A7FD;
+  border:none;
+  color: #000000;
+}
+.dark-mode a#ButtonLogin:not(:disabled) {
+  background: #78A7FD;
+  color: #000000;
+
+}
+.dark-mode .form-control {
+  color:#ffffff!important;
+}
+
+.dark-mode h2.headline-ty {
+color: #FFFFFF;
+opacity: 0.95;
+
+}
+.dark-mode p.ty-subline {
+color: #FFFFFF;
+opacity: 0.65;
+}
+
+.dark-mode #ThankYOUButton {
+  background: #78A7FD;
+  border:none;
+  color: #000000;
+}
+.dark-mode ul#myTab  {
+background: linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
+box-shadow: 0px 1px 1px #545454;
+}
+
+.dark-mode ul#myTab li:nth-child(2) a.active::after  {
+  border: 2px solid #B884DB;
+
+}
+.dark-mode ul#myTab li:nth-child(3) a.active::after {
+  border: 2px solid #7BF8D8;
+}
+.dark-mode ul#myTab li:nth-child(4) a.active::after {
+  border: 2px solid #B4C0F8;
+}
+.dark-mode ul#myTab li:nth-child(5) a.active::after {
+  border: 2px solid #F69AAD;
+}
+.dark-mode div#mainArea  {
+  background: #121212;
+}
+.dark-mode .search .input-group {
+background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+border: 1px solid #393939;
+box-shadow: inset 0px 0px 3px rgba(41, 41, 77, 0.15);
+border-radius: 8px;
+}
+.dark-mode .modal-content {
+background: #3D3D3D;
+box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+border-radius: 8px;
+}
+
+.dark-mode #exampleModal h5#exampleModalLabel {
+color: #FFFFFF;
+opacity: 0.95;
+}
+
+.dark-mode #exampleModal .modal-body .view {
+border: 1px solid #393939;
+border-radius: 4px;
+
+}
+.dark-mode .author {
+border: 1px solid #393939;
+border-radius: 4px;
+
+}
+.dark-mode #exampleModal .tags {
+background: linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)), #3F3F3F;
+border: 1px solid #393939;
+border-radius: 4px;
+}
+.dark-mode #exampleModal .tags h4 {
+color: #FFFFFF;
+opacity: 0.95;
+}
+.dark-mode #exampleModal .modal-footer .clickToInsert {
+background: #78A7FD;
+border-radius: 4px;
+color:#000000;
+
+}
+.dark-mode button.close {
+color: #78A7FD;
+}
+
+.dark-mode .help-center  {
+background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+border: 1px solid #393939;
+box-sizing: border-box;
+border-radius: 4px;
+
+}
+.dark-mode .help-center a {
+background: #78A7FD;
+box-shadow: 0px 1px 2px rgba(41, 41, 77, 0.32);
+border-radius: 4px;
+color: #000000;
+}
+.dark-mode .help-center span {
+  color: #FFFFFF;
+  opacity: 0.95;
+}
