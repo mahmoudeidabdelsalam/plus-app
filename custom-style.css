@@ -320,3 +320,52 @@ div#ThankYou {
   color: #FFFFFF;
   width: 100%;
 }
+
+ul#myTab  {
+  background:#F9F9F9;
+  box-shadow:0px 1px 1px rgba(0, 0, 0, 0.15);
+}
+ul#myTab span.name {
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 11px;
+line-height: 13px;
+text-align: center;
+letter-spacing: 0.25px;
+color: #282F39;
+}
+a.term-link.active {
+  background:none;
+}
+a.term-link:hover  {
+  background:none;
+}
+ul#myTab .term-link.active:after {
+  content: "";
+  background: #1E6DFB;
+  width: 50%;
+  position: absolute;
+  height: 4px;
+  left: 27px;
+  bottom: 0px;
+  border-radius: 10px;
+}
+ul#myTab li:nth-child(2) a.active::after {
+  background: #7209B7;
+}
+
+ul#myTab li:nth-child(3) a.active::after {
+  background: #0ACB99;
+}
+
+
+ul#myTab li:nth-child(4) a.active::after {
+  background:#4361EE;
+}
+
+
+ul#myTab li:nth-child(5) a.active::after {
+  background: #EE4266;
+}
+
