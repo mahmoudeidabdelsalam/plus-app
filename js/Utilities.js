@@ -231,4 +231,10 @@ $('#goto-signout').click(function () {
 $('#Switch').click(function () {
   $("body").toggleClass("dark-mode");
   $(this).text($(this).text() == 'Switch to dark mode' ? 'Switch to light mode' : 'Switch to dark mode');
+  if ($("body").hasClass("dark-mode")) {
+    localStorage.setItem('ThemeMode', 'dark');
+  } else {
+    localStorage.setItem('ThemeMode', 'light');
+  }
 });
+

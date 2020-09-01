@@ -59,6 +59,15 @@ var xhrRequest;
       }
     }
 
+    /**
+     * check mode theme.
+     * @params mode localStorage.
+     */
+    var Mode = localStorage.getItem("ThemeMode");
+    if (Mode == 'dark') {
+      $("body").addClass("dark-mode");
+    }
+
     function logInUserKeep(Getemail, GetPassword) {
       var type = requestMethod.POST;
       var url = ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.logInUrl;
