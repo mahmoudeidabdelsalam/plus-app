@@ -1272,3 +1272,7 @@ ul#myTab .term-link:hover .hover {
 ul#myTab .term-link:hover .original {
   display: none;
 }
+
+.dark-mode {
+  background-color: #121212;
+}
