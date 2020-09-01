@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?9svg5m');
-  src:  url('fonts/icomoon.eot?9svg5m#iefix') format('embedded-opentype'),
+  src: url('fonts/icomoon.eot?9svg5m');
+  src: url('fonts/icomoon.eot?9svg5m#iefix') format('embedded-opentype'),
     url('fonts/icomoon.ttf?9svg5m') format('truetype'),
     url('fonts/icomoon.woff?9svg5m') format('woff'),
     url('fonts/icomoon.svg?9svg5m#icomoon') format('svg');
@@ -10,8 +10,8 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
+[class^="icon-"],
+[class*=" icon-"] {
   font-family: 'icomoon' !important;
   speak: never;
   font-style: normal;
@@ -19,39 +19,27 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-
-  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-Exclude:before {
+.icon-graphics:before {
   content: "\e900";
 }
-.icon-Subtract:before {
+
+.icon-Images:before,
+.icon-images:before,
+.icon-background:before {
   content: "\e901";
 }
-.icon-Union-1:before {
+
+.icon-icons:before,
+.icon-icon:before {
   content: "\e902";
 }
-.icon-Union .path1:before {
-  content: "\e903";
-  color: rgb(114, 9, 183);
-}
-.icon-Union .path2:before {
-  content: "\e904";
-  margin-left: -1.0341796875em;
-  color: rgb(61, 61, 61);
-}
-.icon-Union .path3:before {
+
+.icon-templates:before {
   content: "\e905";
-  margin-left: -1.0341796875em;
-  color: rgb(114, 9, 183);
-}
-.icon-Union .path4:before {
-  content: "\e906";
-  margin-left: -1.0341796875em;
-  color: rgb(61, 61, 61);
 }
 
 div#data-container ul {
@@ -73,8 +61,9 @@ div#data-container ul.column-2 li span img {
 }
 
 div#creat-account {
-  margin-bottom:50px;
+  margin-bottom: 50px;
 }
+
 .search .input-group {
   background: #FEFEFE;
   border-color: #D8DCE3;
@@ -319,13 +308,16 @@ p.creat-subline {
   width: 100%;
 
 }
+
 div#signUp {
   max-width: 315px;
   margin: 25px auto;
 }
+
 div#creat-account {
   margin-bottom: 53px;
 }
+
 #ButtonSingUp {
   height: 45px;
   line-height: 36px;
@@ -377,26 +369,30 @@ div#ThankYou {
   width: 100%;
 }
 
-ul#myTab  {
-  background:#F9F9F9;
-  box-shadow:0px 1px 1px rgba(0, 0, 0, 0.15);
+ul#myTab {
+  background: #F9F9F9;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
 }
+
 ul#myTab span.name {
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 11px;
-line-height: 13px;
-text-align: center;
-letter-spacing: 0.25px;
-color: #282F39;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  letter-spacing: 0.25px;
+  color: #282F39;
 }
+
 a.term-link.active {
-  background:none;
+  background: none;
 }
-a.term-link:hover  {
-  background:none;
+
+a.term-link:hover {
+  background: none;
 }
+
 ul#myTab .term-link.active:after {
   content: "";
   background: #1E6DFB;
@@ -414,7 +410,23 @@ ul#myTab .term-link:after {
   width: 50%;
   display: inline-block;
   position: relative;
-  margin-bottom: -7px;
+  margin-top: 8px;
+}
+
+.dark-mode ul#myTab span.icon {
+  color: #FFFFFF;
+  font-size: 15px;
+}
+
+.dark-mode ul#myTab span.name {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+ul#myTab .term-link {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 ul#myTab li:nth-child(2) a.active::after {
@@ -427,190 +439,253 @@ ul#myTab li:nth-child(3) a.active::after {
 
 
 ul#myTab li:nth-child(4) a.active::after {
-  background:#4361EE;
+  background: #4361EE;
 }
 
 
 ul#myTab li:nth-child(5) a.active::after {
   background: #EE4266;
 }
+
 /* Dark Mode Styles */
 
-.dark-mode  {
+.dark-mode {
   background-color: #121212;
 }
+
 .dark-mode div#UserLogin {
   background: #121212;
 }
-.dark-mode  div#descrtion h2, div#login h2 {
-color: #FFFFFF;
-opacity: 0.95;
+
+.dark-mode div#descrtion h2,
+div#login h2 {
+  color: #FFFFFF;
+  opacity: 0.95;
 }
-.dark-mode  div#descrtion p, div#login p {
-color: #FFFFFF;
-opacity: 0.65;
-}
-.dark-mode  .button-login #SignIn {
-  background: #78A7FD;
-  color: #000000;
-}
-.dark-mode  #header span {
+
+.dark-mode div#descrtion p,
+div#login p {
   color: #FFFFFF;
   opacity: 0.65;
 }
-.dark-mode  h3.greeting {
-color: #FFFFFF;
-opacity: 0.95;
+
+.dark-mode .button-login #SignIn {
+  background: #78A7FD;
+  color: #000000;
 }
-.dark-mode  p.sub-ac {
-  color: #FFFFFF!important;
-opacity: 0.95;
+
+.dark-mode #header span {
+  color: #FFFFFF;
+  opacity: 0.65;
+}
+
+.dark-mode h3.greeting {
+  color: #FFFFFF;
+  opacity: 0.95;
+}
+
+.dark-mode p.sub-ac {
+  color: #FFFFFF !important;
+  opacity: 0.95;
 
 }
+
 .dark-mode a.sign-up-link {
- color: #78A7FD;
+  color: #78A7FD;
 
 }
-.dark-mode div#login .form-control, div#signUp .form-control {
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), #121212!important;
+
+.dark-mode div#login .form-control,
+div#signUp .form-control {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), #121212 !important;
   border: 1px solid #363636;
 
 }
+
 .dark-mode i.fa.fa-eye-slash {
-  color:#FFFFFF;
-  opacity:.5;
+  color: #FFFFFF;
+  opacity: .5;
 }
+
 .dark-mode #showPassword {
   right: 5px;
 
 }
+
 .dark-mode label#forgot-password a {
   color: #FFFFFF;
   mix-blend-mode: normal;
   opacity: 0.8;
 }
+
 .dark-mode h2.creat-headline {
-color: #FFFFFF;
-opacity: 0.95;
+  color: #FFFFFF;
+  opacity: 0.95;
 }
+
 .dark-mode p.creat-subline {
-  color: #FFFFFF!important;
-  opacity: 0.65!important;
+  color: #FFFFFF !important;
+  opacity: 0.65 !important;
 }
+
 .dark-mode div#signUp .form-control {
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), #121212!important;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), #121212 !important;
   border: 1px solid #363636;
 }
+
 .dark-mode #ButtonSingUp {
   background: #78A7FD;
-  border:none;
+  border: none;
   color: #000000;
 }
+
 .dark-mode a#ButtonLogin:not(:disabled) {
   background: #78A7FD;
   color: #000000;
 
 }
+
 .dark-mode .form-control {
-  color:#ffffff!important;
+  color: #ffffff !important;
 }
 
 .dark-mode h2.headline-ty {
-color: #FFFFFF;
-opacity: 0.95;
+  color: #FFFFFF;
+  opacity: 0.95;
 
 }
+
 .dark-mode p.ty-subline {
-color: #FFFFFF;
-opacity: 0.65;
+  color: #FFFFFF;
+  opacity: 0.65;
 }
 
 .dark-mode #ThankYOUButton {
   background: #78A7FD;
-  border:none;
+  border: none;
   color: #000000;
 }
-.dark-mode ul#myTab  {
-background: linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
-box-shadow: 0px 1px 1px #545454;
+
+.dark-mode ul#myTab {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
+  box-shadow: 0px 1px 1px #545454;
 }
 
-.dark-mode ul#myTab li:nth-child(2) a.active::after  {
+.dark-mode ul#myTab li:nth-child(2) a.active::after {
   border: 2px solid #B884DB;
 
 }
+
 .dark-mode ul#myTab li:nth-child(3) a.active::after {
   border: 2px solid #7BF8D8;
 }
+
 .dark-mode ul#myTab li:nth-child(4) a.active::after {
   border: 2px solid #B4C0F8;
 }
+
 .dark-mode ul#myTab li:nth-child(5) a.active::after {
   border: 2px solid #F69AAD;
 }
-.dark-mode div#mainArea  {
+
+.dark-mode div#mainArea {
   background: #121212;
 }
+
 .dark-mode .search .input-group {
-background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
-border: 1px solid #393939;
-box-shadow: inset 0px 0px 3px rgba(41, 41, 77, 0.15);
-border-radius: 8px;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+  border: 1px solid #393939;
+  box-shadow: inset 0px 0px 3px rgba(41, 41, 77, 0.15);
+  border-radius: 8px;
 }
+
 .dark-mode .modal-content {
-background: #3D3D3D;
-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-border-radius: 8px;
+  background: #3D3D3D;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
 }
 
 .dark-mode #exampleModal h5#exampleModalLabel {
-color: #FFFFFF;
-opacity: 0.95;
+  color: #FFFFFF;
+  opacity: 0.95;
 }
 
 .dark-mode #exampleModal .modal-body .view {
-border: 1px solid #393939;
-border-radius: 4px;
+  border: 1px solid #393939;
+  border-radius: 4px;
 
 }
+
 .dark-mode .author {
-border: 1px solid #393939;
-border-radius: 4px;
+  border: 1px solid #393939;
+  border-radius: 4px;
 
 }
+
 .dark-mode #exampleModal .tags {
-background: linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)), #3F3F3F;
-border: 1px solid #393939;
-border-radius: 4px;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)), #3F3F3F;
+  border: 1px solid #393939;
+  border-radius: 4px;
 }
+
 .dark-mode #exampleModal .tags h4 {
-color: #FFFFFF;
-opacity: 0.95;
+  color: #FFFFFF;
+  opacity: 0.95;
 }
+
 .dark-mode #exampleModal .modal-footer .clickToInsert {
-background: #78A7FD;
-border-radius: 4px;
-color:#000000;
+  background: #78A7FD;
+  border-radius: 4px;
+  color: #000000;
 
 }
+
 .dark-mode button.close {
-color: #78A7FD;
+  color: #78A7FD;
 }
 
-.dark-mode .help-center  {
-background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
-border: 1px solid #393939;
-box-sizing: border-box;
-border-radius: 4px;
+.dark-mode .help-center {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+  border: 1px solid #393939;
+  box-sizing: border-box;
+  border-radius: 4px;
 
 }
+
 .dark-mode .help-center a {
-background: #78A7FD;
-box-shadow: 0px 1px 2px rgba(41, 41, 77, 0.32);
-border-radius: 4px;
-color: #000000;
+  background: #78A7FD;
+  box-shadow: 0px 1px 2px rgba(41, 41, 77, 0.32);
+  border-radius: 4px;
+  color: #000000;
 }
+
 .dark-mode .help-center span {
   color: #FFFFFF;
   opacity: 0.95;
+}
+
+
+
+
+.dark-mode ul#myTab .active .icon-templates {
+  color: #b884db !important;
+  opacity: 1 !important;
+}
+
+.dark-mode ul#myTab .active .icon-graphics {
+  color: #7BF8D8 !important;
+  opacity: 1 !important;
+}
+
+.dark-mode ul#myTab .active .icon-Images,
+.dark-mode ul#myTab .active .icon-images,
+.dark-mode ul#myTab .active .icon-background {
+  color: #F69AAD !important;
+  opacity: 1 !important;
+}
+
+.dark-mode ul#myTab .active .icon-icons,
+.dark-mode ul#myTab .active .icon-icon {
+  color: #B4C0F8 !important;
+  opacity: 1 !important;
 }

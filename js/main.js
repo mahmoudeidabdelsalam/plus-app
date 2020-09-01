@@ -421,7 +421,7 @@ var xhrRequest;
     });
 
     // var typingTimer;
-    // var doneTypingInterval = 1200;ش
+    // var doneTypingInterval = 1200;
     // var searchBoxControl = $('#TextSearch');
     // $(searchBoxControl).on("keyup", function () {
     //   var search_text = $('#TextSearch').val();
@@ -461,8 +461,6 @@ var xhrRequest;
             }
             var name = data[i].name;
             var id = data[i].id;
-            var icon = data[i].icon;
-            var icon_hover = data[i].icon_hover;
             var column = data[i].column;
             var number = data[i].pre_page;
             var sources = data[i].sources;
@@ -472,7 +470,7 @@ var xhrRequest;
             }
 
             var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "' data-name='" + name + "'>" +
-              "<span class='icon'><img class='m-auto img-fluid original' src='" + icon + "' alt='"+name+"'><img class='m-auto img-fluid hover' src='" + icon_hover + "' '"+name+"'></span>" +
+              "<span class='icon icon-"+name+"'></span>" +
               "<span class='name'>" + name + "</span>" +
               "</a></li>";
             $("#myTab").append(item_term);
@@ -627,7 +625,6 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  console.log(item);
                   dataHtml += '<li><span class="overlay item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="#"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
@@ -681,13 +678,16 @@ var xhrRequest;
     }
 
 
-
+    /**
+     * function For Ads.
+     * @params ads id - ads number
+     * @result getTerms (ads in templates).
+     * requestMethod GET.
+     */
+    
     function GetAds(id, number) {
       var ads_id = id;
       var ads_nu = number;
-
-      console.log(ads_id);
-
 
       $.ajax({
         type: 'GET',
@@ -715,7 +715,12 @@ var xhrRequest;
       });
     }
 
-
+    /**
+     * function Get unsplash images.
+     * @params url unsplash api.
+     * @result items images - user.
+     * requestMethod GET.
+    */
     function GetUnImages(search_text) {
 
       if (search_text) {
@@ -743,8 +748,6 @@ var xhrRequest;
             query: search_text
           },
           success: function (data) {
-
-            console.log(data.results);
 
             if (search_text) {
               var items = data.results;
@@ -776,7 +779,10 @@ var xhrRequest;
       }
 
 
-      //Click function to get the next page
+      /**
+        * function pagination unsplash.
+        * @params page number.
+      */
       $("body").on("click", ".more", function () {
         var page = $("#pagination .more").attr('href');
         page++;
@@ -784,10 +790,14 @@ var xhrRequest;
         return false;
       });
       $("#pagination .more").change(unsplash(1));
+
     }
 
 
-
+    /**
+      * function Insert images unsplash.
+      * @params name url thumbnail links users.
+    */
     function GetInsertUnsplash(post_id, name, url, thumb, links) {
       var item_name = name;
       var item_url = url;
@@ -807,6 +817,10 @@ var xhrRequest;
     }
 
 
+    /**
+      * function Insert all.
+      * @params name url thumbnail links users.
+    */
     function GetInsert(post_id, term) {
       var id = post_id;
       var name = term;
@@ -867,7 +881,11 @@ var xhrRequest;
     }
 
 
-    // 6.1 function Geticons Item based post_id
+    /**
+      * function loop icons Collocations.
+      * @params post_id, column, number, sources, term, name.
+      * @result min Collocations icons.
+    */
     function GetIcons(post_id, column, number, sources, term, name) {
       var id = post_id;
       var column_nu = column;
@@ -942,9 +960,11 @@ var xhrRequest;
     }
 
 
-
-
-    // 7. function GetSearch Items based search_text & term_id
+    /**
+      * function get content for search.
+      * @params search_text, term_id, column.
+      * @result loop for search.
+    */
     function GetSearchContent(search_text, term_id, column) {
       var search_text = search_text;
       var term_id = term_id;
@@ -1030,8 +1050,11 @@ var xhrRequest;
 
 
 
-
-
+    /**
+      * function CallWS.
+      * @params type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params.
+      * @result successCallBack or failureCallback or errorCallback.
+    */
     function CallWS(type, url, contentType, dataType, data, successCallBack, errorCallback, failureCallback, params) {
       $.ajax({
         type: type,
@@ -1056,15 +1079,11 @@ var xhrRequest;
   });
 
 
-
-
-
-
-
-
-
-
-
+  /**
+    * function initialize office.
+    * @params reason.
+    * @result Insrt Items in power points.
+  */
   Office.initialize = function (reason) {
     $(document).ready(function () {
       // 8. Insrt Items
@@ -1171,4 +1190,6 @@ var xhrRequest;
       });
     });
   };
+
+// End JS
 })();
