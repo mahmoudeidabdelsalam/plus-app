@@ -219,9 +219,16 @@ $(".dropdown-toggle").click(function () {
   $(".dropdown-menu").toggleClass("acive");
 });
 
+
 $('#goto-signout').click(function () {
   hideMainArea();
   showLogInArea();
   ClearCredentials();
   localStorage.removeItem("UserKeep");
+});
+
+
+$('#Switch').click(function () {
+  $("body").toggleClass("dark-mode");
+  $(this).text($(this).text() == 'Switch to dark mode' ? 'Switch to light mode' : 'Switch to dark mode');
 });
