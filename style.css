@@ -634,7 +634,6 @@ ul.socialMedia li a {
 
 .search {
   display: flex;
-  flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
   padding: 0 15px;
@@ -645,12 +644,14 @@ ul.socialMedia li a {
   line-height: 30px;
   height: 30px;
   position: absolute;
-  right: 15px;
-  background-color: #f9f9f9;
+  right: 2px;
+  top: 5px;
   width: 30px;
   text-align: center;
   z-index: 999;
   border-radius: 100px;
+  background: transparent !important;
+  color: #BDC5CF !important;
 }
 
 .search button {
@@ -1275,4 +1276,32 @@ ul#myTab .term-link:hover .original {
 
 .dark-mode {
   background-color: #121212;
+  min-height: 800px;
+}
+
+
+div#view {
+  width: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div#view a {
+  margin: 0 5px;
+  color: #BEC6D2;
+}
+
+div#view a.active {
+  color: #3F4A59;
+}
+
+div#data-container.list-item ul li {
+  width: 95% !important;
+  flex: 0 0 95% !important;
+}
+
+div#data-container.list-item ul li img {
+  max-width: 100%;
+  height: auto;
 }
