@@ -48,8 +48,12 @@ var xhrRequest;
     var Mode = localStorage.getItem("ThemeMode");
     if (Mode == 'dark') {
       $("body").addClass("dark-mode");
+      $('#Switch').text('Switch to light mode');
+    } else {
+      $('#Switch').text('Switch to dark mode');
     }
-    $('#Switch').text($('#Switch').text() == 'Switch to dark mode' ? 'Switch to light mode' : 'Switch to dark mode');
+
+
 
 
     /**
@@ -267,6 +271,27 @@ var xhrRequest;
         $("head").append(scripts);
         $("#logo").attr("src", logo);
         $("#version").append(version);
+
+
+        var Local_version = localStorage.getItem("version");
+
+        console.log(Local_version != version);
+
+        
+        if (Local_version != version)  {
+          localStorage.setItem('version', version);
+          $.ajax({
+            url: "",
+            context: document.body,
+            success: function (s, x) {
+
+              $('html[manifest=saveappoffline.appcache]').attr('content', '');
+              $(this).html(s);
+            }
+          }); 
+        }
+
+
         var len = links.length;
         for (var i = 0; i < len; i++) {
           var dropdown = "<a class='dropdown-item' target='_blank' href='" + links[i].link + "'>" + links[i].text + "</a>";
@@ -352,6 +377,10 @@ var xhrRequest;
 
       $(this).remove();
 
+      $('div#data-container').removeClass("list-item");
+      $('#view #grid').addClass('active');
+      $('#view #list').removeClass('acctive');
+      
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
@@ -537,7 +566,7 @@ var xhrRequest;
               callback: function (data, pagination) {
                 var dataHtml = '<ul class="column-' + column_nu + '">';
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="#" data-name="' + item.name + '" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems ' + item.Category + '"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
+                  dataHtml += '<li><a href="JavaScript:Void(0);" data-name="' + item.name + '" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems ' + item.Category + '"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
                 });
                 dataHtml += '</ul>';
                 $("#data-container").animate({
@@ -581,13 +610,13 @@ var xhrRequest;
                 var dataHtml = '<div class="Collocations">';
                 $.each(data, function (index, item) {
                   dataHtml += '<ul class="column-icons">';
-                  dataHtml += '<a class="GetIcons overlayIcon" href="#" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"></a>';
-                  dataHtml += '<li class="headline">' + item.Name + ' <a class="GetIcons" href="#" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"><span>More ...</span></a></li>';
+                  dataHtml += '<a class="GetIcons overlayIcon" href="JavaScript:Void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"></a>';
+                  dataHtml += '<li class="headline">' + item.Name + ' <a class="GetIcons" href="JavaScript:Void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"><span>More ...</span></a></li>';
                   var i = 0;
                   $.each(item.Collocations, function (index, icon) {
                     i++;
                     if (i < 5) {
-                      dataHtml += '<li><a href="#" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
+                      dataHtml += '<li><a href="JavaScript:Void(0);" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
                     }
                   });
                   dataHtml += '</ul>';
@@ -624,7 +653,9 @@ var xhrRequest;
             $("#pagination").html("");
             hideSpinner();
             $(".Notification").hide();
+
             GetAds('#banner-1', 1);
+            
             var data = response.data
 
             var currPage = 0;
@@ -633,6 +664,9 @@ var xhrRequest;
               $("#view").show("slow");
             } else {
               $("#view").hide("slow");
+              $('div#data-container').removeClass("list-item");
+              $('#view #grid').addClass('active');
+              $('#view #list').removeClass('acctive');
             }
            
 
@@ -648,7 +682,7 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="#"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="JavaScript:Void(0);"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
                 dataHtml += '<div id="banner-' + currPage + '"></div>';
@@ -683,7 +717,7 @@ var xhrRequest;
               },
 
               afterNextOnClick: function () {
-                GetAds('#banner-' + currPage, 2);
+                GetAds('#banner-' + currPage, currPage);
               },
 
             })
@@ -709,8 +743,8 @@ var xhrRequest;
      */
     
     function GetAds(id, number) {
-      var ads_id = id;
-      var ads_nu = number;
+      var ads_id = number;
+      var ads_nu = number - 1;
 
       $.ajax({
         type: 'GET',
@@ -720,17 +754,12 @@ var xhrRequest;
         beforeSend: function () {},
         success: function (response) {
           var data = response.data
-          var links = data.advertisement;
-          var len = links.length;
-          for (var i = 0; i < len; i++) {
-            if (i === ads_nu) {
-              var ads = "<a class='advertisement-item' target='_blank' href='" + links[i].advertisement_link + "'><img src='" + links[i].advertisement_image + "' title='advertisement' alt='advertisement'/></a>";
-              $(ads_id).append(ads);
-            } else if (i === 1) {
-              var ads = "<a class='advertisement-item' target='_blank' href='" + links[i].advertisement_link + "'><img src='" + links[i].advertisement_image + "' title='advertisement' alt='advertisement'/></a>";
-              $(ads_id).append(ads);
-            }
-          }
+          var loop = data.advertisement[ads_nu];
+
+          var ads = "<a class='advertisement-item' target='_blank' href='" + loop.advertisement_link + "'><img src='" + loop.advertisement_image + "' title='advertisement' alt='advertisement'/></a>";
+
+          $("#banner-" + ads_id).html(ads);
+
         },
         error: function () {
           showNotification("error", "404");
@@ -781,7 +810,7 @@ var xhrRequest;
             if (items != '') {
               var dataHtml = '<ul class="column-2">';
               $.each(items, function (i, item) {
-                dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="' + item.user.links.html + '" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="#" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
+                dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="' + item.user.links.html + '" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="JavaScript:Void(0);" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").animate({
@@ -830,7 +859,7 @@ var xhrRequest;
       $('#UnsplashModal').modal('show');
 
       var popup_name = '<img src="Images/unsplash.png" alt="Unsplash" title="Unsplash" /> Photo by Unsplash | <a target="_blank" href="' + item_links + '">' + item_name + '</a>';
-      var link = '<a href="#" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + item_name + '" /> Use this photo</a>';
+      var link = '<a href="JavaScript:Void(0);" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + item_name + '" /> Use this photo</a>';
       var view = '<img src="' + item_thum + '" alt="' + item_name + '" title="' + item_name + '"/>';
 
       $("#UnsplashModal .modal-title").html(popup_name);
@@ -866,7 +895,7 @@ var xhrRequest;
           var AuthorName = data[0].AuthorName;
 
           var title = data[0].Name;
-          var link = '<a href="#" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + title + '" /> Use this item</a>';
+          var link = '<a href="JavaScript:Void(0);" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + title + '" /> Use this item</a>';
           var view = '<img src="' + data[0].PreviewImage + '" alt="' + title + '" title="' + title + '"/>';
 
           if (name === 'templates') {
@@ -941,7 +970,7 @@ var xhrRequest;
               var dataHtml = '<ul class="column-' + column_nu + '">';
 
               $.each(icons, function (index, item) {
-                dataHtml += '<li><a href="#" data-type="' + item.file_icon.subtype + '" data-url="' + item.file_icon.url + '" class="clickToInsert"><span><img title="' + item.file_icon.name + '" alt="' + item.file_icon.name + '" src="' + item.file_icon.url + '" /></span></a></li>';
+                dataHtml += '<li><a href="JavaScript:Void(0);" data-type="' + item.file_icon.subtype + '" data-url="' + item.file_icon.url + '" class="clickToInsert"><span><img title="' + item.file_icon.name + '" alt="' + item.file_icon.name + '" src="' + item.file_icon.url + '" /></span></a></li>';
               });
 
               dataHtml += '</ul>';
@@ -1012,7 +1041,7 @@ var xhrRequest;
             if (data) {
               var dataHtml = '<ul class="column-' + column_nu + '">';
               $.each(data, function (index, item) {
-                dataHtml += '<li><a href="#" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
+                dataHtml += '<li><a href="JavaScript:Void(0);" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").append(dataHtml);
@@ -1052,7 +1081,7 @@ var xhrRequest;
                 callback: function (data, pagination) {
                   var dataHtml = '<ul class="column-' + column_nu + '">';
                   $.each(data, function (index, item) {
-                    dataHtml += '<li><a href="#" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                    dataHtml += '<li><a href="JavaScript:Void(0);" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                   });
                   dataHtml += '</ul>';
                   $("#data-container").append(dataHtml);
