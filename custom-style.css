@@ -262,6 +262,45 @@ div#data-container ul li {
   background-color: #fff;
 }
 
+/* icon colors ligh mode*/
+ul#myTab span.icon {
+  font-size:18px;
+}
+
+ul#myTab .active .icon-templates {
+  color:#7209B7!important;
+
+}
+ul#myTab .icon-templates {
+  color:#BEC6D2;
+}
+ul#myTab .active .icon-graphics {
+  color: #0ACB99!important;
+
+}
+ul#myTab .icon-graphics {
+  color:#BEC6D2;
+}
+ ul#myTab .active .icon-Images,
+ ul#myTab .active .icon-images,
+ ul#myTab .active .icon-background {
+  color:#EE4266!important;
+ }
+ ul#myTab  .icon-Images,
+ ul#myTab  .icon-images,
+ ul#myTab  .icon-background {
+  color:#BEC6D2;
+
+ }
+
+ul#myTab .active .icon-icons,
+ul#myTab .active .icon-icon {
+  color: #4361EE!important
+}
+ul#myTab .icon-icons{
+  color:#BEC6D2;
+
+}
 /* CREAT AN ACCOUNT PAGE*/
 h2.creat-headline {
   font-family: 'Roboto', sans-serif;
@@ -415,7 +454,7 @@ ul#myTab .term-link:after {
 
 .dark-mode ul#myTab span.icon {
   color: #FFFFFF;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .dark-mode ul#myTab span.name {
