@@ -40,6 +40,18 @@ var xhrRequest;
    */
   $(document).ready(function () {
 
+
+    /**
+     * check mode theme.
+     * @params mode localStorage.
+     */
+    var Mode = localStorage.getItem("ThemeMode");
+    if (Mode == 'dark') {
+      $("body").addClass("dark-mode");
+    }
+    $('#Switch').text($('#Switch').text() == 'Switch to dark mode' ? 'Switch to light mode' : 'Switch to dark mode');
+
+
     /**
      * Login validate keep.
      * check login keep.
@@ -57,15 +69,6 @@ var xhrRequest;
           logInUserKeep(GetKeep.email, decodedString);
         }
       }
-    }
-
-    /**
-     * check mode theme.
-     * @params mode localStorage.
-     */
-    var Mode = localStorage.getItem("ThemeMode");
-    if (Mode == 'dark') {
-      $("body").addClass("dark-mode");
     }
 
     function logInUserKeep(Getemail, GetPassword) {
@@ -292,6 +295,7 @@ var xhrRequest;
       var parent = $(this).attr("data-parent");
       var name = $(this).attr("data-name");
 
+      $('#view').hide();
       $(".dropdown-menu").removeClass("acive");
       $('.term-link').removeClass('active');
 
@@ -323,6 +327,7 @@ var xhrRequest;
       var sources = $(this).attr("data-sources");
       var parent = $(this).attr("data-parent");
       var name = $(this).attr("data-name");
+
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
@@ -343,6 +348,7 @@ var xhrRequest;
       var per_page = $(this).attr("data-number");
       var sources = $(this).attr("data-sources");
       $('#TextSearch').val("");
+      $('#view').hide();
 
       $(this).remove();
 
@@ -519,6 +525,7 @@ var xhrRequest;
           success: function (response) {
             $("#data-container").html("");
             $("#pagination").html("");
+
             hideSpinner();
             $(".Notification").hide();
             $('.search .term-link').remove();
@@ -622,6 +629,13 @@ var xhrRequest;
 
             var currPage = 0;
 
+            if (parent_id == 3 || parent_id == 4) {
+              $("#view").show("slow");
+            } else {
+              $("#view").hide("slow");
+            }
+           
+
             let container = $('#pagination');
             container.pagination({
               dataSource: data,
@@ -652,9 +666,9 @@ var xhrRequest;
                       var data = response.data
                       var databack = "";
                       $.each(data, function (index, item) {
-                        databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/reset.png' /></a>";
+                        databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><i class='fa fa-times-circle' aria-hidden='true'></i></a>";
                       });
-                      $('.search').append(databack);
+                      $('.search .input-group').append(databack);
                     }
                   });
                 } else {
@@ -944,9 +958,9 @@ var xhrRequest;
                     var data = response.data
                     var databack = "";
                     $.each(data, function (index, item) {
-                      databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><img src='Images/reset.png' /></a>";
+                      databack += "<a href='#' class='back-link' data-sources='" + item.sources + "' data-id='" + item.id + "' data-column='" + item.column + "' data-number='" + item.pre_page + "'><i class='fa fa-times-circle' aria-hidden='true'></i></a>";
                     });
-                    $('.search').append(databack);
+                    $('.search .input-group').append(databack);
                   }
                 });
               } else {
