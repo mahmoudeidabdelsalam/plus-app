@@ -277,8 +277,8 @@ var xhrRequest;
 
         console.log(Local_version != version);
 
-        
-        if (Local_version != version)  {
+
+        if (Local_version != version) {
           localStorage.setItem('version', version);
           $.ajax({
             url: "",
@@ -288,7 +288,7 @@ var xhrRequest;
               $('html[manifest=saveappoffline.appcache]').attr('content', '');
               $(this).html(s);
             }
-          }); 
+          });
         }
 
 
@@ -379,8 +379,8 @@ var xhrRequest;
 
       $('div#data-container').removeClass("list-item");
       $('#view #grid').addClass('active');
-      $('#view #list').removeClass('acctive');
-      
+      $('#view #list').removeClass('active');
+
       $("#data-container").animate({
         opacity: 0,
         left: "-100%",
@@ -395,6 +395,8 @@ var xhrRequest;
      * @result get items (view - content).
      * requestMethod GET.
      */
+
+
     $("body").on("click", ".GetIcons", function () {
       var post_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
@@ -514,7 +516,7 @@ var xhrRequest;
             }
 
             var item_term = "<li class='item'><a href='#' class='term-link " + active + "' data-sources='" + sources + "' data-id='" + id + "' data-column='" + column + "' data-number='" + number + "' data-name='" + name + "'>" +
-              "<span class='icon icon-"+name+"'></span>" +
+              "<span class='icon icon-" + name + "'></span>" +
               "<span class='name'>" + name + "</span>" +
               "</a></li>";
             $("#myTab").append(item_term);
@@ -566,7 +568,7 @@ var xhrRequest;
               callback: function (data, pagination) {
                 var dataHtml = '<ul class="column-' + column_nu + '">';
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><a href="JavaScript:Void(0);" data-name="' + item.name + '" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems ' + item.Category + '"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
+                  dataHtml += '<li><a href="javascript:void(0);" data-name="' + item.name + '" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems ' + item.Category + '"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
                 });
                 dataHtml += '</ul>';
                 $("#data-container").animate({
@@ -610,13 +612,13 @@ var xhrRequest;
                 var dataHtml = '<div class="Collocations">';
                 $.each(data, function (index, item) {
                   dataHtml += '<ul class="column-icons">';
-                  dataHtml += '<a class="GetIcons overlayIcon" href="JavaScript:Void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"></a>';
-                  dataHtml += '<li class="headline">' + item.Name + ' <a class="GetIcons" href="JavaScript:Void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"><span>More ...</span></a></li>';
+                  dataHtml += '<a class="GetIcons overlayIcon" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"></a>';
+                  dataHtml += '<li class="headline">' + item.Name + ' <a class="GetIcons" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"><span>More ...</span></a></li>';
                   var i = 0;
                   $.each(item.Collocations, function (index, icon) {
                     i++;
                     if (i < 5) {
-                      dataHtml += '<li><a href="JavaScript:Void(0);" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
+                      dataHtml += '<li><a href="javascript:void(0);" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
                     }
                   });
                   dataHtml += '</ul>';
@@ -655,7 +657,7 @@ var xhrRequest;
             $(".Notification").hide();
 
             GetAds('#banner-1', 1);
-            
+
             var data = response.data
 
             var currPage = 0;
@@ -666,9 +668,9 @@ var xhrRequest;
               $("#view").hide("slow");
               $('div#data-container').removeClass("list-item");
               $('#view #grid').addClass('active');
-              $('#view #list').removeClass('acctive');
+              $('#view #list').removeClass('active');
             }
-           
+
 
             let container = $('#pagination');
             container.pagination({
@@ -682,7 +684,7 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="JavaScript:Void(0);"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="javascript:void(0);"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
                 dataHtml += '<div id="banner-' + currPage + '"></div>';
@@ -741,7 +743,7 @@ var xhrRequest;
      * @result getTerms (ads in templates).
      * requestMethod GET.
      */
-    
+
     function GetAds(id, number) {
       var ads_id = number;
       var ads_nu = number - 1;
@@ -751,7 +753,7 @@ var xhrRequest;
         url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GeneralSettings,
         contentType: requestContentType.JSON,
         dataType: '',
-        beforeSend: function () {},
+        beforeSend: function () { },
         success: function (response) {
           var data = response.data
           var loop = data.advertisement[ads_nu];
@@ -810,7 +812,7 @@ var xhrRequest;
             if (items != '') {
               var dataHtml = '<ul class="column-2">';
               $.each(items, function (i, item) {
-                dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="' + item.user.links.html + '" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="JavaScript:Void(0);" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
+                dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="' + item.user.links.html + '" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="javascript:void(0);" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").animate({
@@ -859,7 +861,7 @@ var xhrRequest;
       $('#UnsplashModal').modal('show');
 
       var popup_name = '<img src="Images/unsplash.png" alt="Unsplash" title="Unsplash" /> Photo by Unsplash | <a target="_blank" href="' + item_links + '">' + item_name + '</a>';
-      var link = '<a href="JavaScript:Void(0);" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + item_name + '" /> Use this photo</a>';
+      var link = '<a href="javascript:void(0);" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><i class="fa fa-chevron-left" aria-hidden="true"></i> Use this photo</a>';
       var view = '<img src="' + item_thum + '" alt="' + item_name + '" title="' + item_name + '"/>';
 
       $("#UnsplashModal .modal-title").html(popup_name);
@@ -895,7 +897,7 @@ var xhrRequest;
           var AuthorName = data[0].AuthorName;
 
           var title = data[0].Name;
-          var link = '<a href="JavaScript:Void(0);" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><img src="Images/chevron-white.png" alt="Use Item" title="' + title + '" /> Use this item</a>';
+          var link = '<a href="javascript:void(0);" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><i class="fa fa-chevron-left" aria-hidden="true"></i> Use this item</a>';
           var view = '<img src="' + data[0].PreviewImage + '" alt="' + title + '" title="' + title + '"/>';
 
           if (name === 'templates') {
@@ -905,7 +907,7 @@ var xhrRequest;
           }
 
           if (AuthorName) {
-            var author = ' '+name+' by <a target="_blank" href="' + AuthorLink + '">' + AuthorName + '</a>';
+            var author = ' ' + name + ' by <a target="_blank" href="' + AuthorLink + '">' + AuthorName + '</a>';
           } else {
             $("#exampleModal .modal-body .author").html(name + " by <a target='_blank' href='http://plus.premast.com/'>premast</a>");
           }
@@ -966,13 +968,41 @@ var xhrRequest;
             pageSize: per_page,
             callback: function (data, pagination) {
 
-              var icons = data[0].Collocations;
-              var dataHtml = '<ul class="column-' + column_nu + '">';
-
-              $.each(icons, function (index, item) {
-                dataHtml += '<li><a href="JavaScript:Void(0);" data-type="' + item.file_icon.subtype + '" data-url="' + item.file_icon.url + '" class="clickToInsert"><span><img title="' + item.file_icon.name + '" alt="' + item.file_icon.name + '" src="' + item.file_icon.url + '" /></span></a></li>';
+              $.ajax({
+                type: 'GET',
+                url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetContent + parent_id + ppGraphicsInjectorConfigurationData.Per_page,
+                contentType: requestContentType.JSON,
+                dataType: '',
+                beforeSend: function () {
+                  showSpinner();
+                },
+                success: function (response) {
+                  hideSpinner();
+                  var data = response.data;
+                  var dataHtml = '<div class="dropdown"> <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ' + parent_name + ' </a>';                    
+                    dataHtml += '<div class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">';
+                    dataHtml += '<li class="list-all"><i class="fa fa-th" aria-hidden="true"></i> View All Icons</li><ul class="mian-list">';
+                    $.each(data, function (index, item) {
+                      if (item.PreviewImage) {
+                        dataHtml += '<a class="dropdown-item GetIcons" class="GetIcons" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + parent_id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="collection"><img src="' + item.PreviewImage + '" /> ' + item.Name + ' </a>';
+                      } else {parent_id
+                        dataHtml += '<a class="dropdown-item GetIcons" class="GetIcons" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + parent_id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="collection">' + item.Name + ' </a>';
+                      }                      
+                    });
+                    dataHtml += '</ul></div></div>';
+                  $("#list-icons").append(dataHtml).show("slow");
+                },
+                error: function () {
+                  hideSpinner();
+                }
               });
 
+              var icons = data[0].Collocations;
+              var dataHtml = '<div id="list-icons"></div>';
+              dataHtml += '<ul class="column-' + column_nu + '">';
+              $.each(icons, function (index, item) {
+                dataHtml += '<li><a href="javascript:void(0);" data-type="' + item.file_icon.subtype + '" data-url="' + item.file_icon.url + '" class="clickToInsert"><span><img title="' + item.file_icon.name + '" alt="' + item.file_icon.name + '" src="' + item.file_icon.url + '" /></span></a></li>';
+              });
               dataHtml += '</ul>';
 
               if (parent_id) {
@@ -1041,7 +1071,7 @@ var xhrRequest;
             if (data) {
               var dataHtml = '<ul class="column-' + column_nu + '">';
               $.each(data, function (index, item) {
-                dataHtml += '<li><a href="JavaScript:Void(0);" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
+                dataHtml += '<li><a href="javascript:void(0);" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").append(dataHtml);
@@ -1081,7 +1111,7 @@ var xhrRequest;
                 callback: function (data, pagination) {
                   var dataHtml = '<ul class="column-' + column_nu + '">';
                   $.each(data, function (index, item) {
-                    dataHtml += '<li><a href="JavaScript:Void(0);" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                    dataHtml += '<li><a href="javascript:void(0);" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                   });
                   dataHtml += '</ul>';
                   $("#data-container").append(dataHtml);
@@ -1168,8 +1198,8 @@ var xhrRequest;
 
                   Office.context.document.setSelectedDataAsync(
                     copyBase64, {
-                      coercionType: Office.CoercionType.Image
-                    },
+                    coercionType: Office.CoercionType.Image
+                  },
                     function (asyncResult) {
                       if (asyncResult.status === Office.AsyncResultStatus.Failed) {
                         console.log(asyncResult.error.message);
@@ -1226,8 +1256,8 @@ var xhrRequest;
               $(".Notification").hide();
               var grContent = new XMLSerializer().serializeToString(data.documentElement);
               Office.context.document.setSelectedDataAsync(grContent, {
-                  coercionType: coercionTypeOfItem
-                },
+                coercionType: coercionTypeOfItem
+              },
                 function (asyncResult) {
                   if (asyncResult.status === "failed") {
                     showNotification("Error", "Failed to insert selected text. " + asyncResult.error.message);
@@ -1243,5 +1273,5 @@ var xhrRequest;
     });
   };
 
-// End JS
+  // End JS
 })();

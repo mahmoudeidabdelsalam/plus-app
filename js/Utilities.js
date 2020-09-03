@@ -242,11 +242,11 @@ $('#Switch').click(function () {
 $('#view #list').click(function () {
   $('div#data-container').addClass("list-item");
   $(this).addClass('active');
-  $('#view #grid').removeClass('acctive');
+  $('#view #grid').removeClass('active');
 });
 
 $('#view #grid').click(function () {
   $('div#data-container').removeClass("list-item");
   $(this).addClass('active');
-  $('#view #list').removeClass('acctive');
+  $('#view #list').removeClass('active');
 });
