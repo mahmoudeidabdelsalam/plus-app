@@ -24,3 +24,11 @@ var ppGraphicsInjectorConfigurationData = {
   "useStaticData": false,
   "usePaging": false
 };
+
+
+
+var LogItems = {
+  "baseUrl": "https://plus.premast.com/wp-json/wp/api/",
+  "LogDownload": "log/download/",
+  "LogSearch": "log/search/",
+};

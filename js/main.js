@@ -618,7 +618,7 @@ var xhrRequest;
                   $.each(item.Collocations, function (index, icon) {
                     i++;
                     if (i < 5) {
-                      dataHtml += '<li><a href="javascript:void(0);" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
+                      dataHtml += '<li><a href="javascript:void(0);" data-title="' + icon.file_icon.name + '" data-id="'+item.Id+'" data-type="' + icon.file_icon.subtype + '" data-url="' + icon.file_icon.url + '" class="clickToInsert ' + item.Category + '"><span><img title="' + icon.file_icon.name + '" alt="' + icon.file_icon.name + '" src="' + icon.file_icon.url + '" /></span></a></li>';
                     }
                   });
                   dataHtml += '</ul>';
@@ -684,7 +684,7 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><span class="overlay item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="javascript:void(0);"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><span class="overlay data-title="' + item.Name + '" item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
                 dataHtml += '<div id="banner-' + currPage + '"></div>';
@@ -812,7 +812,7 @@ var xhrRequest;
             if (items != '') {
               var dataHtml = '<ul class="column-2">';
               $.each(items, function (i, item) {
-                dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="' + item.user.links.html + '" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="javascript:void(0);" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
+                dataHtml += '<li><span class="overlay" data-sources="unsplash" data-links="' + item.user.links.html + '" data-name="' + item.user.name + '" data-thumb="' + item.urls.regular + '" data-url="' + item.urls.full + '" data-id="' + item.id + '"><img alt="info item" title="' + item.alt_description + '" src="Images/info.png" /></span><a href="javascript:void(0);" data-title="'+item.id+'" data-id="unsplash" data-type="jpg" data-url="' + item.urls.full + '" class="clickToInsert"><span><img title="' + item.alt_description + '" alt="' + item.alt_description + '" src="' + item.urls.small + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").animate({
@@ -861,7 +861,7 @@ var xhrRequest;
       $('#UnsplashModal').modal('show');
 
       var popup_name = '<img src="Images/unsplash.png" alt="Unsplash" title="Unsplash" /> Photo by Unsplash | <a target="_blank" href="' + item_links + '">' + item_name + '</a>';
-      var link = '<a href="javascript:void(0);" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><i class="fa fa-chevron-left" aria-hidden="true"></i> Use this photo</a>';
+      var link = '<a href="javascript:void(0);" data-title="'+item_name+'" data-id="Unsplash" data-type="jpg" data-url="' + item_url + '" class="clickToInsert"><i class="fa fa-chevron-left" aria-hidden="true"></i> Use this photo</a>';
       var view = '<img src="' + item_thum + '" alt="' + item_name + '" title="' + item_name + '"/>';
 
       $("#UnsplashModal .modal-title").html(popup_name);
@@ -897,7 +897,7 @@ var xhrRequest;
           var AuthorName = data[0].AuthorName;
 
           var title = data[0].Name;
-          var link = '<a href="javascript:void(0);" data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><i class="fa fa-chevron-left" aria-hidden="true"></i> Use this item</a>';
+          var link = '<a href="javascript:void(0);" data-title="'+item.Name+'"  data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><i class="fa fa-chevron-left" aria-hidden="true"></i> Use this item</a>';
           var view = '<img src="' + data[0].PreviewImage + '" alt="' + title + '" title="' + title + '"/>';
 
           if (name === 'templates') {
@@ -998,10 +998,11 @@ var xhrRequest;
               });
 
               var icons = data[0].Collocations;
+
               var dataHtml = '<div id="list-icons"></div>';
               dataHtml += '<ul class="column-' + column_nu + '">';
               $.each(icons, function (index, item) {
-                dataHtml += '<li><a href="javascript:void(0);" data-type="' + item.file_icon.subtype + '" data-url="' + item.file_icon.url + '" class="clickToInsert"><span><img title="' + item.file_icon.name + '" alt="' + item.file_icon.name + '" src="' + item.file_icon.url + '" /></span></a></li>';
+                dataHtml += '<li><a href="javascript:void(0);" data-title="' + item.file_icon.name + '" data-id="'+data[0].Id+'" data-type="' + item.file_icon.subtype + '" data-url="' + item.file_icon.url + '" class="clickToInsert"><span><img title="' + item.file_icon.name + '" alt="' + item.file_icon.name + '" src="' + item.file_icon.url + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
 
@@ -1071,7 +1072,7 @@ var xhrRequest;
             if (data) {
               var dataHtml = '<ul class="column-' + column_nu + '">';
               $.each(data, function (index, item) {
-                dataHtml += '<li><a href="javascript:void(0);" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
+                dataHtml += '<li><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").append(dataHtml);
@@ -1111,7 +1112,7 @@ var xhrRequest;
                 callback: function (data, pagination) {
                   var dataHtml = '<ul class="column-' + column_nu + '">';
                   $.each(data, function (index, item) {
-                    dataHtml += '<li><a href="javascript:void(0);" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                    dataHtml += '<li><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'" data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                   });
                   dataHtml += '</ul>';
                   $("#data-container").append(dataHtml);
@@ -1157,6 +1158,39 @@ var xhrRequest;
         }
       });
     }
+
+
+
+    /**
+     * function add log download file.
+     */
+    $("body").on("click", ".clickToInsert", function () {
+      var ID = $(this).attr("data-id");
+      var title = $(this).attr("data-title");
+      var user = GetKeep.email;
+
+      $.ajax({
+        type: requestMethod.POST,
+        url: LogItems.baseUrl + LogItems.LogDownload,
+        dataType: 'json',
+        data: {
+          item_id: ID,
+          item_title: title,
+          user: user,
+        },
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (response) {
+          console.log(response);
+        }
+      });
+
+    });
+
 
   });
 
