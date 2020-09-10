@@ -1068,8 +1068,10 @@ var xhrRequest;
             $(".Notification").hide();
             $("#pagination").html("");
 
+            var results = "";
             var data = response.data
             if (data) {
+              results = "yes. of results";
               var dataHtml = '<ul class="column-' + column_nu + '">';
               $.each(data, function (index, item) {
                 dataHtml += '<li><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
@@ -1078,8 +1080,31 @@ var xhrRequest;
               $("#data-container").append(dataHtml);
 
             } else {
+              results = "no. of results";
               showNotification("Nothing found for that search.", "How about checking this collections");
             }
+
+            $.ajax({
+              type: requestMethod.POST,
+              url: LogItems.baseUrl + LogItems.LogSearch,
+              dataType: 'json',
+              data: {
+                keyword: search_text,
+                term_id: term_id,
+                user: GetKeep.email,
+                results: results,
+              },
+              beforeSend: function () {
+
+              },
+              success: function (response) {
+                console.log(response);
+              },
+              error: function (response) {
+                console.log(response);
+              }
+            });
+
 
           },
           error: function () {
@@ -1089,6 +1114,28 @@ var xhrRequest;
         });
       } else if (term_id === 42 || term_id === 15) {
         GetUnImages(search_text);
+
+        $.ajax({
+          type: requestMethod.POST,
+          url: LogItems.baseUrl + LogItems.LogSearch,
+          dataType: 'json',
+          data: {
+            keyword: search_text,
+            term_id: term_id,
+            user: GetKeep.email,
+            results:"unsplash",
+          },
+          beforeSend: function () {
+
+          },
+          success: function (response) {
+            console.log(response);
+          },
+          error: function (response) {
+            console.log(response);
+          }
+        });
+        
       } else {
         $.ajax({
           type: 'GET',
@@ -1104,8 +1151,10 @@ var xhrRequest;
             $("#data-container").html("");
             $(".Notification").hide();
 
+            var results = "";
             var data = response.data
             if (data) {
+              results = "yes. of results";
               let container = $('#pagination');
               container.pagination({
                 dataSource: data,
@@ -1119,8 +1168,30 @@ var xhrRequest;
                 }
               })
             } else {
+              results = "no. of results";
               showNotification("Nothing found for that search.", "How about checking this collections");
             }
+
+            $.ajax({
+              type: requestMethod.POST,
+              url: LogItems.baseUrl + LogItems.LogSearch,
+              dataType: 'json',
+              data: {
+                keyword: search_text,
+                term_id: term_id,
+                user: GetKeep.email,
+                results: results,
+              },
+              beforeSend: function () {
+
+              },
+              success: function (response) {
+                console.log(response);
+              },
+              error: function (response) {
+                console.log(response);
+              }
+            });
 
           },
           error: function () {

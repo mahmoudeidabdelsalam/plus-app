@@ -28,7 +28,7 @@ var ppGraphicsInjectorConfigurationData = {
 
 
 var LogItems = {
-  "baseUrl": "https://plus.premast.com/wp-json/wp/api/",
+  "baseUrl": "https://plus.test/wp-json/wp/api/",
   "LogDownload": "log/download/",
   "LogSearch": "log/search/",
 };
