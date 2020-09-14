@@ -684,7 +684,7 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><span class="overlay data-title="' + item.Name + '" item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><span class="overlay" data-title="' + item.Name + '" item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
                 dataHtml += '<div id="banner-' + currPage + '"></div>';
@@ -893,11 +893,13 @@ var xhrRequest;
 
           var data = response.data
 
+          console.log(data);
+
           var AuthorLink = data[0].AuthorLink;
           var AuthorName = data[0].AuthorName;
 
           var title = data[0].Name;
-          var link = '<a href="javascript:void(0);" data-title="'+item.Name+'"  data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><i class="fa fa-chevron-left" aria-hidden="true"></i> Use this item</a>';
+          var link = '<a href="javascript:void(0);" data-title="' + data[0].Name + '"  data-type="' + data[0].Type + '" data-url="' + data[0].Content + '" class="clickToInsert"><i class="fa fa-chevron-left" aria-hidden="true"></i> Use this item</a>';
           var view = '<img src="' + data[0].PreviewImage + '" alt="' + title + '" title="' + title + '"/>';
 
           if (name === 'templates') {
