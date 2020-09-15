@@ -1057,7 +1057,7 @@ var xhrRequest;
       if (term_id === 23 || term_id === 25) {
         $.ajax({
           type: 'GET',
-          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.WithCategory + term_id,
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.WithCategory + term_id + ppGraphicsInjectorConfigurationData.Per_page,
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
@@ -1141,7 +1141,7 @@ var xhrRequest;
       } else {
         $.ajax({
           type: 'GET',
-          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.WithCategory + term_id,
+          url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GetSearch + search_text + ppGraphicsInjectorConfigurationData.WithCategory + term_id + ppGraphicsInjectorConfigurationData.Per_page,
           contentType: requestContentType.JSON,
           dataType: '',
           beforeSend: function () {
