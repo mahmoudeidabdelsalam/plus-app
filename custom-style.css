@@ -728,3 +728,15 @@ div#signUp .form-control {
   color: #B4C0F8 !important;
   opacity: 1 !important;
 }
+.dark-mode .dropdown-menu.acive {
+  background:linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
+  color:#ffffff;
+}
+
+.dark-mode ul.socialMedia{
+  background:linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)), #3D3D3D;
+
+}
+
+
+
