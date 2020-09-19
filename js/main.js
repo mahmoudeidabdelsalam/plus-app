@@ -248,7 +248,7 @@ var xhrRequest;
     });
 
     /**
-     * Get General Settings. 
+     * Get General Settings.
      * @result (Logo - version - links - scripts).
      * requestMethod GET
      **/
@@ -613,7 +613,7 @@ var xhrRequest;
                 $.each(data, function (index, item) {
                   dataHtml += '<ul class="column-icons">';
                   dataHtml += '<a class="GetIcons overlayIcon" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"></a>';
-                  dataHtml += '<li class="headline">' + item.Name + ' <a class="GetIcons" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"><span>More ...</span></a></li>';
+                  dataHtml += '<li class="headline">' + item.Name + ' <a class="GetIcons" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="' + source + '"><span>More</span></a></li>';
                   var i = 0;
                   $.each(item.Collocations, function (index, icon) {
                     i++;
@@ -981,7 +981,7 @@ var xhrRequest;
                 success: function (response) {
                   hideSpinner();
                   var data = response.data;
-                  var dataHtml = '<div class="dropdown"> <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ' + parent_name + ' </a>';                    
+                  var dataHtml = '<div class="dropdown"> <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ' + parent_name + ' </a>';
                     dataHtml += '<div class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">';
                     dataHtml += '<li class="list-all"><i class="fa fa-th" aria-hidden="true"></i> View All Icons</li><ul class="mian-list">';
                     $.each(data, function (index, item) {
@@ -989,7 +989,7 @@ var xhrRequest;
                         dataHtml += '<a class="dropdown-item GetIcons" class="GetIcons" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + parent_id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="collection"><img src="' + item.PreviewImage + '" /> ' + item.Name + ' </a>';
                       } else {parent_id
                         dataHtml += '<a class="dropdown-item GetIcons" class="GetIcons" href="javascript:void(0);" data-name="' + item.Name + '" data-term="' + parent_id + '" data-id="' + item.Id + '" data-column="' + column_nu + '" data-number="' + per_page + '" data-source="collection">' + item.Name + ' </a>';
-                      }                      
+                      }
                     });
                     dataHtml += '</ul></div></div>';
                   $("#list-icons").append(dataHtml).show("slow");
@@ -1137,7 +1137,7 @@ var xhrRequest;
             console.log(response);
           }
         });
-        
+
       } else {
         $.ajax({
           type: 'GET',

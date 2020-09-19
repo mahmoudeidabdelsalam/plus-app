@@ -298,7 +298,7 @@ ul.list-category li span.icon {
 
 .modal-content {
   position: relative;
-  background-color: #fff;
+  background-color:#f9f9f9!important;
   background-clip: padding-box;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, .2);
@@ -566,7 +566,7 @@ ul#myTab span.icon {
   height: 20px;
   display: block;
   margin: 12px auto;
-  opacity: .7;
+
 }
 
 .dropdown-toggle .name {

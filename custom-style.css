@@ -50,14 +50,11 @@ div#header img {
   max-width: 170px;
 }
 
-div#data-container ul.column-2 li {
-  border: none;
-}
 
 div#data-container ul.column-2 li span img {
   width: 100%;
   height: auto;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 div#creat-account {
@@ -120,15 +117,17 @@ input#TextSearch::placeholder {
 
 
 .paginationjs .paginationjs-pages li a {
-  background: #1e6dfb !important;
+  background: #F0F5FF !important;
   color: white;
   box-shadow: none !important;
   line-height: 38px !important;
   height: 38px !important;
+  border-radius:4px;
+
 }
 
 li.paginationjs-next a:after {
-  color: white;
+  color: #0078FF;
   font-size: 15px;
 
 }
@@ -167,7 +166,7 @@ div#header img {
 div#data-container ul.column-2 li span img {
   width: 100%;
   height: auto;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 
@@ -738,5 +737,34 @@ div#signUp .form-control {
 
 }
 
+/* new edits */
+label#RememberMeLabel{
+  padding:0 9px 15px
+}
+.search .input-group {
+  border-radius:8px;
+}
+a.term-link {
+  color:#A6AFBC;
 
+}
+div#data-container ul.column-2 li {
+  border:1px solid #BEC6D2;
+  box-shadow:none;
+}
+li.item {
+  flex: 0 0 22%;
+}
+div#data-container ul li.headline a {
+  color:#1E6DFB;
+}
+a.GetIcons span::after {
+  font-family: FontAwesome ; content:"\f054";
+  padding-left: 7px;
+  font-size: 10px;
 
+}
+
+.modal-content {
+  background-color:f9f9f9!important;
+}
