@@ -111,8 +111,8 @@ input#InputPassword {
 }
 
 a#ButtonLogin {
-  width:290px;
-  height: 40px;
+  width:295px;
+  height: 45px;
   margin: auto;
   display: block;
   background: #E8E8E8;
@@ -127,6 +127,7 @@ a#ButtonLogin {
   text-transform: capitalize;
   color: #A6A6A6;
   opacity: 1;
+  padding-top:10px;
 }
 
 label#forgot-password a {
@@ -234,7 +235,8 @@ input#RememberMe {
   order: 0;
   align-self: center;
   margin: 10px 0px;
-  padding: 7px 48px;
+  Height:42px;
+  padding:11px 0px 10px 0px;
 }
 
 #CreateAccount {
@@ -689,13 +691,13 @@ div#data-container ul {
 
 div#data-container ul li {
   width: 45%;
-  flex: 0 0 45%;
+  flex: 0 0 46%;
   border: 1px solid transparent;
-  margin: 2%;
+  margin: 5px;
   position: relative;
   overflow: hidden;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.35);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 div#data-container ul li span {
@@ -1114,6 +1116,7 @@ div#data-container ul li:hover .overlay {
   align-items: center;
   letter-spacing: 0.04px;
   color: #646464;
+  font-weight: normal;
 }
 
 #exampleModal ul.tags-list {

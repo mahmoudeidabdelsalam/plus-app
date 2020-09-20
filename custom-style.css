@@ -172,7 +172,7 @@ div#data-container ul.column-2 li span img {
 
 
 .button-login #SignIn {
-  width: 70%;
+  width: 80%;
 }
 
 h3.greeting::after {
@@ -767,4 +767,33 @@ a.GetIcons span::after {
 
 .modal-content {
   background-color:f9f9f9!important;
+}
+span.vr {
+  font-size: 11px;
+  font-family: 'roboto';
+  font-style: normal;
+  line-height: 16px;
+  letter-spacing: 0.04px;
+  color: #000000;
+}
+
+.modal-header {
+  padding:9px 15px!important;
+}
+#exampleModal .modal-body .view {
+  padding:0px;
+  border-radius:8px;
+  overflow: hidden;
+}
+#exampleModal .tags {
+  background: #ffff;
+  border-radius:8px;
+  padding:6px;
+
+}
+.modal-footer {
+  border:none;
+}
+.modal-content{
+  border-radius:8px;
 }
