@@ -797,3 +797,45 @@ span.vr {
 .modal-content{
   border-radius:8px;
 }
+p.sub-ac {
+  margin-bottom: 35px;
+}
+input#RememberMe {
+  width:16px;
+  height: 16px;
+}
+ul#myTab .term-link.active:after  {
+  height:3px;
+}
+
+.author {
+  border:none;
+}
+.modal-footer>* {
+  margin-left: 0.40rem!important;
+}
+ul#myTab span.name {
+  color:#A6AFBC;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  letter-spacing: 0.25px;
+}
+ul#myTab li:nth-child(2) a.active span {
+  color:#282F39;
+}
+ul#myTab li:nth-child(3) a.active span {
+  color:#282F39;
+}
+ul#myTab li:nth-child(4) a.active span {
+  color:#282F39;
+}
+ul#myTab li:nth-child(5) a.active span {
+  color:#282F39;
+
+}
+
+

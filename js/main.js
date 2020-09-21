@@ -684,7 +684,7 @@ var xhrRequest;
                 var dataHtml = '<ul class="column-' + column_nu + ' term-' + parent_name + '">';
 
                 $.each(data, function (index, item) {
-                  dataHtml += '<li><span class="overlay" data-title="' + item.Name + '" item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '" src="Images/info.png" /></span><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
+                  dataHtml += '<li><span class="overlay" data-title="' + item.Name + '" item-' + parent_name + '" data-term="' + item.Category + '" data-id="' + item.Id + '"><img alt="info item" title="' + item.Name + '"src="Images/info.png" /></span><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'"  data-type="' + item.Type + '" data-url="' + item.Content + '" class="clickToInsert"><span><img title="' + item.Name + '" alt="' + item.Name + '" src="' + item.PreviewImage + '" /></span></a></li>';
                 });
 
                 dataHtml += '<div id="banner-' + currPage + '"></div>';
@@ -909,7 +909,7 @@ var xhrRequest;
           }
 
           if (AuthorName) {
-            var author = ' ' + name + ' by <a target="_blank" href="' + AuthorLink + '">' + AuthorName + '</a>';
+            var author = '<img src="img"> <a target="_blank" href="' + AuthorLink + '">' + AuthorName + '</a>';
           } else {
             $("#exampleModal .modal-body .author").html(name + " by <a target='_blank' href='http://plus.premast.com/'>premast</a>");
           }

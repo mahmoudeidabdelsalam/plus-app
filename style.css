@@ -1078,6 +1078,7 @@ div#data-container ul li:hover .overlay {
 }
 
 #exampleModal h5#exampleModalLabel {
+  font-family:'Roboto';
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -1253,7 +1254,7 @@ div[id*="banner"] a img {
 }
 
 div#signUp .form-group {
-  margin-bottom: 25px;
+  margin-bottom: 16px;
 }
 
 div#login .form-control,
@@ -1296,7 +1297,7 @@ div#view {
 }
 
 div#view a {
-  margin: 0 5px;
+  margin: 0 10px;
   color: #BEC6D2;
 }
 
