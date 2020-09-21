@@ -64,6 +64,7 @@ div#creat-account {
 .search .input-group {
   background: #FEFEFE;
   border-color: #D8DCE3;
+  height: 35px;
 }
 
 .search {
@@ -739,8 +740,12 @@ div#signUp .form-control {
 
 /* new edits */
 label#RememberMeLabel{
-  padding:0 9px 15px
+  padding: 0 9px 15px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
 }
+
 .search .input-group {
   border-radius:8px;
 }
@@ -836,6 +841,33 @@ ul#myTab li:nth-child(4) a.active span {
 ul#myTab li:nth-child(5) a.active span {
   color:#282F39;
 
+}
+input#RememberMe {
+  margin-top: -2px;
+  margin-right: 6px;
+}
+.search .input-group .input-group-prepend {
+  height: 35px;
+}
+.search .input-group input {
+  height: 35px;
+}
+.cloumn-custom-card li {
+  border: none !important;
+  width: 157px !important;
+  flex: 0 0 157px !important;
+}
+
+.cloumn-custom-card li::before {
+  height: 102px !important;
+}
+
+.cloumn-custom-card li span {
+  height: 100% !important;
+}
+
+.cloumn-custom-card li span img {
+  object-fit: fill;
 }
 
 

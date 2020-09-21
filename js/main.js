@@ -566,7 +566,7 @@ var xhrRequest;
               dataSource: data,
               pageSize: per_page,
               callback: function (data, pagination) {
-                var dataHtml = '<ul class="column-' + column_nu + '">';
+                var dataHtml = '<ul class="column-' + column_nu + ' cloumn-custom-card">';
                 $.each(data, function (index, item) {
                   dataHtml += '<li><a href="javascript:void(0);" data-name="' + item.name + '" data-parent="' + item.parent_id + '" data-id="' + item.id + '" data-id="' + item.id + '" data-column="' + item.column + '" data-number="' + item.pre_page + '" class="GetItems ' + item.Category + '"><span><img title="' + item.name + '" alt="' + item.name + '" src="' + item.icon + '" /></span></a></li>';
                 });
