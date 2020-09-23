@@ -1054,6 +1054,22 @@ var xhrRequest;
       var search_text = search_text;
       var term_id = term_id;
       var column_nu = column;
+
+
+      if(term_id == 4) {
+        var sources = "children";
+      } else if (term_id == 10) {
+        var sources = "default";
+      } else if (term_id == 25) {
+        var sources = "collection"
+      } else {
+        var sources = "default";
+      }
+
+      var databack = "<a href='#' class='back-link' data-sources='" + sources + "' data-id='" + term_id + "' data-column='" + column_nu + "'><i class='fa fa-times-circle' aria-hidden='true'></i></a>";
+      $('.search .input-group').append(databack);
+
+
       if (term_id === 23 || term_id === 25) {
         $.ajax({
           type: 'GET',
@@ -1069,6 +1085,7 @@ var xhrRequest;
             $("#data-container").html("");
             $(".Notification").hide();
             $("#pagination").html("");
+
 
             if (response.status === false) {
               results = "no. of results";
