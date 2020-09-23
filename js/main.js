@@ -1070,19 +1070,23 @@ var xhrRequest;
             $(".Notification").hide();
             $("#pagination").html("");
 
+            if (response.status === false) {
+              results = "no. of results";
+              showNotification("Nothing found for that search.", "How about checking this collections", "is-search");
+            } else {
+              results = "yes. of results";
+            }
+
             var results = "";
             var data = response.data
             if (data) {
-              results = "yes. of results";
-              var dataHtml = '<ul class="column-' + column_nu + '">';
+              var dataHtml = '<ul class="column-' + column_nu + ' blockSearch">';
               $.each(data, function (index, item) {
                 dataHtml += '<li><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").append(dataHtml);
-
             } else {
-              results = "no. of results";
               showNotification("Nothing found for that search.", "How about checking this collections");
             }
 
@@ -1154,9 +1158,16 @@ var xhrRequest;
             $(".Notification").hide();
 
             var results = "";
+
+            if (response.status === false) {
+              results = "no. of results";
+              showNotification("Nothing found for that search.", "How about checking this collections", "is-search");
+            } else {
+              results = "yes. of results";
+            }
+
             var data = response.data
             if (data) {
-              results = "yes. of results";
               let container = $('#pagination');
               container.pagination({
                 dataSource: data,
