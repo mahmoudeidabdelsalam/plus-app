@@ -1159,7 +1159,7 @@ var xhrRequest;
 
             var results = "";
 
-            if (response.status === false) {
+            if (response.status === true) {
               results = "no. of results";
               showNotification("Nothing found for that search.", "How about checking this collections", "is-search");
             } else {
