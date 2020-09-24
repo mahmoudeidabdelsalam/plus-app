@@ -854,12 +854,13 @@ input#RememberMe {
 }
 .cloumn-custom-card li {
   border: none !important;
-  width: 157px !important;
-  flex: 0 0 157px !important;
+  width: 45% !important;
+  flex: 0 0 45% !important;
 }
 
-.cloumn-custom-card li::before {
-  height: 102px !important;
+.cloumn-custom-card li:before {
+  padding-top: 65% !important;
+  height: auto !important;
 }
 
 .cloumn-custom-card li span {
