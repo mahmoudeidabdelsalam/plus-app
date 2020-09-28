@@ -629,6 +629,11 @@ ul.socialMedia li a {
   top: -20px;
   right: 12px;
 }
+.dark-mode.dropdown-menu:after {
+
+border-bottom: 10px solid black;
+
+}
 
 .dropdown-toggle {
   cursor: pointer;

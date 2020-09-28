@@ -452,11 +452,6 @@ ul#myTab .term-link:after {
   margin-top: 8px;
 }
 
-.dark-mode ul#myTab span.icon {
-  color: #FFFFFF;
-  font-size: 18px;
-}
-
 .dark-mode ul#myTab span.name {
   color: rgba(255, 255, 255, 0.7);
 }
@@ -642,6 +637,7 @@ div#signUp .form-control {
   background: #3D3D3D;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
+  border:none;
 }
 
 .dark-mode #exampleModal h5#exampleModalLabel {
@@ -650,13 +646,13 @@ div#signUp .form-control {
 }
 
 .dark-mode #exampleModal .modal-body .view {
-  border: 1px solid #393939;
+  border: 1px solid #8d8d8d;
   border-radius: 4px;
 
 }
 
 .dark-mode .author {
-  border: 1px solid #393939;
+  border: none;
   border-radius: 4px;
 
 }
@@ -702,9 +698,6 @@ div#signUp .form-control {
   color: #FFFFFF;
   opacity: 0.95;
 }
-
-
-
 
 .dark-mode ul#myTab .active .icon-templates {
   color: #b884db !important;
@@ -783,7 +776,7 @@ span.vr {
 }
 
 .modal-header {
-  padding:9px 15px!important;
+  padding:9px 18px!important;
 }
 #exampleModal .modal-body .view {
   padding:0px;
@@ -869,5 +862,114 @@ input#RememberMe {
 .cloumn-custom-card li span img {
   object-fit: fill;
 }
+.dark-mode .dropdown-menu a {
+  color:#ffffff;
+}
 
+.dark-mode .dropdown-item:focus, .dark-mode .dropdown-item:hover
+ {
+  background-color: #454545!important;
+}
+.dropdown-item:focus, .dropdown-item:hover
+ {
+  background-color: #f8f9fa!important;
+}
+div#signUp .form-control {
+  background-color: #F9F9F9 !important;
+}
+div#login .form-control, div#signUp .form-control {
+  border:1px solid #BEC6D2;
+}
+.dark-mode ul#myTab li:nth-child(2) a.active span {
+  color:#FFFFFF;
 
+}
+.dark-mode ul#myTab li:nth-child(3) a.active span {
+  color:#FFFFFF;
+
+}
+.dark-mode ul#myTab li:nth-child(4) a.active span {
+  color:#FFFFFF;
+
+}
+.dark-mode ul#myTab li:nth-child(5) a.active span {
+  color:#FFFFFF;
+
+}
+
+.dark-mode ul#myTab span.icon {
+  color: #BEC6D2;
+  font-size: 18px;
+}
+
+.dark-mode .modal-header {
+  background: #3D3D3D;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+  border:none;
+}
+.dark-mode .modal-body{
+  background: #3D3D3D;
+}
+.dark-mode .modal-footer {
+  background: #3D3D3D;
+
+}
+.dark-mode h5#UnsplashModallLabel{
+  color:#ffffff;
+
+}
+.dark-mode div#data-container ul li {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+}
+.dark-mode ul.column-icons {
+  background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+}
+.dark-mode div#data-container ul.column-4 li {
+  box-shadow: none;
+  border: 1px solid #BEC6D2;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  height: 74px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+.dark-mode div#data-container ul li.headline {
+  color: #FFFFFF;
+  opacity: 0.95;
+}
+.dark-mode div#data-container ul li.headline a {
+  color:#78A7FD;
+}
+.dark-mode {
+  color:#78A7FD;
+}
+.dark-mode ul.column-icons {
+  border:1px solid #393939;
+}
+.dark-mode .paginationjs .paginationjs-pages li a {
+background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), #121212!important;
+}
+.dark-mode li.paginationjs-next a:after {
+  color:#78A7FD;
+}
+.dark-mode div#data-container ul.column-2 li {
+  border: 1px solid #393939;
+}
+
+.dark-mode h5#UnsplashModallLabel a {
+  color: #FFFFFF;
+  opacity: 0.95;
+}
+.dark-mode #UnsplashModal .modal-footer .clickToInsert {
+  background: #78A7FD;
+  color: #000000;
+}
+i.fa.fa-chevron-left {
+  margin-right: 5px;
+}
+.dark-mode .dropdown-menu:after {
+border-bottom: 10px solid #454545;
+
+}
