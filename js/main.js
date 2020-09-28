@@ -1054,6 +1054,22 @@ var xhrRequest;
       var search_text = search_text;
       var term_id = term_id;
       var column_nu = column;
+
+
+      if(term_id == 4) {
+        var sources = "children";
+      } else if (term_id == 10) {
+        var sources = "default";
+      } else if (term_id == 25) {
+        var sources = "collection"
+      } else {
+        var sources = "default";
+      }
+
+      var databack = "<a href='#' class='back-link' data-sources='" + sources + "' data-id='" + term_id + "' data-column='" + column_nu + "'><i class='fa fa-times-circle' aria-hidden='true'></i></a>";
+      $('.search .input-group').append(databack);
+
+
       if (term_id === 23 || term_id === 25) {
         $.ajax({
           type: 'GET',
@@ -1070,19 +1086,24 @@ var xhrRequest;
             $(".Notification").hide();
             $("#pagination").html("");
 
+
+            if (response.status === false) {
+              results = "no. of results";
+              showNotification("Nothing found for that search.", "How about checking this collections", "is-search");
+            } else {
+              results = "yes. of results";
+            }
+
             var results = "";
             var data = response.data
             if (data) {
-              results = "yes. of results";
-              var dataHtml = '<ul class="column-' + column_nu + '">';
+              var dataHtml = '<ul class="column-' + column_nu + ' blockSearch">';
               $.each(data, function (index, item) {
                 dataHtml += '<li><a href="javascript:void(0);" data-title="'+item.Name+'" data-id="'+item.Id+'" data-type="svg" data-url="' + item.links + '" class="clickToInsert"><span><img src="' + item.links + '" /></span></a></li>';
               });
               dataHtml += '</ul>';
               $("#data-container").append(dataHtml);
-
             } else {
-              results = "no. of results";
               showNotification("Nothing found for that search.", "How about checking this collections");
             }
 
@@ -1154,9 +1175,16 @@ var xhrRequest;
             $(".Notification").hide();
 
             var results = "";
+
+            if (response.status === true) {
+              results = "no. of results";
+              showNotification("Nothing found for that search.", "How about checking this collections", "is-search");
+            } else {
+              results = "yes. of results";
+            }
+
             var data = response.data
             if (data) {
-              results = "yes. of results";
               let container = $('#pagination');
               container.pagination({
                 dataSource: data,

@@ -1455,3 +1455,16 @@ div#data-container ul.mian-list a img {
 .show>.btn-secondary.dropdown-toggle:focus {
   box-shadow: none !important;
 }
+
+div.Notification.is-search {
+  display: inline-block;
+  margin: auto;
+  float: none;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: contain;
+  text-align: center;
+  margin-bottom: 30px;
+  background-image: url("Images/border.png");
+}

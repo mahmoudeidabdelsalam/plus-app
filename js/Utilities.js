@@ -202,7 +202,8 @@ function validateLogInKeep(email, password) {
 }
 
 
-function showNotification(header, content) {
+function showNotification(header, content, ClassName) {
+  $('.Notification').addClass(ClassName);
   $('.col-header').text(header);
   $('.col-content').text(content);
   $(".Notification").show();
