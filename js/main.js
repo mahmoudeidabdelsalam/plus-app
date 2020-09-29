@@ -1268,8 +1268,12 @@ var xhrRequest;
     $("body").on("click", ".clickToInsert", function () {
       var ID = $(this).attr("data-id");
       var title = $(this).attr("data-title");
-      var user = GetKeep.email;
-
+      if (GetKeep) {
+        var user = GetKeep.email;
+      } else {
+        var user = GetLoginEmail();
+      }
+      
       $.ajax({
         type: requestMethod.POST,
         url: LogItems.baseUrl + LogItems.LogDownload,
