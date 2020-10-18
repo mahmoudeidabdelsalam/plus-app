@@ -22,8 +22,6 @@
     <script src="js/bootstrap-tagsinput.min.js"></script>
     <link href="css/bootstrap-tagsinput.css" rel="stylesheet" />
 
-    <!-- Icon MOON -->
-
     <!-- Local File-->
     <link href="style.css?v=1.2" rel="stylesheet" type="text/css" />
     <link href="custom-style.css?v=1.2" rel="stylesheet" type="text/css" />
@@ -32,10 +30,10 @@
     <script src="js/jqbrowser.js" type="text/javascript"></script>
     <script src="js/main.js?v=1.2" type="text/javascript"></script>
 
-
     <!-- pagination -->
     <script src="js/pagination.min.js"></script>
     <link rel="stylesheet" href="css/pagination.css"/>
+
     <!-- Office Ui -->
     <link href="css/fabric.min.css" rel="stylesheet" />
     <link href="css/fabric.components.min.css" rel="stylesheet" />
@@ -167,18 +165,31 @@
               <span class="icon more"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
             </a>
             <div class="dropdown-menu">
+              <div id="myPremium">
+                <ul class="kit-list">
+                  <li class="kit">
+                    <a class="vector" id="myBrand" href="#"><img src="Images/brand.png" alt="Brand Kit">Brand Kit</a>
+                  </li>
+                  <li class="kit">
+                    <a class="vector" href="#"><img src="Images/folder.png" alt="Collections">Collections <span>soon</span></a>
+                  </li>
+                  <li class="kit">
+                    <a class="vector" href="#"><img src="Images/heart-2.png" alt="Favourites">Favourites <span>soon</span></a>
+                  </li>
+                </ul>
+      
+              </div>
+              <div>
+                <a href="#" id="Switch" class="Switch"></a>
+              </div>
               <div id="links"></div>
-
-              <a href="#" id="Switch" class=" Switch"></a>
-
               <a class="dropdown-item" id="goto-signout" href="#">Sign out</a>
-
-              <ul class="socialMedia">
+              <!-- <ul class="socialMedia">
                 <li><a href="https://www.facebook.com/premast.co/" target='_blank'><i class="fa fa-facebook"></i></a></li>
                 <li><a href="https://twitter.com/Premast_co" target='_blank'><i class="fa fa-twitter"></i></a></li>
                 <li><a href="https://www.instagram.com/premast.co/" target='_blank'><i class="fa fa-instagram"></i></a></li>
                 <li><a href="https://www.behance.net/Premast" target='_blank'><i class="fa fa-behance"></i></a></li>
-              </ul>
+              </ul> -->
             </div>
           </li>
         </ul>
@@ -219,7 +230,89 @@
           </section>
         </div>
 
+        <section class="BrandPremium" id="BrandPremium">
+          <div class="container">
+            <div class="row justify-content-center my-5">
+              <div class="text">
+                <h5 class="kit-title">Brand Kit</h5>
+                <a href="#" id="ShareIt"><img src="Images/share-icon.svg" alt="share items"></a>
+              </div>
+              <div id="ListKit">
+              </div>
+              <div id="KitPagination"></div>
+            </div>
+          </div>
+        </section>
+
+
+        <section id="BrandFolder">
+          <div class="container">
+            <div class="row justify-content-center my-1">
+              <a href="#" id="backListBrand"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+              <h5 id="ShareName"></h5>
+            </div>
+          </div>
+
+          <div class="container m-0">
+            <div class="accordion" id="accordionExample">
+
+              <div class="card" id="collapseLogo">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0"><button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Logo <i class="fa fa-angle-up" aria-hidden="true"></i></button></h2>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body" id="LogoList">
+                  </div>
+                  <div id="LogoPagination"></div>
+                </div>
+                <hr class="divider">
+              </div>
+
+              <div class="card" id="collapseColor">
+                <div class="card-header" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Colors <i class="fa fa-angle-up" aria-hidden="true"></i></button>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body" id="ColorsList">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Typograph -->
+              <div class="card" id="collapseTypography">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Typography <i class="fa fa-angle-up" aria-hidden="true"></i></button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body" id="TypographyList">
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" id="collapseImage">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Images <i class="fa fa-angle-up" aria-hidden="true"></i></button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body" id="ImagesList">
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
       </div>
+
+
+
+
 
       <div id="Spinner">
         <div class="sk-fading-circle">

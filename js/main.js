@@ -2,6 +2,11 @@ var messageBanner;
 var isUserLoggedIn = false;
 var xhrRequest;
 
+
+var isPremium = false;
+
+
+
 (function () {
   "use strict";
 
@@ -53,9 +58,7 @@ var xhrRequest;
       $('#Switch').text('Switch to dark mode');
     }
 
-
-
-
+    
     /**
      * Login validate keep.
      * check login keep.
@@ -87,8 +90,12 @@ var xhrRequest;
       CallWS(type, url, contentType, dataType, JSON.stringify(data), logInUserSuccessCallbackKeep, logInUserErrorCallbackKeep, null);
     }
 
+
     function logInUserSuccessCallbackKeep(response) {
       if (response.data.IsSuccess) {
+        
+        TheFeaturesUserPremium(response.data.IsPremium);
+
         hideSpinner();
         hideLogInArea();
         showMainArea();
@@ -158,6 +165,7 @@ var xhrRequest;
 
     function logInUserSuccessCallback(response) {
       if (response.data.IsSuccess) {
+        TheFeaturesUserPremium(response.data.IsPremium);
         hideSpinner();
         hideLogInArea();
         showMainArea();
@@ -272,11 +280,7 @@ var xhrRequest;
         $("#logo").attr("src", logo);
         $("#version").append(version);
 
-
         var Local_version = localStorage.getItem("version");
-
-        console.log(Local_version != version);
-
 
         if (Local_version != version) {
           localStorage.setItem('version', version);
@@ -313,6 +317,15 @@ var xhrRequest;
      * requestMethod GET.
      **/
     $("body").on("click", ".term-link", function () {
+
+      $("#myTabContent").animate({
+        opacity: 1,
+      }, 100, function () {
+        $('#myTabContent').show();
+        $('#BrandPremium').hide();        
+        $('#BrandFolder').hide();
+      });
+
       var term_id = $(this).attr("data-id");
       var column = $(this).attr("data-column");
       var per_page = $(this).attr("data-number");
@@ -1295,6 +1308,239 @@ var xhrRequest;
       });
 
     });
+
+
+
+
+    /**
+      * function TheFeaturesUserPremium.
+      * @params isPremium true - false
+      * @result run functions user Premium
+    */
+
+    $("body").on("click", "#myBrand", function () {
+
+      $(".dropdown-menu").removeClass("acive");
+      $('.term-link').removeClass('active');
+
+
+      $("#myTabContent").animate({
+        opacity: 0,
+        left: "-100%",
+      }, 100, function () {
+        $("#myTabContent").css({
+          display: "none",
+        });
+        $('#BrandPremium').css({
+          opacity: 1,
+          left: "0",
+          display: "block",
+        });
+      });
+      
+    });
+
+
+
+    /**
+    * function add log download file.
+    */
+    $("body").on("click", ".kit-overlay", function () {
+
+      var email = "momen@premast.com";
+      var Brand_ID = $(this).attr("data-id");
+
+      showSpinner();
+
+      $('#ShareName').html(email);
+      $('#LogoList').html('');
+      $('#ColorsList').html('');
+      $('#TypographyList').html('');
+      $('#ImagesList').html('');
+      
+
+      $("#BrandPremium").animate({
+        opacity: 0,
+        left: "-100%",
+      }, 100, function () {
+        $("#BrandPremium").css({
+          display: "none",
+        });
+        $('#BrandFolder').css({
+          opacity: 1,
+          left: "0",
+          display: "block",
+        });
+      });
+      
+
+
+      $.ajax({
+        type: 'POST',
+        url: KitBrand.baseUrl + KitBrand.version + email,
+        contentType: requestContentType.JSON,
+        dataType: '',
+        beforeSend: function () {
+          showSpinner();
+        },
+
+        success: function (response) {
+          hideSpinner();
+          var data = response.response;
+          $.each(data, function (index, items) {
+            $.each(items, function (index, item) {
+              if(item._id === Brand_ID) {
+
+                var data_logo = item.Logo;
+                if(data_logo) {
+                  let LogoPagination = $('#LogoPagination');
+                  LogoPagination.pagination({
+                    dataSource: data_logo,
+                    pageSize: 4,
+                    callback: function (data_logo, pagination) {
+                      var logos = '<ul class="logos-list">';
+                      $.each(data_logo, function (index, logo) {
+                        var Type = logo.split('.').pop();
+                        logos  += '<li>';
+                        logos  += '<a href="javascript:void(0);"  data-type="' + Type + '" data-url="' + logo + '" class="clickToInsert"><img src="'+logo+'" alt="logo"/></a>';
+                        logos  += '</li>';
+                      });
+  
+                      logos  += '</ul>';
+                      $("#LogoList").append(logos);
+                    }
+                  });
+                } else {
+                  $("#collapseLogo").hide();
+                }
+
+                // List Colors
+                var data_color = item.Colors;
+                if(data_color) {
+                  var Colors = '<ul class="colors-list">';
+                  $.each(data_color, function (index, color) {
+
+                    var regexp = /#(\S)/g;
+                    var post = color.replace(regexp, '$1');
+                    var id = color.replace(color, "'"+color+"'");
+                    var copy = 'onclick="copyToClipboard('+id+')"';
+
+                    Colors  += '<li class="colorPicker" id="li_'+post+'"> <span class="ColorView" style="background:'+color+'"></span>';
+                    Colors  += '<a href="#" class="ColorType toRgb" data-event="hex" data-color="'+color+'">hex <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
+                    Colors  += '<a href="#" class="ColorType toHex" style="display:none;" data-event="rbg" data-color="'+color+'">rgb <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
+                    Colors  += '<span class="ColorCode" id="'+post+'" data-toggle="tooltip" data-placement="top" title="copied">'+color+'</span>';
+                    Colors  += '<button class="ColorCopy" '+copy+'>copy</button>';
+                    Colors  += '</li>';
+
+                  });
+                  Colors  += '</ul>';
+                  $("#ColorsList").append(Colors);
+                } else {
+                  $("#collapseColor").hide();
+                }
+
+                // List Fonts
+                var data_fonts = item.fonts;
+                if(data_fonts) {
+                  var fonts = '<ul class="fonts-list">';
+                  $.each(data_fonts, function (index, font) {
+                    var name = font.split('/').pop();
+                    fonts  += '<a href="'+font+'" class="font" download><span><img src="Images/file.svg" class="file"></span>'+name+'</a>';
+                  });
+                  fonts  += '</ul>';
+                  $("#TypographyList").append(fonts);
+                } else {
+                  $("#collapseTypography").hide();
+                }
+
+                // List Image
+                var data_images = item.Images;
+                if(data_images) {
+                  var Images = '<ul class="imgs-list">';
+                  $.each(data_images, function (index, img) {
+                    var Type = img.split('.').pop();
+                    Images  += '<a href="javascript:void(0);"  data-type="' + Type + '" data-url="' + img + '" class="clickToInsert"><span><img src="'+img+'" alt="img"/></span></a>';
+                  });
+                  Images  += '</ul>';
+                  $("#ImagesList").append(Images);
+                } else {
+                  $("#collapseImage").hide();
+                }
+
+              }
+            });
+          });
+        },
+        error: function () {
+        }
+      });
+
+
+    });
+
+
+    $("body").on("click", "#backListBrand", function () {
+      $("#BrandPremium").show("");
+      $("#BrandFolder").hide("");
+    });
+
+    
+
+    function TheFeaturesUserPremium(isPremium) {
+      if (isPremium) {
+        var email = "momen@premast.com";
+        $.ajax({
+          type: 'POST',
+          url: KitBrand.baseUrl + KitBrand.version + email,
+          contentType: requestContentType.JSON,
+          dataType: '',
+          beforeSend: function () {
+            showSpinner();
+          },
+
+          success: function (response) {
+
+            $("#ListKit").html("");
+
+            $("#pagination").html("");
+            hideSpinner();
+            var data = response.response
+
+            let container = $('#KitPagination');
+            
+            container.pagination({
+              dataSource: data.brands,
+              pageSize: 10,
+
+              callback: function (data, pagination) {
+
+              var dataHtml = '<ul class="card-kit">';
+                $.each(data, function (index, item) {
+                  dataHtml  += '<li class="share-kit"><a class="MoreKit" href="#"><img src="images/more.png" alt="more"></a>';
+                  dataHtml  += '<span class="brendImg" style="background-image:url('+item.icon+')"></span>';
+                  dataHtml  += '<h5>'+item.name+'</h5>';
+                  dataHtml  += '<p>shared by <span>'+email+'</span></p>';
+                  dataHtml  += '<a class="kit-overlay" data-id="'+item._id+'"></a>';
+                  dataHtml  += '</li>';
+                });
+              dataHtml  += '</ul>';
+
+              $("#ListKit").append(dataHtml);
+
+              }
+            })
+          },
+          error: function () {
+          }
+        });
+      } else {
+
+      }
+    }
+
+
+
+
 
 
   });

@@ -251,3 +251,63 @@ $('#view #grid').click(function () {
   $(this).addClass('active');
   $('#view #list').removeClass('active');
 });
+
+
+// Clipboards.js
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+
+  $('[data-toggle="tooltip"]').tooltip('hide');
+  $(element).tooltip('show');
+}
+
+
+$("body").on("click", ".toRgb", function () {
+    var color = $(this).data('color');
+    $(this).hide();
+    
+
+    var regexp = /#(\S)/g;
+    var color_id = color.replace(regexp, '#li_$1');
+
+    $(color_id).find(".toHex").show();
+
+    $(color_id).find("span.ColorCode").html('rgb('+hexToRgb(color).r +  ',' + hexToRgb(color).g + ',' + hexToRgb(color).b+')');
+    $(color_id).find(".ColorType").html('rgb <i class="fa fa-caret-down" aria-hidden="true"></i>'); 
+});
+
+
+$("body").on("click", ".toHex", function () {
+  var color = $(this).data('color');
+  $(this).hide();
+  
+  var regexp = /#(\S)/g;
+  var color_id = color.replace(regexp, '#li_$1');
+
+  $(color_id).find(".toRgb").show();
+
+  $(color_id).find("span.ColorCode").html(color);
+  $(color_id).find(".ColorType").html('hex <i class="fa fa-caret-down" aria-hidden="true"></i>'); 
+});
+
+
+
+function hexToRgb(hex) {
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
+
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+

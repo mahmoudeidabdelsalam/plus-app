@@ -8,7 +8,7 @@ var ppGraphicsInjectorConfigurationData = {
   "env": "api",
   "googleClientID": "",
   "msClientID": "",
-  "baseUrl": "https://plus.premast.com/wp-json/wp/api/",
+  "baseUrl": "https://plus.test/wp-json/wp/api/",
   "logInUrl": "users/login/",
   "GetCategory": "graphics/GetCategory",
   "GetContent": "graphics/GetGraphics/?category=",
@@ -31,3 +31,9 @@ var LogItems = {
   "LogDownload": "log/download/",
   "LogSearch": "log/search/",
 };
+
+
+var KitBrand = {
+  "baseUrl" : "https://premastplus.bubbleapps.io/",
+  "version" : "version-test/api/1.1/wf/brands?email="
+}
