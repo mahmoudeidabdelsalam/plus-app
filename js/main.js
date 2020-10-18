@@ -2,7 +2,6 @@ var messageBanner;
 var isUserLoggedIn = false;
 var xhrRequest;
 
-
 var isPremium = false;
 
 
@@ -1312,6 +1311,9 @@ var isPremium = false;
 
 
 
+    var KitEmail = GetLoginEmail();
+
+
     /**
       * function TheFeaturesUserPremium.
       * @params isPremium true - false
@@ -1347,7 +1349,7 @@ var isPremium = false;
     */
     $("body").on("click", ".kit-overlay", function () {
 
-      var email = "momen@premast.com";
+      var email = KitEmail;
       var Brand_ID = $(this).attr("data-id");
 
       showSpinner();
@@ -1488,7 +1490,8 @@ var isPremium = false;
 
     function TheFeaturesUserPremium(isPremium) {
       if (isPremium) {
-        var email = "momen@premast.com";
+
+        var email = KitEmail;
         $.ajax({
           type: 'POST',
           url: KitBrand.baseUrl + KitBrand.version + email,
@@ -1506,35 +1509,51 @@ var isPremium = false;
             hideSpinner();
             var data = response.response
 
-            let container = $('#KitPagination');
+            if(data) {
+              let container = $('#KitPagination');
             
-            container.pagination({
-              dataSource: data.brands,
-              pageSize: 10,
-
-              callback: function (data, pagination) {
-
-              var dataHtml = '<ul class="card-kit">';
-                $.each(data, function (index, item) {
-                  dataHtml  += '<li class="share-kit"><a class="MoreKit" href="#"><img src="images/more.png" alt="more"></a>';
-                  dataHtml  += '<span class="brendImg" style="background-image:url('+item.icon+')"></span>';
-                  dataHtml  += '<h5>'+item.name+'</h5>';
-                  dataHtml  += '<p>shared by <span>'+email+'</span></p>';
-                  dataHtml  += '<a class="kit-overlay" data-id="'+item._id+'"></a>';
-                  dataHtml  += '</li>';
-                });
-              dataHtml  += '</ul>';
-
+              container.pagination({
+                dataSource: data.brands,
+                pageSize: 10,
+  
+                callback: function (data, pagination) {
+  
+                var dataHtml = '<ul class="card-kit">';
+                  $.each(data, function (index, item) {
+                    dataHtml  += '<li class="share-kit"><a class="MoreKit" href="#"><img src="Images/more.png" alt="more"></a>';
+                    dataHtml  += '<span class="brendImg" style="background-image:url('+item.icon+')"></span>';
+                    dataHtml  += '<h5>'+item.name+'</h5>';
+                    dataHtml  += '<p>shared by <span>'+email+'</span></p>';
+                    dataHtml  += '<a class="kit-overlay" data-id="'+item._id+'"></a>';
+                    dataHtml  += '</li>';
+                  });
+                dataHtml  += '</ul>';
+  
+                $("#ListKit").append(dataHtml);
+  
+                }
+              })
+            } else {
+              var dataHtml   = '<div class="empty-kit">';
+                  dataHtml  += '<img src="Images/rafiki.svg" alt="more">';
+                  dataHtml  += '<h2>Your brand kit is currently <br> empty..</h2>';
+                  dataHtml  += '<a class="NewBrand" href="#" target="_blank">Create new brand</a>';
+                  dataHtml  += '</div>';
               $("#ListKit").append(dataHtml);
-
-              }
-            })
+              $("#ShareIt").hide();
+            }
           },
           error: function () {
           }
         });
       } else {
-
+        var dataHtml   = '<div class="empty-kit">';
+            dataHtml  += '<img src="Images/rafiki.svg" alt="more">';
+            dataHtml  += '<h2>Your brand kit is currently <br> empty..</h2>';
+            dataHtml  += '<a class="NewBrand" href="#" target="_blank">Create new brand</a>';
+            dataHtml  += '</div>';
+        $("#ListKit").append(dataHtml);
+        $("#ShareIt").hide();
       }
     }
 

@@ -1572,3 +1572,36 @@ div#ImagesList ul a img {
   left: 0;
   max-width: 100%;
 }
+
+.empty-kit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 0 160px;
+}
+
+.empty-kit h2 {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
+  letter-spacing: 0.04px;
+  color: #A6A6A6;
+  width: 100%;
+  margin: 20px 0 40px;
+}
+
+.empty-kit .NewBrand {
+  background: #1E6DFB;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: 0.04px;
+  color: #FFFFFF;
+}
