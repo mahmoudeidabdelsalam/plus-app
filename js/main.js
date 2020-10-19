@@ -1411,11 +1411,6 @@ var isPremium = false;
                       var logos = '<ul class="logos-list">';
                       $.each(data_logo, function (index, logo) {
                         var Type = logo.split('.').pop();
-
-                        if (logo && !logo.match(/^.+:\/\/.*/)) {
-                          logo = ('https:' + logo);
-                        } 
-
                         logos  += '<li>';
                         logos  += '<a href="javascript:void(0);"  data-type="' + Type + '" data-url="' + logo + '" class="clickToInsert"><img src="'+logo+'" alt="logo"/></a>';
                         logos  += '</li>';
@@ -1473,9 +1468,6 @@ var isPremium = false;
                 if(data_images) {
                   var Images = '<ul class="imgs-list">';
                   $.each(data_images, function (index, img) {
-                    if (img && !img.match(/^.+:\/\/.*/)) {
-                      img = ('https:' + img);
-                    } 
                     var Type = img.split('.').pop();
                     Images  += '<a href="javascript:void(0);"  data-type="' + Type + '" data-url="'+img+'" class="clickToInsert"><span><img src="'+img+'" alt="img"/></span></a>';
                   });
@@ -1610,9 +1602,6 @@ var isPremium = false;
         var src = $(this).attr("data-url");
         var type = $(this).attr("data-type");
         var coercionTypeOfItem = '';
-
-
-        // console.log(src);
 
         if (type == 'jpg' || type == 'png') {
           $.ajax({
