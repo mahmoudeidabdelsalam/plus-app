@@ -123,6 +123,9 @@ var isPremium = false;
      * requestMethod POST.
      **/
     $('#ButtonLogin').click(function () {
+      var email = GetLoginEmail();
+      localStorage.setItem('KitEmail', email);
+
       showSpinner();
       setTimeout(
         function () {
@@ -1357,7 +1360,9 @@ var isPremium = false;
 
       showSpinner();
 
-      $('#ShareName').html(email);
+      var name   = email.substring(0, email.lastIndexOf("@"));
+
+      $('#ShareName').html(name);
       $('#LogoList').html('');
       $('#ColorsList').html('');
       $('#TypographyList').html('');
@@ -1472,7 +1477,7 @@ var isPremium = false;
                       img = ('https:' + img);
                     } 
                     var Type = img.split('.').pop();
-                    Images  += '<a href="javascript:void(0);"  data-type="' + Type + '" data-url="' + img + '" class="clickToInsert"><span><img src="'+img+'" alt="img"/></span></a>';
+                    Images  += '<a href="javascript:void(0);"  data-type="' + Type + '" data-url="'+img+'" class="clickToInsert"><span><img src="'+img+'" alt="img"/></span></a>';
                   });
                   Images  += '</ul>';
                   $("#ImagesList").append(Images);
@@ -1545,10 +1550,13 @@ var isPremium = false;
   
                 var dataHtml = '<ul class="card-kit">';
                   $.each(data, function (index, item) {
+
+                    var name   = email.substring(0, email.lastIndexOf("@"));
+
                     dataHtml  += '<li class="share-kit"><a class="MoreKit" href="#"><img src="Images/more.png" alt="more"></a>';
                     dataHtml  += '<span class="brendImg" style="background-image:url('+item.icon+')"></span>';
                     dataHtml  += '<h5>'+item.name+'</h5>';
-                    dataHtml  += '<p>shared by <span>'+email+'</span></p>';
+                    dataHtml  += '<p>shared by <span>'+name+'</span></p>';
                     dataHtml  += '<a class="kit-overlay" data-id="'+item._id+'"></a>';
                     dataHtml  += '</li>';
                   });
@@ -1604,7 +1612,7 @@ var isPremium = false;
         var coercionTypeOfItem = '';
 
 
-        // console.log();
+        // console.log(src);
 
         if (type == 'jpg' || type == 'png') {
           $.ajax({
