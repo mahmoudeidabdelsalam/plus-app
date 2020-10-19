@@ -1135,7 +1135,6 @@ li.share-kit h5 {
 }
 
 li.share-kit p {
-  font-family: Roboto;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -1143,6 +1142,9 @@ li.share-kit p {
   text-align: center;
   letter-spacing: 0.04px;
   color: #646464;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  
 }
 
 li.share-kit .MoreKit {
