@@ -1144,7 +1144,7 @@ li.share-kit p {
   color: #646464;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;  
+  text-overflow: ellipsis;
 }
 
 li.share-kit .MoreKit {
@@ -1439,7 +1439,7 @@ ul.card-kit li.share-kit span.brendImg {
   border-radius: 100%;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 0 10px -1px #ccc;  
+  box-shadow: 0 0 10px -1px #ccc;
 }
 
 ul.card-kit li.share-kit p span {
@@ -1489,7 +1489,7 @@ li.colorPicker {
   padding-bottom: 10px;
 }
 
-li.colorPicker span, 
+li.colorPicker span,
 li.colorPicker button {
   margin-right: 15px;
 }
@@ -1606,3 +1606,96 @@ div#ImagesList ul a img {
   letter-spacing: 0.04px;
   color: #FFFFFF;
 }
+
+.dark-mode div#dropdown-list {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
+}
+.dark-mode li.list-all {
+  color:#FFFFFF;
+}
+.dark-mode a.dropdown-item.GetIcons {
+  color:#ffffff!important;
+}
+.dark-mode div#list-icons #dropdownMenuLink:after {
+  color:#000000;
+
+}
+i.fa.fa-th {
+  padding-right: 12px;
+}
+.btn-secondary.focus, .btn-secondary:focus {
+  box-shadow: none;
+}
+li.list-all {
+  padding: 17px 21px 13px;
+}
+div#dropdown-list {
+  box-shadow: 0 21px 67px #00000059;
+
+}
+
+
+/* Brand kit dark mode styles */
+.dark-mode li.share-kit {
+  background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+  border: 1px solid #393939;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.dark-mode h5.kit-title {
+  color: #FFFFFF;
+}
+
+.dark-mode .empty-kit .NewBrand {
+  background:#78A7FD;
+  color: #000000;
+}
+.dark-mode li.share-kit p {
+  color: #FFFFFF;
+
+}
+.dark-mode li.share-kit h5{
+  color: #FFFFFF;
+}
+.dark-mode button.btn.btn-link.btn-block.text-left {
+  color:#78A7FD;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+
+}
+.dark-mode .card {
+  background:#000000;
+}
+.dark-mode .accordion .card .card-header {
+  background:linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
+}
+
+.dark-mode .card-body ul.logos-list li {
+  border:1px solid #393939;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+}
+.dark-mode a.font {
+  border:1px solid #393939;
+
+}
+.dark-mode hr.divider {
+  border-top:1px dashed #393939;
+
+}
+
+.dark-mode li.colorPicker {
+  border-bottom: 1px dashed #393939;
+}
+.dark-mode a.ColorType.toRgb {
+  color:#ffffff;
+}
+.dark-mode button.ColorCopy{
+  color:#78A7FD;
+
+}
+.dark-mode span.ColorCode{
+  color:#ffffff;
+}
+
+
+
