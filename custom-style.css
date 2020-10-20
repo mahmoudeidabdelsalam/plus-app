@@ -1696,6 +1696,9 @@ div#dropdown-list {
 .dark-mode span.ColorCode{
   color:#ffffff;
 }
+a.ColorType.toRgb {
+  color: #000000;
+}
 
 
 
