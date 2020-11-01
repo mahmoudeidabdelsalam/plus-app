@@ -277,7 +277,7 @@ $("body").on("click", ".toRgb", function () {
     $(color_id).find(".toHex").show();
 
     $(color_id).find("span.ColorCode").html('rgb('+hexToRgb(color).r +  ',' + hexToRgb(color).g + ',' + hexToRgb(color).b+')');
-    $(color_id).find(".ColorType").html('rgb <i class="fa fa-caret-down" aria-hidden="true"></i>'); 
+    $(color_id).find(".ColorType").html('rgb <i class="fa fa-retweet" aria-hidden="true"></i>'); 
 });
 
 
@@ -291,7 +291,7 @@ $("body").on("click", ".toHex", function () {
   $(color_id).find(".toRgb").show();
 
   $(color_id).find("span.ColorCode").html(color);
-  $(color_id).find(".ColorType").html('hex <i class="fa fa-caret-down" aria-hidden="true"></i>'); 
+  $(color_id).find(".ColorType").html('hex <i class="fa fa-retweet" aria-hidden="true"></i>'); 
 });
 
 

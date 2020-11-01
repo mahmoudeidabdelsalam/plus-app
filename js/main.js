@@ -1436,8 +1436,8 @@ var isPremium = false;
                     var copy = 'onclick="copyToClipboard('+id+')"';
 
                     Colors  += '<li class="colorPicker" id="li_'+post+'"> <span class="ColorView" style="background:'+color+'"></span>';
-                    Colors  += '<a href="#" class="ColorType toRgb" data-event="hex" data-color="'+color+'">hex <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
-                    Colors  += '<a href="#" class="ColorType toHex" style="display:none;" data-event="rbg" data-color="'+color+'">rgb <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
+                    Colors  += '<a href="javascript:void(0);" class="ColorType toRgb" data-event="hex" data-color="'+color+'">hex <i class="fa fa-retweet" aria-hidden="true"></i></a>';
+                    Colors  += '<a href="javascript:void(0);" class="ColorType toHex" style="display:none;" data-event="rbg" data-color="'+color+'">rgb <i class="fa fa-retweet" aria-hidden="true"></i></a>';
                     Colors  += '<span class="ColorCode" id="'+post+'" data-toggle="tooltip" data-placement="top" title="copied">'+color+'</span>';
                     Colors  += '<button class="ColorCopy" '+copy+'>copy</button>';
                     Colors  += '</li>';
@@ -1655,19 +1655,24 @@ var isPremium = false;
             xhrFields: {
               responseType: 'blob'
             },
+            beforeSend: function( data ) {
+              showSpinner();
+            },
             success: function (data) {
               $(".Notification").hide();
+              
 
               var reader = new FileReader();
               reader.readAsDataURL(data);
               reader.onloadend = function () {
+                hideSpinner();
                 var dataUrl = reader.result;
                 if (dataUrl.indexOf("base64,") > 0) {
                   var startIndex = dataUrl.indexOf("base64,");
                   var copyBase64 = dataUrl.substr(startIndex + 7);
-                  PowerPoint.createPresentation(copyBase64);
+                  PowerPoint.InsertSlideFormatting(copyBase64);
                 } else {
-                  PowerPoint.createPresentation(dataUrl);
+                  PowerPoint.InsertSlideFormatting(dataUrl);
                 }
               };
             },
