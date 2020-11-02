@@ -1357,12 +1357,13 @@ var isPremium = false;
       var email = localStorage.getItem("KitEmail");
       
       var Brand_ID = $(this).attr("data-id");
+      var Brand_Name = $(this).attr("data-name");
 
       showSpinner();
 
       var name   = email.substring(0, email.lastIndexOf("@"));
 
-      $('#ShareName').html(name);
+      $('#ShareName').html(Brand_Name);
       $('#LogoList').html('');
       $('#ColorsList').html('');
       $('#TypographyList').html('');
@@ -1469,7 +1470,14 @@ var isPremium = false;
                   var Images = '<ul class="imgs-list">';
                   $.each(data_images, function (index, img) {
                     var Type = img.split('.').pop();
-                    Images  += '<a href="javascript:void(0);"  data-type="' + Type + '" data-url="'+img+'" class="clickToInsert"><span><img src="'+img+'" alt="img"/></span></a>';
+
+                    if (Type === 'jpg' || Type === 'png' || Type === 'svg' ) {
+                      var _Type = Type ;
+                    } else {
+                      var _Type =  'jpg';
+                    }
+
+                    Images  += '<a href="javascript:void(0);"  data-type="' + _Type + '" data-url="'+img+'" class="clickToInsert"><span><img src="'+img+'" alt="img"/></span></a>';
                   });
                   Images  += '</ul>';
                   $("#ImagesList").append(Images);
@@ -1549,7 +1557,7 @@ var isPremium = false;
                     dataHtml  += '<span class="brendImg" style="background-image:url('+item.icon+')"></span>';
                     dataHtml  += '<h5>'+item.name+'</h5>';
                     dataHtml  += '<p>shared by <span>'+name+'</span></p>';
-                    dataHtml  += '<a class="kit-overlay" data-id="'+item._id+'"></a>';
+                    dataHtml  += '<a class="kit-overlay" data-name="'+item.name+'" data-id="'+item._id+'"></a>';
                     dataHtml  += '</li>';
                   });
                 dataHtml  += '</ul>';

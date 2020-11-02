@@ -1423,7 +1423,7 @@ section#BrandPremium .text {
   position: relative;
 }
 
-ul.card-kit  li.share-kit img {
+ul.card-kit li.share-kit img {
   max-width: 100%;
 }
 
@@ -1610,25 +1610,33 @@ div#ImagesList ul a img {
 .dark-mode div#dropdown-list {
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
 }
+
 .dark-mode li.list-all {
-  color:#FFFFFF;
+  color: #FFFFFF;
 }
+
 .dark-mode a.dropdown-item.GetIcons {
-  color:#ffffff!important;
+  color: #ffffff !important;
 }
+
 .dark-mode div#list-icons #dropdownMenuLink:after {
-  color:#000000;
+  color: #000000;
 
 }
+
 i.fa.fa-th {
   padding-right: 12px;
 }
-.btn-secondary.focus, .btn-secondary:focus {
+
+.btn-secondary.focus,
+.btn-secondary:focus {
   box-shadow: none;
 }
+
 li.list-all {
   padding: 17px 21px 13px;
 }
+
 div#dropdown-list {
   box-shadow: 0 21px 67px #00000059;
 
@@ -1637,7 +1645,7 @@ div#dropdown-list {
 
 /* Brand kit dark mode styles */
 .dark-mode li.share-kit {
-  background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
   border: 1px solid #393939;
   box-sizing: border-box;
   border-radius: 4px;
@@ -1648,57 +1656,85 @@ div#dropdown-list {
 }
 
 .dark-mode .empty-kit .NewBrand {
-  background:#78A7FD;
+  background: #78A7FD;
   color: #000000;
 }
+
 .dark-mode li.share-kit p {
   color: #FFFFFF;
 
 }
-.dark-mode li.share-kit h5{
+
+.dark-mode li.share-kit h5 {
   color: #FFFFFF;
 }
+
 .dark-mode button.btn.btn-link.btn-block.text-left {
-  color:#78A7FD;
+  color: #78A7FD;
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
 
 }
+
 .dark-mode .card {
-  background:#000000;
+  background: #000000;
 }
+
 .dark-mode .accordion .card .card-header {
-  background:linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)), #121212;
 }
 
 .dark-mode .card-body ul.logos-list li {
-  border:1px solid #393939;
+  border: 1px solid #393939;
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), #121212;
 }
+
 .dark-mode a.font {
-  border:1px solid #393939;
+  border: 1px solid #393939;
 
 }
+
 .dark-mode hr.divider {
-  border-top:1px dashed #393939;
+  border-top: 1px dashed #393939;
 
 }
 
 .dark-mode li.colorPicker {
   border-bottom: 1px dashed #393939;
 }
+
 .dark-mode a.ColorType.toRgb {
-  color:#ffffff;
+  color: #ffffff;
 }
-.dark-mode button.ColorCopy{
-  color:#78A7FD;
+
+.dark-mode button.ColorCopy {
+  color: #78A7FD;
 
 }
-.dark-mode span.ColorCode{
-  color:#ffffff;
+
+.dark-mode span.ColorCode {
+  color: #ffffff;
 }
-a.ColorType.toRgb {
+
+#BrandFolder .ColorType.toRgb {
   color: #000000;
 }
 
+#BrandFolder .card ul li:last-child div {
+  display: none;
+}
 
+#BrandFolder li:last-child {
+  border: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
 
+#BrandFolder hr.divider {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#BrandFolder ul.colors-list {
+  padding-bottom: 0 !important;
+  margin-bottom: 0;
+}
