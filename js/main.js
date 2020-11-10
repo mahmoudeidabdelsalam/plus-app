@@ -1280,6 +1280,27 @@ var isPremium = false;
 
 
 
+    function sendLogAjax(URL_address, ID, title, user){
+      $.ajax({
+        type: requestMethod.POST,
+        url: URL_address,
+        dataType: 'json',
+        data: {
+          item_id: ID,
+          item_title: title,
+          user: user,
+        },
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+          console.log('done');
+        },
+        error: function (response) {
+        }
+      });
+    };
+
     /**
      * function add log download file.
      */
@@ -1292,26 +1313,24 @@ var isPremium = false;
         var user = GetLoginEmail();
       }
       
-      $.ajax({
-        type: requestMethod.POST,
-        url: LogItems.baseUrl + LogItems.LogDownload,
-        dataType: 'json',
-        data: {
-          item_id: ID,
-          item_title: title,
-          user: user,
-        },
-        beforeSend: function () {
+      var urlLogDownload = LogItems.baseUrl + LogItems.LogDownload;
 
+      sendLogAjax(urlLogDownload, ID, title, user);
+
+      $.ajax({
+        type: 'GET',
+        url: ppGraphicsInjectorConfigurationData.baseUrl + ppGraphicsInjectorConfigurationData.GeneralSettings,
+        contentType: requestContentType.JSON,
+        dataType: '',
+        beforeSend: function () {
         },
         success: function (response) {
-          console.log(response);
+          var data = response.data
+          sendLogAjax(data.notification, ID, title, user);
         },
-        error: function (response) {
-          console.log(response);
+        error: function () {
         }
       });
-
     });
 
 
